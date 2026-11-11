@@ -1,0 +1,18 @@
+{
+  "name": "تعلّم الهولندية",
+  "short_name": "تعلّم الهولندية",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/taalam/",
+  "display": "standalone",
+  "background_color": "#eef2f7",
+  "theme_color": "#1f4e96",
+  "icons": [
+    {
+      "src": "/taalam/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

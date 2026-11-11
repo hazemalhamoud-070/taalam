@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hazemalhamoud-070.github.io/taalam/sitemap.xml
