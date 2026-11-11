@@ -242,13 +242,27 @@ section{margin-top:22px}
 .ltr-tile{min-width:46px;font-size:1.3em}
 @media (max-width:380px){.slot{height:44px;font-size:1.15em}}
 .certimg{width:100%;height:auto;border-radius:8px;border:1px solid var(--line);margin-top:10px;display:block}
+/* polish pass: header on phones, sticky-header scroll offset, even button rows, equal pair rows */
+html{scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+.hbtn{flex:none}
+.brand{min-width:0}.brand>span:last-child{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:480px){header.top .wrap{gap:6px}.brand{font-size:17px}.hbtn{padding:6px 10px}.hbtn .hl,#acc-l{display:none}}
+.row>.tbtn{min-height:48px}
+.row [hidden]{display:none}
+@media (max-width:560px){.card .row>.btn,.card .row>.tbtn:not(.ic1){flex:1 1 40%}}
+.askbox .row>.btn{flex:1 1 0}
+.set strong{display:block}.seg{display:flex}
+.pcol{grid-auto-rows:1fr;align-content:stretch}
+.pbtn .lbl{text-align:center}
+.sline.ok~.tiles:empty,.sline.bad~.tiles:empty{display:none}
+#app .tl-bar button{min-height:44px;padding-inline:14px;background:var(--blue-solid)}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <button class="brand" id="home-link" type="button" aria-label="تعلّم الهولندية: الصفحة الرئيسية"><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span><span>تعلّم الهولندية</span></button>
   <div class="spacer"></div>
-  <a class="hbtn" href="/taalam/rijbewijs/" title="امتحان القيادة: مدرسة الطريق"><span aria-hidden="true">🚗</span> القيادة</a>
+  <a class="hbtn" href="/taalam/rijbewijs/" title="امتحان القيادة: مدرسة الطريق" aria-label="امتحان القيادة: مدرسة الطريق"><span aria-hidden="true">🚗</span><span class="hl">القيادة</span></a>
   <button class="hbtn" id="hdr-acc" aria-label="حسابي"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span id="acc-l">دخول</span></button>
   <button class="hbtn" id="hdr-set" aria-label="الإعدادات"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
 </div></header>
@@ -781,7 +795,7 @@ function quiz(fresh,reviews,extra){
         const isRight=t==='art'?k===w.a:k===w.id;
         if(isRight){el.classList.add('ok');el.querySelector('.mk').textContent='✓'}
         else if(k===picked){el.classList.add('bad');el.querySelector('.mk').textContent='✗'}});
-      const ti=$('ti');if(ti){ti.disabled=true;ti.value=picked||'';ti.classList.add(right?'ok':'bad');$('chk').disabled=true;$('hint').disabled=true}
+      const ti=$('ti');if(ti){ti.disabled=true;ti.value=picked||'';ti.classList.add(right?'ok':'bad');$('chk').disabled=true;$('hint').disabled=true;$('chk').parentElement.hidden=true}
       const nextLine=right?`${g.pr} تعود إليك هذه الكلمة ${when(GAP[b])}.`
         :g.re?'لا بأس، هكذا نتعلّم. ستعود إليك هذه الكلمة بعد قليل في هذا الدرس.':'لا بأس. ستعود إليك هذه الكلمة في الدرس القادم.';
       const srsTip=right&&!ui.srs;if(srsTip&&!replay)uiSet('srs',1);
@@ -790,7 +804,7 @@ function quiz(fresh,reviews,extra){
         <p class="next">${lvl(b)}<span>${nextLine}</span></p>
         ${srsTip?'<p class="note" style="margin:6px 0 0">كلما أجبت إجابةً صحيحة، تأخّر موعد الكلمة التالي: غداً، ثم بعد 3 أيام، ثم بعد أسبوع، ثم بعد شهر. هكذا تنتقل الكلمة إلى ذاكرتك الطويلة.</p>':''}
         ${t==='art'?`<p class="note" style="margin:6px 0 0">احفظها دائماً مع أداتها: ${nlS(full(w),'nlw')}.</p>`:''}</div>
-        <div class="row"><button class="btn" id="nx">${i+1<items.length?'السؤال التالي':'اعرض النتيجة'}</button><button class="tbtn" id="sx" aria-label="اسمع الجملة">${SPK}</button></div>`;
+        <div class="row"><button class="btn" id="nx">${i+1<items.length?'السؤال التالي':'اعرض النتيجة'}</button><button class="tbtn ic1" id="sx" aria-label="اسمع الجملة">${SPK}</button></div>`;
       $('nx').onclick=()=>{i++;render();window.scrollTo(0,0)};$('sx').onclick=()=>say(w.ex);
       $('nx').focus({preventScroll:true});
       if(!replay)$('fb').scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
@@ -1098,7 +1112,7 @@ function weekly(){
     rerender=intro;
     app.innerHTML=`<div class="card"><div class="head"><span class="chip">🔁 مراجعة الأسبوع</span><span>دقيقتان تقريباً</span></div>
       <h2 style="margin-top:12px">تعلّمت هذا الأسبوع ${nW(P.length)}</h2>
-      <div class="pre2" lang="nl" dir="ltr">${P.map(w=>`<span>${esc(full(w))}</span>`).join('')}</div>
+      <div class="pre2">${P.map(w=>`<span lang="nl" dir="ltr">${esc(full(w))}</span>`).join('')}</div>
       <p class="lead">لماذا نراجع في آخر الأسبوع؟ لأن الدماغ يحتفظ بالكلمة أطول عندما تتذكّرها بعد عدة أيام. المراجعة خطوتان:</p>
       <ol class="steps"><li><b>وصّل الأزواج</b> بكلمات الأسبوع.</li><li><b>جولة 60 ثانية</b>: أكبر عدد من الإجابات الصحيحة.</li></ol>
       <div class="row" style="justify-content:center"><button class="btn" id="go">ابدأ المراجعة</button></div></div>
@@ -1166,7 +1180,7 @@ function runTest(t){
     rerender=intro;
     app.innerHTML=`<div class="card"><div class="head"><span class="chip">${t.ic} ${esc(t.n)}</span><span>${esc(t.sub)}</span></div>
       <h2 style="margin-top:12px">قبل أن تبدأ</h2>
-      <ul class="steps"><li>${TQ} سؤالاً من 6 أنواع: المعنى، والهولندية، والاستماع، وde/het، وترتيب الجملة، والكتابة.</li>
+      <ul class="steps"><li>${TQ} سؤالاً من 6 أنواع: المعنى، والهولندية، والاستماع، و${nlS('de / het')}، وترتيب الجملة، والكتابة.</li>
       <li>لا تلميحات أثناء الاختبار، وترى الإجابات الصحيحة في النهاية.</li>
       <li>تنجح إذا أجبت عن ${Math.round(TQ*PASS)} سؤالاً أو أكثر إجابةً صحيحة (80%).</li>
       <li>الكلمات التي تخطئ فيها ترجع إلى مراجعتك القادمة لتثبّتها.</li></ul>
@@ -1186,7 +1200,7 @@ function runTest(t){
     if(it.k==='mean')body=`<div class="word" lang="nl" dir="ltr">${art(w)}${esc(w.nl)}</div><div class="q">ما معناها؟</div><div class="opts">${it.opts.map((o,k)=>optBtn(o,k,0)).join('')}</div>`;
     if(it.k==='rev')body=`<div class="mean" style="font-size:1.6em;margin-top:18px">${esc(w.ar)}</div><div class="q">كيف تقولها بالهولندية؟</div><div class="opts">${it.opts.map((o,k)=>optBtn(o,k,1)).join('')}</div>`;
     if(it.k==='listen')body=`<div class="tools" style="margin-top:20px"><button class="tbtn big" id="sw">${SPK} اسمع</button><button class="tbtn" id="slow">🐢 ببطء</button></div><div class="q">أي كلمة سمعت؟</div><div class="opts">${it.opts.map((o,k)=>optBtn(o,k,1)).join('')}</div>`;
-    if(it.k==='art')body=`<div class="word" lang="nl" dir="ltr">… ${esc(w.nl)}</div><div class="pron">${esc(w.ar)}</div><div class="q">de أو het؟</div><div class="opts two">${['de','het'].map(o=>`<button class="opt" data-k="${o}" aria-pressed="false"><span class="lbl" lang="nl">${o}</span></button>`).join('')}</div>`;
+    if(it.k==='art')body=`<div class="word" lang="nl" dir="ltr">… ${esc(w.nl)}</div><div class="pron">${esc(w.ar)}</div><div class="q">${nlS('de')} أو ${nlS('het')}؟</div><div class="opts two">${['de','het'].map(o=>`<button class="opt nl" lang="nl" dir="ltr" data-k="${o}" aria-pressed="false"><span class="lbl">${o}</span></button>`).join('')}</div>`;
     if(it.k==='type')body=`<div class="mean" style="font-size:1.6em;margin-top:18px">${esc(w.ar)}</div><div class="q">اكتبها بالهولندية${w.a?' (بدون de/het)':''}</div><input class="type" id="ti" lang="nl" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="اكتب الكلمة بالهولندية">`;
     if(it.k==='order')body=`<p class="q">رتّب الكلمات لتكتب بالهولندية:</p><p class="mean" style="font-size:1.25em">${esc(w.exAr)}</p><div class="sline" lang="nl" dir="ltr" id="sl"></div><div class="tiles" lang="nl" dir="ltr" id="tl"></div>`;
     app.innerHTML=`<div class="card">${head}${body}
@@ -1278,7 +1292,7 @@ function cloze(){
     const answer=(right,picked)=>{
       if(right)ok++;else missed.set(w.id,w);
       app.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.k===w.id)x.classList.add('ok');else if(x.dataset.k===picked)x.classList.add('bad')});
-      const ti=document.getElementById('ti');if(ti){ti.disabled=true;ti.classList.add(right?'ok':'bad');document.getElementById('chk').disabled=true;document.getElementById('hint').disabled=true}
+      const ti=document.getElementById('ti');if(ti){ti.disabled=true;ti.classList.add(right?'ok':'bad');document.getElementById('chk').disabled=true;document.getElementById('hint').disabled=true;document.getElementById('chk').parentElement.hidden=true}
       const g=document.getElementById('gap');g.textContent=c.ans;g.classList.add(right?'ok':'bad');
       document.getElementById('fb').innerHTML=`<div class="fb ${right?'is-ok':'is-bad'}" role="status"><b>${right?PRAISE[Math.floor(Math.random()*PRAISE.length)]+' ✓':'الكلمة الصحيحة: '}</b>${right?'':nlS(c.ans,'nlw')} = ${esc(w.ar)}
         <p style="margin:6px 0 0">${right?'الكلمة في جملتها أسهل للتذكّر من الكلمة وحدها.':'اقرأ الجملة كاملة بصوت عالٍ مرة واحدة، فهذا يثبّت الكلمة.'}</p></div>

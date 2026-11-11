@@ -51,8 +51,9 @@
     '.tl-f{display:grid;gap:4px;margin-bottom:12px}.tl-f label{font-weight:600;font-size:.92em}',
     '.tl-in{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);min-height:46px}',
     '.tl-in:focus-visible{outline:3px solid var(--yellow,#f5c400);outline-offset:1px}',
-    '.tl-pw{position:relative}.tl-pw .tl-in{padding-inline-end:76px}',
-    '.tl-eye{position:absolute;inset-inline-end:6px;top:50%;transform:translateY(-50%);border:0;background:var(--bg);color:var(--ink);border-radius:8px;padding:6px 10px;font:inherit;font-size:.85em;cursor:pointer;min-height:36px}',
+    '.tl-pw{position:relative}.tl-pw .tl-in{padding-right:52px;padding-left:12px}',
+    '.tl-eye{position:absolute;right:2px;left:auto;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;background:transparent;color:var(--muted);border-radius:10px;display:grid;place-items:center;cursor:pointer;padding:0}',
+    '.tl-eye:hover{color:var(--ink);background:color-mix(in srgb,var(--line) 45%,transparent)}.tl-eye svg{width:22px;height:22px}',
     '.tl-hint{font-size:.8em;color:var(--muted)}.tl-hint.bad{color:var(--bad)}.tl-hint.ok{color:var(--ok)}',
     '.tl-chk{display:flex;gap:8px;align-items:flex-start;font-size:.88em;margin:4px 0 14px}.tl-chk input{width:20px;height:20px;margin-top:2px}',
     '.tl-btn{width:100%;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:700;cursor:pointer;min-height:48px}',
@@ -65,7 +66,12 @@
     '.tl-plan ul{margin:8px 0 0;padding-inline-start:20px}',
     '.tl-bar{background:var(--blue-soft);color:var(--ink);border-radius:10px;padding:8px 12px;margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:.9em}',
     '.tl-bar button{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:6px 12px;font:inherit;cursor:pointer;min-height:40px}',
-    '.tl-row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}'
+    '.tl-row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}',
+    '.tl-done{text-align:center;padding:6px 0 2px}.tl-done h2{margin-top:12px}.tl-done p{margin:0 auto 14px;max-width:32ch}',
+    '.tl-ic{width:76px;height:76px;margin:6px auto 0;border-radius:50%;display:grid;place-items:center;font-size:36px;background:var(--ok-soft);color:var(--ok);animation:tlpop .35s ease-out}',
+    '.tl-ic.wait{background:var(--blue-soft);color:var(--blue)}',
+    '.tl-list{list-style:none;padding:0;margin:0 0 16px;text-align:start;display:grid;gap:8px}.tl-list li{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border-radius:10px;padding:10px 12px}.tl-list b{color:var(--ok)}',
+    '@keyframes tlpop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}@media (prefers-reduced-motion:reduce){.tl-ic{animation:none}}'
   ].join('\n');
   document.head.appendChild(css);
 
@@ -86,14 +92,26 @@
     var f = bg.querySelector('input,button.tl-btn'); if (f) setTimeout(function () { f.focus() }, 30);
     return bg.querySelector('.tl-box');
   }
+  function done(icon, title, text, btnLabel, then, wait) {
+    var b = open('<div class="tl-body tl-done" role="status"><div class="tl-ic' + (wait ? ' wait' : '') + '" aria-hidden="true">' + icon + '</div><h2>' + title + '</h2><p>' + text + '</p><button class="tl-btn" type="button" id="tl-k">' + btnLabel + '</button></div>');
+    b.querySelector('#tl-k').onclick = then || close; return b;
+  }
+  function soonScreen() {
+    var b = open('<div class="tl-body tl-done"><div class="tl-ic wait" aria-hidden="true">🕓</div><h2>الحسابات تفتح قريباً</h2>' +
+      '<p>نجهّز الآن الحسابات. لم يُنشأ أي حساب بعد، ولا نحتاج بريدك الآن.</p>' +
+      '<ul class="tl-list"><li><b>✓</b><span>يمكنك التعلّم الآن كما تريد.</span></li><li><b>✓</b><span>تقدّمك محفوظ في هذا الجهاز وهذا المتصفح.</span></li><li><b>⏳</b><span>عند افتتاح الحسابات تنقل تقدّمك إلى حسابك بضغطة واحدة.</span></li></ul>' +
+      '<button class="tl-btn" type="button" id="tl-k">متابعة التعلّم</button></div>');
+    b.querySelector('#tl-k').onclick = close;
+  }
   function msg(box, text, kind) { var m = box.querySelector('.tl-msg'); if (!m) { m = document.createElement('div'); box.querySelector('form,.tl-body').prepend(m) } m.className = 'tl-msg ' + (kind || 'err'); m.setAttribute('role', kind === 'ok' ? 'status' : 'alert'); m.textContent = text }
+  var EYE_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>', EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A9.8 9.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.1 6.1C3.6 7.8 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5-1.4"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
   function pwField(id, label, auto) {
     return '<div class="tl-f"><label for="' + id + '">' + label + '</label><div class="tl-pw"><input class="tl-in" id="' + id + '" type="password" autocomplete="' + auto + '" required minlength="8" dir="ltr">' +
-      '<button class="tl-eye" type="button" data-for="' + id + '" aria-label="إظهار كلمة السر">إظهار</button></div></div>';
+      '<button class="tl-eye" type="button" data-for="' + id + '" aria-label="إظهار كلمة السر" aria-pressed="false">' + EYE_ON + '</button></div></div>';
   }
   function wireEyes(box) {
     box.querySelectorAll('.tl-eye').forEach(function (b) {
-      b.onclick = function () { var i = box.querySelector('#' + b.dataset.for); var show = i.type === 'password'; i.type = show ? 'text' : 'password'; b.textContent = show ? 'إخفاء' : 'إظهار'; b.setAttribute('aria-label', show ? 'إخفاء كلمة السر' : 'إظهار كلمة السر') };
+      b.onclick = function () { var i = box.querySelector('#' + b.dataset.for); var show = i.type === 'password'; i.type = show ? 'text' : 'password'; b.innerHTML = show ? EYE_OFF : EYE_ON; b.setAttribute('aria-pressed', show ? 'true' : 'false'); b.setAttribute('aria-label', show ? 'إخفاء كلمة السر' : 'إظهار كلمة السر'); i.focus() };
     });
   }
   function strength(pw) {
@@ -114,6 +132,7 @@
 
   /* ---------- screens ---------- */
   function authScreen(tab, note) {
+    if (!online) return soonScreen();
     tab = tab || 'up';
     var head = note ? '<div class="tl-msg ' + (note.kind || 'ok') + '" role="status">' + esc(note.text) + '</div>' : '';
     var box = open(
@@ -146,8 +165,8 @@
       p.then(function (r) {
         btn.disabled = false; btn.textContent = tab === 'up' ? 'أنشئ الحساب' : 'دخول';
         if (r.error) return msg(box, trErr(r.error));
-        if (tab === 'up' && !r.data.session) return open('<div class="tl-body"><h2>تحقّق من بريدك 📬</h2><p>أرسلنا رسالة إلى <b dir="ltr">' + esc(mail) + '</b>. افتحها واضغط «تأكيد البريد»، ثم ارجع وسجّل الدخول.</p><p>لم تصلك؟ انظر في مجلد الرسائل غير المرغوب فيها (Spam).</p><button class="tl-btn" type="button" id="tl-go">حسناً</button></div>').querySelector('#tl-go').onclick = function () { authScreen('in') };
-        close();
+        if (tab === 'up' && !r.data.session) return done('📬', 'تحقّق من بريدك', 'أرسلنا رسالة إلى <b dir="ltr">' + esc(mail) + '</b>. افتحها واضغط «تأكيد البريد»، ثم ارجع وسجّل الدخول. لم تصلك؟ انظر في مجلد Spam.', 'حسناً، إلى تسجيل الدخول', function () { authScreen('in') }, true);
+        done('✓', tab === 'up' ? 'أُنشئ حسابك' : 'أهلاً بعودتك', tab === 'up' ? 'تقدّمك سيُحفظ في حسابك من الآن.' : 'سجّلت الدخول، وتقدّمك محفوظ في حسابك.', 'متابعة التعلّم');
       });
     };
   }
@@ -161,7 +180,7 @@
       sb.auth.resetPasswordForEmail(m, { redirectTo: location.origin + location.pathname }).then(function (r) {
         /* same answer whether the address exists or not, so nobody can test which e-mails have accounts */
         if (r.error && /rate|network|fetch/i.test(r.error.message || '')) return msg(box, trErr(r.error));
-        msg(box, 'إن كان لهذا البريد حساب، فستصلك رسالة خلال دقائق. افتحها واضغط الرابط.', 'ok');
+        done('📬', 'افتح بريدك', 'إن كان لهذا البريد حساب، فستصلك رسالة خلال دقائق. اضغط الرابط فيها لتختار كلمة سر جديدة.', 'حسناً', null, true);
       });
     };
   }
@@ -173,7 +192,7 @@
       e.preventDefault(); if (i.value.length < 8) return msg(box, 'كلمة السر قصيرة: 8 أحرف على الأقل.');
       sb.auth.updateUser({ password: i.value }).then(function (r) {
         if (r.error) return msg(box, trErr(r.error)); locked = false;
-        open('<div class="tl-body"><h2>تم ✓</h2><p>غيّرنا كلمة السر. أنت الآن مسجّل الدخول.</p><button class="tl-btn" type="button" id="tl-k">متابعة</button></div>').querySelector('#tl-k').onclick = close;
+        done('✓', 'غيّرنا كلمة السر', 'أنت الآن مسجّل الدخول.', 'متابعة التعلّم');
       });
     };
   }
@@ -187,7 +206,7 @@
     var u = box.querySelector('#tl-up'), i = box.querySelector('#tl-in'), p = box.querySelector('#tl-pay');
     if (u) u.onclick = function () { locked = false; authScreen('up') };
     if (i) i.onclick = function () { locked = false; authScreen('in') };
-    if (p) p.onclick = function () { msg(box, 'الدفع عبر iDEAL سيفتح قريباً. سنرسل لك رسالة عندما يصبح جاهزاً.', 'ok') };
+    if (p) p.onclick = function () { locked = false; done('🕓', 'الدفع يفتح قريباً', 'الدفع عبر iDEAL غير جاهز بعد. يمكنك متابعة التعلّم الآن.', 'متابعة التعلّم', null, true) };
   }
   function accountScreen() {
     if (!user) return authScreen('in');
@@ -206,6 +225,7 @@
     if (isPaid()) return '';
     var n = daysLeft();
     if (!hasAccess()) return online ? '' : '<div class="tl-bar" role="status"><span>انتهت التجربة المجانية. الاشتراك يفتح قريباً، ويمكنك المتابعة مجاناً حتى ذلك الوقت.</span></div>';
+    if (!online) return '<div class="tl-bar" role="status"><span>🎁 تجربة مجانية: بقي ' + dayWord(n) + '</span></div>';
     return '<div class="tl-bar" role="status"><span>🎁 تجربة مجانية: بقي ' + dayWord(n) + (user ? '' : '. أنشئ حساباً ليُحفظ تقدّمك') + '</span><button type="button" onclick="Taalam.' + (user ? 'plans' : 'signup') + '()">' + (user ? 'اشترك' : 'أنشئ حساباً') + '</button></div>';
   }
   /* lock only when accounts and payment really work; before that nobody may be locked out */
@@ -257,7 +277,7 @@
     online: online, onChange: function (f) { listeners.push(f) },
     user: function () { return user }, banner: banner, daysLeft: daysLeft, hasAccess: hasAccess, isPaid: isPaid,
     signup: function () { authScreen('up') }, login: function () { authScreen('in') },
-    account: function () { user ? accountScreen() : authScreen('in') }, plans: function () { planScreen(false) }
+    account: function () { !online ? soonScreen() : user ? accountScreen() : authScreen('in') }, plans: function () { planScreen(false) }
   };
   boot();
 })();
