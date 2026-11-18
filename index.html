@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-3q1wujkMjehbOu9paTi1X2OaiYirXjjnV7xU9c8+kWU=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-S7+TeybyI6gTDzwHB37q3JSEP5UqjHi4EdpcGyVlfj0=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location.href}catch(e){document.documentElement.style.display='none'}}</script>
 <meta charset="utf-8">
@@ -1061,7 +1061,8 @@ const BADGES=[
  {id:'gramA1',ic:'🏛️',n:'قواعد A1',d:'نجحت في كل دروس قواعد المستوى A1.',t:()=>gramDone('A1')},
  {id:'gramA2',ic:'🗝️',n:'قواعد A2',d:'نجحت في كل دروس قواعد المستوى A2، مستوى امتحان الاندماج.',t:()=>gramDone('A2')},
  {id:'gramB1',ic:'🦁',n:'قواعد B1',d:'نجحت في كل دروس قواعد المستوى B1، مستوى Staatsexamen I.',t:()=>gramDone('B1')},
- {id:'gramB2',ic:'🦅',n:'قواعد B2',d:'نجحت في كل دروس قواعد المستوى B2، مستوى Staatsexamen II.',t:()=>gramDone('B2')}
+ {id:'gramB2',ic:'🦅',n:'قواعد B2',d:'نجحت في كل دروس قواعد المستوى B2، مستوى Staatsexamen II.',t:()=>gramDone('B2')},
+ {id:'gramC1',ic:'👑',n:'قواعد C1',d:'نجحت في كل دروس قواعد المستوى C1، أعلى مستوى.',t:()=>gramDone('C1')}
 ];
 /* returns the badges earned just now (and remembers them) */
 function checkBadges(){
@@ -2082,7 +2083,118 @@ const GRAM=[
   q:[['','اختر الجملة الصحيحة: أولاً، هو رخيص.',['Ten eerste is het goedkoop.','Ten eerste het is goedkoop.','Ten eerste goedkoop het is.'],'بعد Ten eerste ← الفعل مباشرة.'],
      ['___ is thuiswerken een goed idee.','برأيي العمل من البيت فكرة جيدة.',['Volgens mij','Ik denk','Kortom ik'],'Volgens mij ثم الفعل is.'],
      ['Ten eerste is het duur. ___ is het slecht voor het milieu.','أولاً هو غالٍ. وإضافةً إلى ذلك هو سيّئ للبيئة.',['Daarnaast','Kortom','Ten eerste'],'إضافة سبب ← Daarnaast.'],
-     ['','اختر الجملة الصحيحة: أخيراً، هو أسرع.',['Ten slotte is het sneller.','Ten slotte het is sneller.','Ten slotte sneller is het.'],'بعد Ten slotte ← الفعل مباشرة.']]}
+     ['','اختر الجملة الصحيحة: أخيراً، هو أسرع.',['Ten slotte is het sneller.','Ten slotte het is sneller.','Ten slotte sneller is het.'],'بعد Ten slotte ← الفعل مباشرة.']]},
+ {id:'g59',lvl:'C1',ic:'🏛️',t:'الأسلوب الاسمي: de stijging van de prijzen',nl:'Nominale stijl',
+  p:['في النصوص الأكاديمية والرسمية نحوّل الجملة الفعلية إلى عبارة اسمية: Omdat de prijzen stijgen ← <b>Door de stijging van de prijzen</b>.','هذا يجعل النص أقصر وأكثر رسمية، لكن لا تكثر منه: الجملة المليئة بالأسماء تصير صعبة القراءة.','قبل الاسم نستعمل حروف جر مثل vanwege (بسبب)، na (بعد)، bij (عند)، وقبل الجملة نستعمل omdat و nadat و als.'],
+  tb:[['De prijzen stijgen. → de stijging van de prijzen','ترتفع الأسعار ← ارتفاع الأسعار'],['De wet wordt ingevoerd. → de invoering van de wet','يُطبَّق القانون ← تطبيق القانون'],['Nadat we uw brief hebben ontvangen → Na ontvangst van uw brief','بعد أن تلقّينا رسالتكم ← بعد تلقّي رسالتكم'],['Omdat het slecht weer was → Vanwege het slechte weer','لأن الطقس كان سيئاً ← بسبب الطقس السيئ']],
+  ex:[['De invoering van de nieuwe regels leidde tot veel vragen.','أدّى تطبيق القواعد الجديدة إلى أسئلة كثيرة.']],
+  x:[['Na ontvangen van uw brief…','Na ontvangst van uw brief…'],['Vanwege het regent…','Vanwege de regen…']],
+  tip:'vanwege قبل اسم، و omdat قبل جملة فيها فعل.',
+  q:[['Na ___ van uw betaling sturen wij het pakket.','بعد استلام دفعتكم نرسل الطرد.',['ontvangst','ontvangen','ontvang'],'الاسم من ontvangen ← de ontvangst.'],
+     ['Door de ___ van de huren verhuizen veel mensen. (stijgen)','بسبب ارتفاع الإيجارات ينتقل كثير من الناس.',['stijging','stijgen','gestegen'],'stijgen ← de stijging.'],
+     ['___ het slechte weer werd de wedstrijd afgelast.','بسبب الطقس السيئ أُلغيت المباراة.',['Vanwege','Omdat','Doordat'],'قبل اسم ← vanwege.'],
+     ['De ___ van de nieuwe wet kost tijd. (invoeren)','تطبيق القانون الجديد يستغرق وقتاً.',['invoering','invoeren','ingevoerd'],'invoeren ← de invoering.']]},
+ {id:'g60',lvl:'C1',ic:'🚂',t:'سلاسل الأفعال الطويلة',nl:'Lange werkwoordelijke eindgroepen',
+  p:['في الجملة التابعة تجتمع الأفعال في الآخر. مع فعلين (مساعد واسم مفعول) الترتيبان صحيحان: dat ik het <b>heb gedaan</b>، أو dat ik het <b>gedaan heb</b>.','مع فعل ناقص ومصدر يأتي المساعد أولاً، ثم الفعل الناقص، ثم الفعل الأساسي: dat hij niet <b>heeft kunnen komen</b>.'],
+  tb:[['dat ik het heb gedaan','أنني فعلته'],['dat ik het gedaan heb','أنني فعلته (صحيح أيضاً)'],['dat hij niet heeft kunnen komen','أنه لم يستطع أن يأتي'],['dat ik had willen bellen','أنني كنت أريد أن أتصل'],['dat we zullen moeten werken','أننا سنضطرّ أن نعمل']],
+  ex:[['Het spijt me dat ik niet eerder heb kunnen reageren.','آسف لأنني لم أستطع أن أردّ قبل ذلك.']],
+  x:[['dat hij niet kunnen komen heeft','dat hij niet heeft kunnen komen']],
+  tip:'احفظ القالب مع الأفعال الناقصة: heeft kunnen komen، had willen bellen، zal moeten werken.',
+  q:[['','اختر الجملة الصحيحة: أعرف أنه لم يستطع أن يأتي.',['Ik weet dat hij niet heeft kunnen komen.','Ik weet dat hij niet kunnen komen heeft.','Ik weet dat hij heeft niet kunnen komen.'],'heeft + kunnen + komen في آخر الجملة.'],
+     ['','اختر الجملة الصحيحة: آسف لأنني لم أستطع أن أردّ.',['Het spijt me dat ik niet heb kunnen reageren.','Het spijt me dat ik niet reageren kunnen heb.','Het spijt me dat ik heb niet kunnen reageren.'],'heb + kunnen + reageren في الآخر.'],
+     ['Hij zegt dat hij eerder had ___ bellen.','يقول إنه كان يريد أن يتصل قبل ذلك.',['willen','gewild','wilde'],'مع فعل ناقص في perfectum ← المصدر willen.'],
+     ['Ik denk dat we morgen ___ moeten werken.','أظنّ أننا سنضطرّ أن نعمل غداً.',['zullen','hebben','worden'],'المستقبل مع فعل ناقص ← zullen moeten.']]},
+ {id:'g61',lvl:'C1',ic:'✂️',t:'er و daar و waar مفصولة',nl:'Gesplitste voornaamwoordelijke bijwoorden',
+  p:['er و daar و waar مع حرف الجر تنفصل كثيراً في الجملة: Ik heb <b>er</b> lang <b>over</b> nagedacht.','daar أقوى من er، ويأتي كثيراً في أول الجملة: <b>Daar</b> ben ik het niet <b>mee</b> eens.','وفي السؤال: <b>Waar</b> heb je het <b>over</b>?'],
+  tb:[['Ik heb er lang over nagedacht.','فكّرت في ذلك طويلاً.'],['Daar ben ik het niet mee eens.','لا أوافق على ذلك.'],['Waar heb je het over?','عمّ تتحدّث؟'],['Daar weet ik niets van.','لا أعرف شيئاً عن ذلك.']],
+  ex:[['Waar ben je bang voor? Daar hoef je niet bang voor te zijn.','ممّ تخاف؟ لا داعي للخوف من ذلك.']],
+  x:[['Ik ben het niet eens met dat.','Daar ben ik het niet mee eens.']],
+  tip:'حرف الجر يذهب غالباً إلى قبل الفعل الأخير: er … over nagedacht.',
+  q:[['Ik heb ___ lang over nagedacht.','فكّرت في ذلك طويلاً.',['er','het','dat'],'er … over.'],
+     ['Daar ben ik het niet ___ eens.','لا أوافق على ذلك.',['mee','aan','over'],'het eens zijn met ← daar … mee.'],
+     ['___ heb je het over?','عمّ تتحدّث؟',['Waar','Wat','Waarom'],'het hebben over ← Waar … over.'],
+     ['Daar weet ik niets ___.','لا أعرف شيئاً عن ذلك.',['van','aan','op'],'weten van ← daar … van.']]},
+ {id:'g62',lvl:'C1',ic:'📰',t:'الوصف الطويل قبل الاسم',nl:'Uitgebreide bijvoeglijke bepaling',
+  p:['في اللغة الرسمية والصحف تأتي عبارة طويلة <b>قبل</b> الاسم بدل الجملة الموصولة: de <b>door de gemeente genomen</b> maatregel = de maatregel die door de gemeente is genomen.','اقرأها هكذا: ابحث أولاً عن الاسم في آخر العبارة (maatregel)، ثم ارجع إلى الوصف.'],
+  tb:[['de door de gemeente genomen maatregel','الإجراء الذي اتّخذته البلدية'],['het vorig jaar gebouwde huis','البيت الذي بُني السنة الماضية'],['de in 2025 ingevoerde regels','القواعد التي طُبّقت سنة 2025']],
+  ex:[['De door u gevraagde documenten zijn bijgevoegd.','المستندات التي طلبتموها مرفقة.']],
+  x:[['de genomen door de gemeente maatregel','de door de gemeente genomen maatregel']],
+  tip:'في الكلام اليومي الجملة الموصولة أسهل وأوضح: de maatregel die de gemeente heeft genomen.',
+  q:[['','ما معنى: de door u gevraagde documenten؟',['de documenten die u heeft gevraagd','de documenten die u nog moet vragen','de vragen over uw documenten'],'المستندات التي طلبتَها.'],
+     ['','اختر الشكل الصحيح: البيت الذي بُني السنة الماضية',['het vorig jaar gebouwde huis','het gebouwde vorig jaar huis','het huis vorig jaar gebouwde'],'الوصف كله قبل الاسم، واسم المفعول آخر الوصف.'],
+     ['De in 2025 ___ regels gelden voor iedereen. (invoeren)','القواعد التي طُبّقت سنة 2025 تسري على الجميع.',['ingevoerde','ingevoerd','invoerende'],'صفة قبل اسم معرّف ← ‑e.'],
+     ['Het door de gemeente ___ besluit is definitief. (nemen)','القرار الذي اتّخذته البلدية نهائي.',['genomen','genomene','nemende'],'‑en لا يتغيّر.']]},
+ {id:'g63',lvl:'C1',ic:'🧠',t:'كلمات الربط المتقدّمة',nl:'Formele verbindingswoorden',
+  p:['كلمات ربط أكاديمية ورسمية، معناها في الجدول أدناه.','إذا جاءت في أول الجملة أخذت المكان الأول، فالفعل بعدها مباشرة: Desalniettemin <b>is</b> het project een succes.'],
+  tb:[['desalniettemin','ومع ذلك'],['daarentegen','في المقابل'],['derhalve','لذلك (رسمي)'],['bijgevolg','نتيجةً لذلك'],['immers','إذ إنّ (كما هو معروف)'],['weliswaar … maar','صحيح أنّ … لكن']],
+  ex:[['De kosten zijn hoog. Desalniettemin is het project een succes.','التكاليف مرتفعة، ومع ذلك فالمشروع ناجح.'],['Hij weet het immers al.','إذ إنه يعرف ذلك من قبل.']],
+  x:[['Desalniettemin het project is een succes.','Desalniettemin is het project een succes.']],
+  tip:'immers و daarentegen تأتيان غالباً بعد الفعل: Hij weet het immers al.',
+  q:[['De huur is hoog. ___ is de woning erg populair.','الإيجار مرتفع، ومع ذلك فالبيت مطلوب جداً.',['Desalniettemin','Derhalve','Immers'],'ومع ذلك ← desalniettemin.'],
+     ['In de stad is alles dichtbij. Op het platteland ___ heb je een auto nodig.','في المدينة كل شيء قريب، أما في الريف فتحتاج إلى سيارة.',['daarentegen','derhalve','bovendien'],'في المقابل ← daarentegen.'],
+     ['Het examen is moeilijk. ___ moet u zich goed voorbereiden.','الامتحان صعب، لذلك يجب أن تستعدّ جيداً.',['Derhalve','Daarentegen','Weliswaar'],'لذلك (رسمي) ← derhalve.'],
+     ['Het plan is ___ duur, maar het levert veel op.','صحيح أن الخطة غالية، لكنها مفيدة جداً.',['weliswaar','immers','derhalve'],'صحيح أنّ … لكن ← weliswaar … maar.']]},
+ {id:'g64',lvl:'C1',ic:'💼',t:'المراسلات المهنية',nl:'Zakelijke correspondentie',
+  p:['في المراسلات المهنية عبارات ثابتة تعطي النص نبرة مهذّبة ومهنية.','<b>Hoogachtend</b> أرسم من Met vriendelijke groet، ونستعمله في الرسائل الرسمية جداً.'],
+  tb:[['Naar aanleiding van uw brief…','بناءً على رسالتكم…'],['Zou u zo vriendelijk willen zijn…','هل تتكرّمون بـ…'],['Hierbij stuur ik u…','أرسل إليكم مع هذه الرسالة…'],['In de bijlage vindt u…','تجدون في المرفق…'],['Ik zie uw reactie graag tegemoet.','أنتظر ردّكم.'],['Hoogachtend,','مع فائق الاحترام،']],
+  ex:[['Naar aanleiding van ons telefoongesprek stuur ik u hierbij mijn cv.','بناءً على مكالمتنا الهاتفية أرسل إليكم سيرتي الذاتية.']],
+  x:[['In de attachment vindt u…','In de bijlage vindt u…']],
+  tip:'جملة الطلب المهذّبة جداً: Zou u zo vriendelijk willen zijn mij te bellen?',
+  q:[['___ aanleiding van uw brief van 3 mei…','بناءً على رسالتكم المؤرّخة في 3 أيار…',['Naar','Met','In'],'عبارة ثابتة: Naar aanleiding van.'],
+     ['In de ___ vindt u mijn cv.','تجدون في المرفق سيرتي الذاتية.',['bijlage','attachment','bijlegging'],'المرفق = de bijlage.'],
+     ['Ik zie uw reactie graag ___.','أنتظر ردّكم.',['tegemoet','tegen','toe'],'عبارة ثابتة: tegemoet zien.'],
+     ['Zou u zo vriendelijk willen ___ mij te bellen?','هل تتكرّمون بالاتصال بي؟',['zijn','worden','hebben'],'Zou u zo vriendelijk willen zijn.']]},
+ {id:'g65',lvl:'C1',ic:'🎈',t:'التعبيرات والأمثال',nl:'Uitdrukkingen en spreekwoorden',
+  p:['التعبيرات الاصطلاحية لا تُفهم من كلماتها، فاحفظ معناها كاملاً.','استعملها قليلاً وفي مكانها المناسب، فهي تجعل كلامك طبيعياً.'],
+  tb:[['Het regent pijpenstelen.','تمطر بغزارة.'],['iets onder de knie hebben','يُتقن شيئاً'],['De kogel is door de kerk.','اتُّخذ القرار نهائياً.'],['Wie A zegt, moet ook B zeggen.','من بدأ شيئاً عليه أن يكمله.'],['door de bomen het bos niet meer zien','يضيع في كثرة التفاصيل'],['een appeltje met iemand te schillen hebben','عنده حساب يريد أن يصفّيه مع أحد']],
+  ex:[['Na een jaar heb ik het Nederlands aardig onder de knie.','بعد سنة صرت أتقن الهولندية إلى حدّ جيد.']],
+  x:[['Het regent katten en honden.','Het regent pijpenstelen.']],
+  tip:'لا تترجم تعبيرات العربية أو الإنجليزية حرفياً، بل اسأل: كيف يقولها الهولنديون؟',
+  q:[['Het regent ___.','تمطر بغزارة.',['pijpenstelen','katten en honden','emmers'],'التعبير الهولندي: Het regent pijpenstelen.'],
+     ['Ik heb het Nederlands eindelijk onder de ___.','أخيراً أتقنت الهولندية.',['knie','voet','hand'],'iets onder de knie hebben.'],
+     ['De ___ is door de kerk: we gaan verhuizen.','اتُّخذ القرار: سننتقل.',['kogel','klok','sleutel'],'De kogel is door de kerk.'],
+     ['Wie A zegt, moet ook ___ zeggen.','من بدأ شيئاً عليه أن يكمله.',['B','Z','C'],'Wie A zegt, moet ook B zeggen.'],
+     ['Door alle regels zie ik door de bomen het ___ niet meer.','بسبب كثرة القواعد ضعت في التفاصيل.',['bos','huis','pad'],'door de bomen het bos niet meer zien.']]},
+ {id:'g66',lvl:'C1',ic:'📑',t:'عبارات الجر الرسمية',nl:'Formele voorzetseluitdrukkingen',
+  p:['في النصوص الرسمية عبارات من عدة كلمات تعمل مثل حرف الجر.','احفظها كاملة، ولا تكثر منها في الكلام اليومي.'],
+  tb:[['naar aanleiding van','بناءً على، بمناسبة'],['ten aanzien van','بالنسبة إلى'],['met betrekking tot','بخصوص'],['in het kader van','في إطار'],['op grond van','استناداً إلى'],['ten behoeve van','لصالح']],
+  ex:[['Op grond van de wet heeft u recht op een uitkering.','استناداً إلى القانون يحقّ لك الحصول على إعانة.']],
+  x:[['met betrekking op','met betrekking tot']],
+  tip:'هذه العبارات للرسائل والتقارير. في الكلام قل ببساطة over (عن).',
+  q:[['Met betrekking ___ uw aanvraag…','بخصوص طلبكم…',['tot','op','van'],'met betrekking tot.'],
+     ['In het ___ van het project…','في إطار المشروع…',['kader','raam','plan'],'in het kader van.'],
+     ['Op ___ van de wet…','استناداً إلى القانون…',['grond','reden','voet'],'op grond van.'],
+     ['Ten ___ van de bewoners…','لصالح السكان…',['behoeve','aanzien','gevolge'],'لصالح ← ten behoeve van.']]},
+ {id:'g67',lvl:'C1',ic:'🌫️',t:'التعبير بحذر: ربّما، يبدو أنّ…',nl:'Voorzichtig formuleren',
+  p:['في النقاش والكتابة الأكاديمية لا نقول كل شيء بثقة كاملة، بل نخفّف الحكم بعبارات مثل wellicht و het lijkt erop dat.','هذا يجعل رأيك أدقّ وأكثر احتراماً للآخر.'],
+  tb:[['Het lijkt erop dat…','يبدو أنّ…'],['wellicht','ربّما'],['in zekere mate','إلى حدّ ما'],['Het is aannemelijk dat…','من المرجّح أنّ…'],['naar alle waarschijnlijkheid','على الأرجح'],['voor zover ik weet','على حدّ علمي']],
+  ex:[['Het lijkt erop dat de maatregel in zekere mate werkt.','يبدو أن الإجراء ينجح إلى حدّ ما.']],
+  x:[['Het is 100% zeker dat iedereen dit wil.','Het is aannemelijk dat de meeste mensen dit willen.']],
+  tip:'wellicht تأتي غالباً بعد الفعل: Dat is wellicht de beste oplossing.',
+  q:[['Dat is ___ de beste oplossing.','ربّما هذا أفضل حلّ.',['wellicht','nooit','zelden'],'ربّما ← wellicht.'],
+     ['Het ___ erop dat de prijzen dalen.','يبدو أن الأسعار تنخفض.',['lijkt','ziet','komt'],'Het lijkt erop dat.'],
+     ['Voor ___ ik weet, is de cursus gratis.','على حدّ علمي الدورة مجانية.',['zover','zoveel','zodat'],'voor zover ik weet.'],
+     ['Het plan werkt in ___ mate.','الخطة تنجح إلى حدّ ما.',['zekere','zeker','zekerheid'],'in zekere mate.']]},
+ {id:'g68',lvl:'C1',ic:'📝',t:'كتابة الملخّص',nl:'Een samenvatting schrijven',
+  p:['في الملخّص تكتب أفكار الكاتب بكلماتك أنت، دون رأيك الشخصي.','الشكل: الموضوع، ثم الأفكار الرئيسية، ثم الخلاصة. استعمل الحاضر، والفعل بعد Volgens de auteur يأتي مباشرة.'],
+  tb:[['De tekst gaat over…','يتحدّث النص عن…'],['De schrijver stelt dat…','يرى الكاتب أنّ…'],['Volgens de auteur…','بحسب الكاتب…'],['Hij onderbouwt dit met…','يدعم ذلك بـ…'],['De schrijver concludeert dat…','يستنتج الكاتب أنّ…']],
+  ex:[['De tekst gaat over thuiswerken. Volgens de auteur werken mensen thuis efficiënter. Hij onderbouwt dit met cijfers uit een onderzoek.','يتحدّث النص عن العمل من البيت. بحسب الكاتب يعمل الناس في البيت بكفاءة أكبر، ويدعم ذلك بأرقام من دراسة.']],
+  x:[['Volgens de auteur mensen werken thuis beter.','Volgens de auteur werken mensen thuis beter.']],
+  tip:'لا تنسخ جملاً من النص، بل أعد صياغتها بكلماتك.',
+  q:[['De tekst ___ over thuiswerken.','يتحدّث النص عن العمل من البيت.',['gaat','heeft','praat'],'De tekst gaat over…'],
+     ['','اختر الجملة الصحيحة: بحسب الكاتب الإيجارات مرتفعة جداً.',['Volgens de auteur zijn de huren te hoog.','Volgens de auteur de huren zijn te hoog.','Volgens de auteur zijn te hoog de huren.'],'بعد Volgens de auteur ← الفعل مباشرة.'],
+     ['De schrijver ___ dit met cijfers.','يدعم الكاتب ذلك بأرقام.',['onderbouwt','bouwt','onderhoudt'],'iets onderbouwen met = يدعم بـ.'],
+     ['De schrijver ___ dat meer onderzoek nodig is.','يستنتج الكاتب أن المزيد من البحث ضروري.',['concludeert','sluit','eindigt'],'يستنتج ← concluderen.']]},
+ {id:'g69',lvl:'C1',ic:'🎤',t:'العرض والنقاش',nl:'Presenteren en discussiëren',
+  p:['في العرض والنقاش تحتاج إلى عبارات لتبدأ، ولتوافق أو تعترض بأدب، ولتطلب الكلام، ولتختم.','الاعتراض المهذّب يبدأ غالباً بموافقة جزئية: Dat is een goed punt, maar…'],
+  tb:[['Ik wil graag beginnen met…','أودّ أن أبدأ بـ…'],['Daar ben ik het (niet) mee eens.','أوافق (لا أوافق) على ذلك.'],['Mag ik daar even op reageren?','هل يمكنني أن أردّ على ذلك؟'],['Als ik u goed begrijp, bedoelt u…','إن فهمتك جيداً، فأنت تقصد…'],['Dat is een goed punt, maar…','هذه نقطة جيدة، لكن…'],['Om af te ronden…','وفي الختام…']],
+  ex:[['Dat is een goed punt, maar ik zie het iets anders.','هذه نقطة جيدة، لكني أرى الأمر بشكل مختلف قليلاً.']],
+  x:[['Nee, dat is fout.','Dat is een goed punt, maar ik zie het anders.']],
+  tip:'في هولندا النقاش المباشر مقبول، لكن بنبرة هادئة واحترام.',
+  q:[['Ik ben het helemaal met u ___.','أوافقك تماماً.',['eens','mee','goed'],'het met iemand eens zijn.'],
+     ['Mag ik daar even ___ reageren?','هل يمكنني أن أردّ على ذلك؟',['op','aan','met'],'reageren op ← daar … op.'],
+     ['Als ik u goed ___, bedoelt u dat…','إن فهمتك جيداً، فأنت تقصد أنّ…',['begrijp','begrijpt','begrepen'],'مع ik ← begrijp.'],
+     ['Om af te ___ wil ik iedereen bedanken.','وفي الختام أودّ أن أشكر الجميع.',['ronden','maken','geven'],'Om af te ronden.']]}
 ];
 /* Keeps Dutch runs inside Arabic text in left-to-right order (<bdi>), also across <b>…</b>. Input is our own trusted markup. */
 function bidi(s){
@@ -2102,7 +2214,7 @@ function bidi(s){
       if(k%2){if(!grp)grp=[];grp.push({t:'L',v:p})}else if(grp&&/^\s+$/.test(p))grp.push({t:'L',v:p});else{flush();out.push(p)}})});
   flush();return out.join('');
 }
-const GL=['A0','A1','A2','B1','B2'];
+const GL=['A0','A1','A2','B1','B2','C1'];
 const gramState=id=>((gs.gram||{})[id])||null;
 const gStars=r=>r>=1?3:r>=.8?2:r>=.6?1:0;
 const gramDone=l=>GRAM.filter(g=>g.lvl===l).every(g=>{const s=gramState(g.id);return s&&s.b>=.8});
@@ -2113,7 +2225,7 @@ const gramSection=()=>{const nx=gramNext(),passed=GRAM.filter(g=>{const s=gramSt
     <p class="lead">درس قصير لكل قاعدة: شرح بالعربية، وجدول، وأمثلة بالصوت، والأخطاء التي يقع فيها العرب عادةً، ثم تمرين. أتقنت ${passed} من ${GRAM.length}.</p>
     ${GL.map(l=>`<h3 class="gl">المستوى ${l}${gramDone(l)?' ✓':''}</h3><div class="themes">${GRAM.filter(g=>g.lvl===l).map(g=>{const s=gramState(g.id),stars=s?gStars(s.b):0;
       return `<button class="theme${nx&&nx.id===g.id?' hot':''}" data-g="${g.id}"><span class="ic" aria-hidden="true">${g.ic}</span><span><span class="nm">${bidi(esc(g.t))}</span><span class="meta">${s?`<span aria-label="${stars} من 3 نجوم">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</span> · أفضل نتيجة ${Math.round(s.b*100)}%`:nx&&nx.id===g.id?'الدرس التالي المقترح':'لم تبدأه بعد'}</span></span></button>`}).join('')}</div>`).join('')}
-    <details class="why"><summary>ما الذي سيأتي بعد B2؟</summary>${ROADHTML()}</details>
+    <details class="why"><summary>ما الذي سيأتي بعد ذلك؟</summary>${ROADHTML()}</details>
   </section>`};
 function gramLesson(g){
   const L=()=>{rerender=L;
@@ -2172,9 +2284,8 @@ function gramQuiz(g){
   go(q);
 }
 /* Road map after A1 (filled from the NT2 syllabus study in خطة/منهج_القواعد_والكتب.md) */
-const ROAD=[
- ['C1 (CNaVT)','الأسلوب الأكاديمي والإداري، وسلاسل الأفعال الطويلة، وأدوات الربط المتقدمة (desalniettemin، daarentegen)، والأمثال والتعبيرات، والعرض والنقاش وكتابة الملخّص.']];
-const ROADHTML=()=>ROAD.length?'<p>نتبع ترتيب كتب تعليم الهولندية المعتمدة حتى المستوى C1، ونضيف دروساً جديدة كل شهر:</p>'+ROAD.map(r=>`<p><b>${bidi(r[0])}:</b> ${bidi(esc(r[1]))}</p>`).join(''):'<p>نضيف القواعد التالية شهراً بعد شهر حتى المستوى C1.</p>';
+const ROAD=[];
+const ROADHTML=()=>ROAD.length?'<p>نتبع ترتيب كتب تعليم الهولندية المعتمدة حتى المستوى C1، ونضيف دروساً جديدة كل شهر:</p>'+ROAD.map(r=>`<p><b>${bidi(r[0])}:</b> ${bidi(esc(r[1]))}</p>`).join(''):'<p>وصلت القواعد إلى المستوى C1، أعلى مستوى في كتب تعليم الهولندية المعتمدة. سنضيف بعد ذلك تمارين أكثر لكل درس، ونصوصاً للقراءة والاستماع.</p>';
 
 /* ---------- Word list ---------- */
 function words(th){
