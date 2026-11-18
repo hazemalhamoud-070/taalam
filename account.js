@@ -226,7 +226,7 @@
     var n = daysLeft();
     if (!hasAccess()) return online ? '' : '<div class="tl-bar" role="status"><span>انتهت التجربة المجانية. الاشتراك يفتح قريباً، ويمكنك المتابعة مجاناً حتى ذلك الوقت.</span></div>';
     if (!online) return '<div class="tl-bar" role="status"><span>🎁 تجربة مجانية: بقي ' + dayWord(n) + '</span></div>';
-    return '<div class="tl-bar" role="status"><span>🎁 تجربة مجانية: بقي ' + dayWord(n) + (user ? '' : '. أنشئ حساباً ليُحفظ تقدّمك') + '</span><button type="button" onclick="Taalam.' + (user ? 'plans' : 'signup') + '()">' + (user ? 'اشترك' : 'أنشئ حساباً') + '</button></div>';
+    return '<div class="tl-bar" role="status"><span>🎁 تجربة مجانية: بقي ' + dayWord(n) + (user ? '' : '. أنشئ حساباً ليُحفظ تقدّمك') + '</span><button type="button" data-tl="' + (user ? 'plans' : 'signup') + '">' + (user ? 'اشترك' : 'أنشئ حساباً') + '</button></div>';
   }
   /* lock only when accounts and payment really work; before that nobody may be locked out */
   function enforce() { if (online && ready && !hasAccess()) planScreen(true) }
@@ -253,7 +253,7 @@
   }
   function boot() {
     if (!online) { ready = true; emit(); enforce(); return }
-    var s = document.createElement('script'); s.src = SDK; s.async = true;
+    var s = document.createElement('script'); s.src = SDK; s.async = true; s.integrity = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug'; s.crossOrigin = 'anonymous'; s.referrerPolicy = 'no-referrer';
     s.onerror = function () { ready = true; emit() };
     s.onload = function () {
       sb = window.supabase.createClient(TAALAM_CONFIG.url, TAALAM_CONFIG.anonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
@@ -279,5 +279,10 @@
     signup: function () { authScreen('up') }, login: function () { authScreen('in') },
     account: function () { !online ? soonScreen() : user ? accountScreen() : authScreen('in') }, plans: function () { planScreen(false) }
   };
+  /* buttons in the trial banner use data-tl instead of inline onclick (allowed by a strict CSP) */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-tl]');
+    if (b && (b.dataset.tl === 'plans' || b.dataset.tl === 'signup')) window.Taalam[b.dataset.tl]();
+  });
   boot();
 })();

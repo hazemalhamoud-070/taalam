@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' 'sha256-nFTuFqmFnfhm8n26L0fVSVZn+0+BKbwKs2x5Q7SLuYI=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>if(window.top!==window.self){try{window.top.location=window.self.location.href}catch(e){document.documentElement.style.display='none'}}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>تعلّم الهولندية بالعربية: كلمتان كل يوم مع الصوت | Taalam</title>
@@ -121,6 +124,14 @@ section{margin-top:22px}
 .pron{text-align:center;color:var(--muted);font-size:.95em}
 .mean{text-align:center;font-family:var(--f-display);font-size:1.35em;margin-top:10px}
 .ex{background:var(--bg);border-radius:10px;padding:12px 14px;margin-top:16px}
+.gl{font-size:1em;margin:18px 0 4px;color:var(--muted)}
+.gtw{overflow-x:auto;margin-top:12px}
+.gt{width:100%;border-collapse:collapse;font-size:.95em}
+.gt td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.gt td:first-child{direction:ltr;text-align:left;font-family:var(--f-nl);font-weight:600;color:var(--nl-ink);}
+.gwarn{margin-top:16px;border-inline-start:4px solid var(--bad);background:var(--bad-soft);border-radius:8px;padding:10px 14px}
+.gx{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:6px;font-family:var(--f-nl);direction:ltr;justify-content:flex-end}
+.gx .bad{color:var(--bad);text-decoration:line-through} .gx .good{color:var(--ok);font-weight:700}
 .ex .nl{direction:ltr;text-align:left;font-family:var(--f-nl);font-weight:600;font-size:1.05em}
 .ex .ar{color:var(--muted);margin-top:4px}
 .ex mark{background:var(--orange-soft);color:inherit;border-radius:4px;padding:0 2px}
@@ -697,6 +708,7 @@ function home(){
     <div class="themes">${THEMES.map(t=>{const k=t.w.filter(r=>box(r[0])>=2).length,s=t.w.filter(r=>st.w[r[0]]).length;return `<button class="theme" data-t="${t.id}"><span class="ic" aria-hidden="true">${t.ic}</span><span><span class="nm">${t.n}</span><span class="bar"><i style="width:${Math.round(k/t.w.length*100)}%"></i></span><span class="meta">${k} ثابتة · بدأت ${s} من ${t.w.length}</span></span></button>`}).join('')}</div>
     <div class="row"><button class="btn ghost" id="all">كل الكلمات (${W.length})</button></div>
   </section>
+  ${gramSection()}
   ${testsSection()}
   ${gamesSection()}
   <section>
@@ -721,6 +733,7 @@ function home(){
   if($('g-cloze'))$('g-cloze').onclick=()=>cloze();
   if($('g-ana'))$('g-ana').onclick=()=>anagram();
   if($('g-badges'))$('g-badges').onclick=()=>go(badgesPage);
+  app.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>gramLesson(GRAM.find(g=>g.id===b.dataset.g)));
   app.querySelectorAll('[data-test]').forEach(b=>b.onclick=()=>runTest(TESTS.find(t=>t.id===b.dataset.test)));
   app.querySelectorAll('[data-cert]').forEach(b=>b.onclick=()=>go(()=>certPage(TESTS.find(t=>t.id===b.dataset.cert))));
 }
@@ -1042,7 +1055,10 @@ const BADGES=[
  {id:'w50',ic:'🌿',n:'خمسون كلمة',d:'بدأت 50 كلمة.',t:()=>started()>=50},
  {id:'s30',ic:'🏆',n:'شهر كامل',d:'تعلّمت 30 يوماً متتالياً.',t:()=>(st.streak.n||0)>=30},
  {id:'w100',ic:'💯',n:'مئة كلمة',d:'بدأت 100 كلمة.',t:()=>started()>=100},
- {id:'a0',ic:'🎓',n:'أنهيت المستوى A0',d:'تعرّفت على كل كلمات المستوى الأول.',t:()=>lvStarted('A0')>=A0N}
+ {id:'a0',ic:'🎓',n:'أنهيت المستوى A0',d:'تعرّفت على كل كلمات المستوى الأول.',t:()=>lvStarted('A0')>=A0N},
+ {id:'gram1',ic:'📐',n:'أول قاعدة',d:'نجحت في أول درس قواعد.',t:()=>GRAM.some(g=>{const s=gramState(g.id);return s&&s.b>=.8})},
+ {id:'gramA0',ic:'🧱',n:'أساس متين',d:'نجحت في كل دروس قواعد المستوى A0.',t:()=>gramDone('A0')},
+ {id:'gramA1',ic:'🏛️',n:'قواعد A1',d:'نجحت في كل دروس قواعد المستوى A1.',t:()=>gramDone('A1')}
 ];
 /* returns the badges earned just now (and remembers them) */
 function checkBadges(){
@@ -1414,7 +1430,7 @@ async function certCanvas(t,name,score,total,date){
   return c;
 }
 const certFile=t=>'شهادة-'+(CERT_NL[t.id]||t.id).replace(/\s+/g,'-');
-function loadJsPDF(){return window.jspdf?Promise.resolve():new Promise((ok,no)=>{const s=document.createElement('script');s.src=JSPDF;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+function loadJsPDF(){return window.jspdf?Promise.resolve():new Promise((ok,no)=>{const s=document.createElement('script');s.src=JSPDF;s.integrity='sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==';s.crossOrigin='anonymous';s.referrerPolicy='no-referrer';s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
 function certBlock(t,score,total){
   return `<div class="certbox" style="text-align:start">
     <div class="cert" role="img" aria-label="شهادة نجاح"><small>تعلّم الهولندية · taalam</small><b>شهادة نجاح</b><span>${esc(t.n)}: ${esc(t.sub)}</span><span>النتيجة ${score} من ${total}</span></div>
@@ -1447,6 +1463,319 @@ function certPage(t){
     <div class="row"><button class="btn ghost" id="b">رجوع إلى الرئيسية</button></div>`;
   certWire(t,score,total);document.getElementById('b').onclick=()=>go(home);
 }
+
+/* ---------- Grammar («القواعد خطوة خطوة»): short lesson + table + examples + common Arab mistakes + practice ----------
+   Order follows the usual NT2 sequence (A0 → A1). Content is our own wording. q: [sentence with ___ or '', Arabic hint, options (correct first), why] */
+const GRAM=[
+ {id:'g01',lvl:'A0',ic:'👤',t:'الضمائر: أنا، أنت، هو…',nl:'Persoonlijke voornaamwoorden',
+  p:['في العربية يكفي الفعل وحده: «أعمل». أما في الهولندية فلا بدّ من الضمير قبل الفعل دائماً: <b>Ik</b> werk.','لكل ضمير شكلان أحياناً: شكل مشدّد (jij، zij، wij) وشكل خفيف يُستعمل أكثر في الكلام (je، ze، we).'],
+  tb:[['ik','أنا'],['jij / je','أنتَ، أنتِ'],['u','حضرتك (للاحترام)'],['hij','هو'],['zij / ze','هي'],['het','هو/هي لغير العاقل (het huis)'],['wij / we','نحن'],['jullie','أنتم'],['zij / ze','هم، هنّ']],
+  ex:[['Ik woon in Utrecht.','أسكن في أوترخت.'],['Woont u hier?','هل تسكن هنا؟ (باحترام)'],['We gaan naar huis.','نحن ذاهبون إلى البيت.']],
+  x:[['Woon in Utrecht.','Ik woon in Utrecht.']],
+  tip:'استعمل u مع الموظفين والطبيب ومن لا تعرفه، وjij مع الأصدقاء والعائلة.',
+  q:[['___ woon in Rotterdam.','أنا أسكن في روتردام.',['Ik','Hij','Jullie'],'مع «أنا» نقول ik.'],
+     ['Goedemorgen, hoe gaat het met ___?','تكلّم موظف البلدية باحترام.',['u','jij','jullie'],'u هي صيغة الاحترام مع من لا تعرفه.'],
+     ['Ahmed en Sara: ___ zijn in de klas.','أحمد وسارة في الصف.',['Zij','Wij','Hij'],'شخصان = هم = zij.'],
+     ['Waar woon ___?','أين تسكن؟ (لصديق)',['je','hij','wij'],'لصديق نقول jij أو je.'],
+     ['Mijn vrouw en ik: ___ wonen in Delft.','زوجتي وأنا نسكن في دلفت.',['wij','zij','jullie'],'أنا وزوجتي = نحن = wij.']]},
+ {id:'g02',lvl:'A0',ic:'🟰',t:'فعل الكون zijn: أنا أكون…',nl:'Het werkwoord zijn',
+  p:['في العربية نقول «أنا أحمد» و«هو مريض» بلا فعل. في الهولندية لا بدّ من الفعل <b>zijn</b> في كل جملة من هذا النوع.','zijn فعل غير منتظم، فاحفظ أشكاله الأربعة: ben، bent، is، zijn.'],
+  tb:[['ik ben','أنا أكون'],['jij bent (ben jij?)','أنتَ تكون'],['u bent','حضرتك تكون'],['hij / zij / het is','هو / هي يكون'],['wij / jullie / zij zijn','نحن / أنتم / هم نكون']],
+  ex:[['Ik ben Ahmed.','أنا أحمد.'],['Zij is ziek.','هي مريضة.'],['Wij zijn nieuw in Nederland.','نحن جدد في هولندا.']],
+  x:[['Ik Ahmed.','Ik ben Ahmed.'],['Hij ziek.','Hij is ziek.']],
+  tip:'في السؤال يأتي الفعل أولاً، وتسقط t مع jij: Ben jij moe?',
+  q:[['Ik ___ uit Syrië.','أنا من سوريا.',['ben','is','zijn'],'مع ik نقول ben.'],
+     ['Zij ___ moe.','هي متعبة.',['is','ben','zijn'],'مع hij وzij (هي) نقول is.'],
+     ['Wij ___ nieuw hier.','نحن جدد هنا.',['zijn','is','bent'],'مع wij نقول zijn.'],
+     ['___ jij student?','هل أنت طالب؟',['Ben','Bent','Is'],'في السؤال تسقط t: Ben jij?'],
+     ['','اختر الجملة الصحيحة: «هو في البيت».',['Hij is thuis.','Hij thuis.','Hij zijn thuis.'],'لا جملة بلا فعل: Hij is thuis.']]},
+ {id:'g03',lvl:'A0',ic:'🤲',t:'فعل الملك hebben: عندي…',nl:'Het werkwoord hebben',
+  p:['<b>hebben</b> معناه «عنده» أو «يملك». ونستعمله أيضاً في عبارات يومية: Ik heb honger (أنا جائع)، Ik heb dorst (أنا عطشان).','لكن العمر لا يكون بـ hebben: نقول Ik <b>ben</b> 30 jaar.'],
+  tb:[['ik heb','عندي'],['jij hebt (heb jij?)','عندك'],['u hebt / u heeft','عند حضرتك'],['hij / zij / het heeft','عنده / عندها'],['wij / jullie / zij hebben','عندنا / عندكم / عندهم']],
+  ex:[['Ik heb twee kinderen.','عندي ولدان.'],['Heeft u een afspraak?','هل عندك موعد؟'],['Ik ben 30 jaar.','عمري 30 سنة.']],
+  x:[['Ik heb 30 jaar.','Ik ben 30 jaar.']],
+  tip:'heeft مع hij وzij، وhebben مع الجمع.',
+  q:[['Ik ___ twee kinderen.','عندي ولدان.',['heb','heeft','hebben'],'مع ik نقول heb.'],
+     ['Hij ___ een auto.','عنده سيارة.',['heeft','heb','hebben'],'مع hij نقول heeft.'],
+     ['Wij ___ morgen een afspraak.','عندنا موعد غداً.',['hebben','heeft','heb'],'مع wij نقول hebben.'],
+     ['Mijn zoon ___ tien jaar.','عمر ابني عشر سنوات.',['is','heeft','heb'],'العمر بـ zijn: Hij is tien jaar.'],
+     ['___ jij een fiets?','هل عندك درّاجة؟',['Heb','Hebt','Heeft'],'في السؤال تسقط t: Heb jij?']]},
+ {id:'g04',lvl:'A0',ic:'⚙️',t:'الفعل في الحاضر',nl:'De tegenwoordige tijd',
+  p:['خذ المصدر واحذف en، فيبقى <b>الجذر</b>: werken ← werk.','ik + الجذر، وjij/u/hij/zij + الجذر + t، والجمع = المصدر كاملاً.','إذا كان الصوت طويلاً نكتب حرفين: wonen ← ik <b>woon</b>.'],
+  tb:[['ik werk','أعمل'],['jij werkt (werk jij?)','تعمل'],['u werkt','تعمل (باحترام)'],['hij / zij werkt','يعمل / تعمل'],['wij / jullie / zij werken','نعمل / تعملون / يعملون']],
+  ex:[['Ik woon in Amsterdam.','أسكن في أمستردام.'],['Hij werkt in een fabriek.','يعمل في مصنع.'],['Werk jij morgen?','هل تعمل غداً؟']],
+  x:[['Hij werk in een fabriek.','Hij werkt in een fabriek.'],['Ik woont hier.','Ik woon hier.']],
+  tip:'مع jij في السؤال تسقط t: Werk jij? لكن Werkt u? تبقى.',
+  q:[['Hij ___ in een winkel. (werken)','يعمل في متجر.',['werkt','werk','werken'],'hij + الجذر + t = werkt.'],
+     ['Ik ___ in Den Haag. (wonen)','أسكن في لاهاي.',['woon','won','woont'],'الصوت طويل فنكتب oo: ik woon.'],
+     ['Wij ___ Nederlands. (leren)','نتعلّم الهولندية.',['leren','leer','leert'],'الجمع = المصدر كاملاً.'],
+     ['___ jij koffie? (drinken)','هل تشرب قهوة؟',['Drink','Drinkt','Drinken'],'السؤال مع jij: بلا t.'],
+     ['Zij ___ elke dag. (fietsen)','هي تركب الدرّاجة كل يوم.',['fietst','fiets','fietsen'],'zij (هي) + الجذر + t.']]},
+ {id:'g05',lvl:'A0',ic:'🏷️',t:'أداة التعريف: de وhet وeen',nl:'Lidwoorden: de, het, een',
+  p:['للتعريف أداتان: <b>de</b> و<b>het</b>. نحو ثلثي الكلمات تأخذ de.','<b>een</b> للنكرة مع كل الكلمات: een man، een huis.','الجمع يأخذ de دائماً: het huis ← de huizen. والتصغير بـ -je يأخذ het دائماً: het huisje.'],
+  tb:[['de man','الرجل'],['het huis','البيت'],['een fiets','درّاجة'],['de huizen','البيوت (جمع = de)'],['het meisje','البنت (‑je = het)']],
+  ex:[['De bus komt om tien uur.','الحافلة تأتي الساعة العاشرة.'],['Het huis is groot.','البيت كبير.'],['Ik heb een fiets.','عندي درّاجة.']],
+  x:[['de meisje','het meisje']],
+  tip:'لا توجد قاعدة كاملة، فاحفظ كل كلمة مع أداتها. في دروسنا ترى de باللون الأزرق وhet بلون آخر.',
+  q:[['___ meisje speelt buiten.','البنت تلعب في الخارج.',['Het','De'],'كل كلمة تنتهي بـ -je تأخذ het.'],
+     ['___ kinderen spelen.','الأولاد يلعبون.',['De','Het','Een'],'الجمع يأخذ de دائماً.'],
+     ['Ik heb ___ fiets.','عندي درّاجة (نكرة).',['een','de','het'],'للنكرة نقول een.'],
+     ['Wij hebben ___ huisje.','عندنا بيت صغير.',['een','de'],'للنكرة een، حتى مع كلمات het.'],
+     ['___ boeken zijn nieuw.','الكتب جديدة.',['De','Het','Een'],'الجمع = de.']]},
+ {id:'g06',lvl:'A0',ic:'👥',t:'الجمع: ‑en و‑s',nl:'Het meervoud',
+  p:['أغلب الكلمات تأخذ <b>‑en</b>: boek ← boeken.','الكلمات التي تنتهي بـ ‑el، ‑em، ‑en، ‑er، ‑je تأخذ <b>‑s</b>: tafel ← tafels.','والكلمة التي تنتهي بحرف علّة طويل تأخذ <b>\'s</b>: auto ← auto\'s.','وبعض الكلمات شاذة، فاحفظها: kind ← kinderen.'],
+  tb:[['boek → boeken','كتاب ← كتب'],['tafel → tafels','طاولة ← طاولات'],['auto → auto\'s','سيارة ← سيارات'],['huis → huizen','بيت ← بيوت (s تصبح z)'],['kind → kinderen','ولد ← أولاد']],
+  ex:[['Ik heb drie kinderen.','عندي ثلاثة أولاد.'],['De tafels zijn nieuw.','الطاولات جديدة.']],
+  x:[['twee boeks','twee boeken']],
+  tip:'بعد الأرقام لا نضيف «من»: twee boeken = كتابان.',
+  q:[['één boek, twee ___','كتاب واحد، كتابان',['boeken','boeks','boekes'],'أغلب الكلمات تأخذ ‑en.'],
+     ['één tafel, drie ___','طاولة، ثلاث طاولات',['tafels','tafelen','tafel'],'‑el تأخذ ‑s.'],
+     ['één auto, twee ___','سيارة، سيارتان',['auto\'s','autos','autoen'],'حرف علّة في الآخر: \'s.'],
+     ['één huis, twee ___','بيت، بيتان',['huizen','huisen','huises'],'s تصبح z: huizen.'],
+     ['één kind, drie ___','ولد، ثلاثة أولاد',['kinderen','kinds','kinden'],'kind شاذة: kinderen.']]},
+ {id:'g07',lvl:'A0',ic:'🚫',t:'النفي: niet وgeen',nl:'Ontkenning: niet en geen',
+  p:['<b>geen</b> قبل اسم نكرة (مكان een أو بلا أداة): Ik heb <b>geen</b> auto.','<b>niet</b> لكل شيء آخر: مع الفعل والصفة والاسم المعرّف: Ik werk <b>niet</b>. Dat is <b>niet</b> mijn fiets.'],
+  tb:[['Ik heb geen tijd.','ليس عندي وقت.'],['Ik werk vandaag niet.','لا أعمل اليوم.'],['Hij is niet ziek.','هو ليس مريضاً.'],['Dat is niet de bus.','هذه ليست الحافلة.']],
+  ex:[['Ik heb geen kinderen.','ليس عندي أولاد.'],['Ik begrijp het niet.','لا أفهم ذلك.']],
+  x:[['Ik heb niet een auto.','Ik heb geen auto.']],
+  tip:'اسأل نفسك: هل يمكن أن أقول een هنا؟ إذا نعم، فالنفي geen.',
+  q:[['Ik heb ___ tijd.','ليس عندي وقت.',['geen','niet','nee'],'اسم بلا أداة ← geen.'],
+     ['Hij werkt vandaag ___.','لا يعمل اليوم.',['niet','geen','nee'],'مع الفعل ← niet.'],
+     ['Dat is ___ mijn fiets.','هذه ليست درّاجتي.',['niet','geen','nee'],'mijn fiets معرّفة ← niet.'],
+     ['Wij hebben ___ auto.','ليس عندنا سيارة.',['geen','niet','nee'],'een auto ← geen auto.'],
+     ['Ik ben ___ moe.','لست متعباً.',['niet','geen','nee'],'مع الصفة ← niet.']]},
+ {id:'g08',lvl:'A0',ic:'2️⃣',t:'الفعل في المكان الثاني',nl:'Woordvolgorde: het werkwoord op plaats 2',
+  p:['أهم قاعدة في الجملة الهولندية: <b>الفعل دائماً في المكان الثاني</b>.','إذا بدأت الجملة بالزمن أو المكان (Vandaag، Morgen، In Nederland)، يأتي الفعل بعدها مباشرة، ثم الفاعل.'],
+  tb:[['Ik werk vandaag.','أعمل اليوم.'],['Vandaag werk ik.','اليوم أعمل.'],['Morgen ga ik naar de dokter.','غداً أذهب إلى الطبيب.'],['In Nederland fiets ik veel.','في هولندا أركب الدرّاجة كثيراً.']],
+  ex:[['Om negen uur begint de les.','يبدأ الدرس الساعة التاسعة.'],['Nu woon ik in Zwolle.','الآن أسكن في زفوله.']],
+  x:[['Vandaag ik werk.','Vandaag werk ik.'],['Morgen ik ga naar school.','Morgen ga ik naar school.']],
+  tip:'عُدّ الأجزاء لا الكلمات: «Om negen uur» جزء واحد، والفعل بعده.',
+  q:[['','اختر الجملة الصحيحة: غداً أذهب إلى المدرسة.',['Morgen ga ik naar school.','Morgen ik ga naar school.','Morgen naar school ik ga.'],'Morgen في المكان الأول، والفعل ga في الثاني.'],
+     ['','اختر الجملة الصحيحة: اليوم أعمل.',['Vandaag werk ik.','Vandaag ik werk.','Ik vandaag werk.'],'الفعل في المكان الثاني.'],
+     ['','اختر الجملة الصحيحة: في أمستردام يسكن أخي.',['In Amsterdam woont mijn broer.','In Amsterdam mijn broer woont.','Mijn broer in Amsterdam woont.'],'«In Amsterdam» أولاً، ثم الفعل woont.'],
+     ['','اختر الجملة الصحيحة: الساعة الثامنة يبدأ عملي.',['Om acht uur begint mijn werk.','Om acht uur mijn werk begint.','Om acht begint uur mijn werk.'],'«Om acht uur» جزء واحد، ثم الفعل.'],
+     ['','اختر الجملة الصحيحة: الآن أتعلّم الهولندية.',['Nu leer ik Nederlands.','Nu ik leer Nederlands.','Nu Nederlands ik leer.'],'Nu ثم الفعل leer ثم ik.']]},
+ {id:'g09',lvl:'A0',ic:'❓',t:'كيف تسأل؟',nl:'Vragen stellen',
+  p:['سؤال «نعم أو لا»: <b>الفعل أولاً</b>: Woon jij hier?','سؤال بأداة: الأداة أولاً ثم الفعل ثم الفاعل: <b>Waar</b> woon je?'],
+  tb:[['wat','ماذا / ما'],['wie','من'],['waar','أين'],['wanneer','متى'],['hoe','كيف'],['waarom','لماذا'],['hoeveel','كم'],['welke','أيّ']],
+  ex:[['Hoe heet u?','ما اسمك؟ (حرفياً: كيف تُسمّى؟)'],['Waar is het station?','أين المحطة؟'],['Spreekt u Engels?','هل تتكلّم الإنجليزية؟']],
+  x:[['Waar jij woont?','Waar woon jij?']],
+  tip:'«ما اسمك؟» = Hoe heet je? (بـ hoe لا wat).',
+  q:[['___ heet je?','ما اسمك؟',['Hoe','Waar','Wanneer'],'نسأل عن الاسم بـ Hoe heet je?'],
+     ['___ woon je?','أين تسكن؟',['Waar','Wie','Hoe'],'أين = waar.'],
+     ['___ kost dit?','كم ثمن هذا؟',['Hoeveel','Wie','Waar'],'كم = hoeveel.'],
+     ['','اختر السؤال الصحيح: هل تعمل غداً؟',['Werk jij morgen?','Jij werk morgen?','Werkt jij morgen?'],'الفعل أولاً، وبلا t مع jij.'],
+     ['','اختر السؤال الصحيح: متى تبدأ الدورة؟',['Wanneer begint de cursus?','Wanneer de cursus begint?','De cursus wanneer begint?'],'الأداة، ثم الفعل، ثم الفاعل.']]},
+ {id:'g10',lvl:'A1',ic:'💪',t:'أفعال القدرة والرغبة والوجوب',nl:'Modale werkwoorden',
+  p:['<b>kunnen</b> (يستطيع)، <b>willen</b> (يريد)، <b>moeten</b> (يجب)، <b>mogen</b> (يُسمح له).','بعدها يأتي فعل آخر بالمصدر، و<b>المصدر في آخر الجملة</b>: Ik wil een afspraak <b>maken</b>.'],
+  tb:[['ik kan / wil / moet / mag','أستطيع / أريد / يجب / يُسمح لي'],['jij kunt / wilt / moet / mag','أنتَ'],['hij kan / wil / moet / mag','هو'],['wij kunnen / willen / moeten / mogen','نحن']],
+  ex:[['Ik wil een afspraak maken.','أريد أن آخذ موعداً.'],['Mag ik hier parkeren?','هل يُسمح لي بركن السيارة هنا؟'],['Je moet morgen werken.','يجب أن تعمل غداً.']],
+  x:[['Ik wil maken een afspraak.','Ik wil een afspraak maken.']],
+  tip:'لا نضع «أن» (te) بعد هذه الأفعال: Ik kan zwemmen، لا Ik kan te zwemmen.',
+  q:[['___ ik binnenkomen?','هل يُسمح لي بالدخول؟',['Mag','Moet','Wil'],'السماح = mogen ← Mag ik?'],
+     ['Hij ___ goed koken.','يستطيع أن يطبخ جيداً.',['kan','mag','moet'],'القدرة = kunnen ← kan.'],
+     ['Wij ___ om acht uur beginnen.','يجب أن نبدأ الساعة الثامنة.',['moeten','mogen','willen'],'الوجوب = moeten.'],
+     ['Ik wil een kaartje ___.','أريد أن أشتري تذكرة.',['kopen','koop','koopt'],'بعد wil يأتي المصدر في الآخر.'],
+     ['','اختر الجملة الصحيحة: أريد أن أتعلّم الهولندية.',['Ik wil Nederlands leren.','Ik wil leren Nederlands.','Ik wil te leren Nederlands.'],'المصدر في آخر الجملة، وبلا te.']]},
+ {id:'g11',lvl:'A1',ic:'✂️',t:'الأفعال المنفصلة',nl:'Scheidbare werkwoorden',
+  p:['بعض الأفعال لها جزء صغير في أولها: <b>op</b>bellen، <b>mee</b>nemen، <b>in</b>vullen، <b>aan</b>komen.','في الجملة العادية ينفصل الجزء ويذهب إلى <b>آخر الجملة</b>: Ik bel je morgen <b>op</b>.','مع فعل مثل moeten يبقى الفعل كاملاً في الآخر: Je moet het formulier <b>invullen</b>.'],
+  tb:[['opbellen → Ik bel je op.','يتصل ← أتصل بك'],['meenemen → Neem je paspoort mee.','يأخذ معه ← خذ جوازك معك'],['invullen → Ik vul het formulier in.','يملأ ← أملأ الاستمارة'],['aankomen → De trein komt om tien uur aan.','يصل ← يصل القطار الساعة العاشرة']],
+  ex:[['Ik sta om zeven uur op.','أستيقظ الساعة السابعة.'],['Je moet dit formulier invullen.','يجب أن تملأ هذه الاستمارة.']],
+  x:[['Ik opbel je morgen.','Ik bel je morgen op.']],
+  tip:'النبرة على الجزء الأول دائماً: ÓPbellen، MÉEnemen.',
+  q:[['','اختر الجملة الصحيحة: أستيقظ الساعة السابعة.',['Ik sta om zeven uur op.','Ik opsta om zeven uur.','Ik sta op om zeven uur op.'],'op يذهب إلى آخر الجملة.'],
+     ['Neem je paspoort ___!','خذ جواز سفرك معك!',['mee','op','in'],'meenemen = يأخذ معه.'],
+     ['De trein komt om tien uur ___.','يصل القطار الساعة العاشرة.',['aan','op','mee'],'aankomen = يصل.'],
+     ['','اختر الجملة الصحيحة: يجب أن تملأ الاستمارة.',['Je moet het formulier invullen.','Je moet invullen het formulier.','Je moet het formulier vullen in.'],'مع moeten: الفعل كاملاً في الآخر.'],
+     ['Ik bel de dokter ___.','أتصل بالطبيب.',['op','aan','in'],'opbellen ← bel … op.']]},
+ {id:'g12',lvl:'A1',ic:'👉',t:'الأمر والطلب بأدب',nl:'De gebiedende wijs',
+  p:['الأمر = <b>الجذر</b> فقط: Kom! Wacht! Neem een nummer.','للأدب نضيف <b>even</b> أو <b>alsjeblieft</b>، أو نستعمل u: <b>Komt u</b> binnen. <b>Wilt u</b> even wachten?'],
+  tb:[['Kom!','تعال!'],['Wacht even.','انتظر قليلاً.'],['Neem een nummer.','خذ رقماً.'],['Komt u binnen.','تفضّل بالدخول.'],['Wilt u even wachten?','هل يمكنك أن تنتظر قليلاً؟']],
+  ex:[['Doe de deur dicht, alsjeblieft.','أغلق الباب من فضلك.'],['Neemt u plaats.','تفضّل بالجلوس.']],
+  x:[['Komt hier!','Kom hier!']],
+  tip:'في المكاتب والعيادات تسمع غالباً الشكل المؤدّب: Neemt u plaats.',
+  q:[['___ hier!','تعال إلى هنا!',['Kom','Komt','Komen'],'الأمر = الجذر: kom.'],
+     ['___ even, alsjeblieft.','انتظر قليلاً من فضلك.',['Wacht','Wachten','Gewacht'],'الأمر = الجذر: wacht.'],
+     ['','اختر الشكل المؤدّب: تفضّل بالجلوس.',['Neemt u plaats.','Neem u plaats.','Nemen u plaats.'],'مع u: الجذر + t.'],
+     ['___ een nummer.','خذ رقماً.',['Neem','Neemt','Nemen'],'الأمر = الجذر: neem.'],
+     ['___ u even wachten?','هل يمكنك أن تنتظر قليلاً؟',['Wilt','Wil','Willen'],'مع u نقول wilt.']]},
+ {id:'g13',lvl:'A1',ic:'🔑',t:'الملكية: بيتي، بيتك…',nl:'Bezittelijke voornaamwoorden',
+  p:['في العربية نضيف حرفاً في آخر الكلمة: بيتي. في الهولندية نضع كلمة <b>قبل</b> الاسم: <b>mijn</b> huis.','انتبه: ons مع كلمات het المفردة، وonze مع كلمات de ومع الجمع.'],
+  tb:[['mijn','ـي (لي)'],['jouw / je','ـك'],['uw','ـك (باحترام)'],['zijn','ـه (له)'],['haar','ـها'],['ons / onze','ـنا'],['jullie','ـكم'],['hun','ـهم']],
+  ex:[['Dit is ons huis.','هذا بيتنا.'],['Dat is onze auto.','تلك سيارتنا.'],['Mag ik uw paspoort zien?','هل يمكنني أن أرى جوازك؟']],
+  x:[['onze huis','ons huis']],
+  tip:'zijn هنا تعني «ـه» وليست الفعل zijn.',
+  q:[['Dit is ___ huis.','هذا بيتنا.',['ons','onze','hun'],'huis كلمة het ← ons.'],
+     ['Dat is ___ auto.','تلك سيارتنا.',['onze','ons','hun'],'auto كلمة de ← onze.'],
+     ['Ahmed en ___ vrouw.','أحمد وزوجته.',['zijn','haar','hun'],'له = zijn.'],
+     ['Sara en ___ man.','سارة وزوجها.',['haar','zijn','hun'],'لها = haar.'],
+     ['De kinderen spelen met ___ vrienden.','الأولاد يلعبون مع أصدقائهم.',['hun','haar','ons'],'لهم = hun.']]},
+ {id:'g14',lvl:'A1',ic:'⏪',t:'الماضي: ik heb gewerkt',nl:'Het perfectum',
+  p:['الماضي الأكثر استعمالاً في الكلام: <b>hebben أو zijn</b> + اسم المفعول في <b>آخر الجملة</b>.','اسم المفعول: ge + الجذر + t أو d. إذا انتهى الجذر بأحد حروف <b>‘t kofschip</b> (t، k، f، s، ch، p) نضع t: gewerkt. وإلا نضع d: gewoond.','أغلب الأفعال مع hebben. أفعال الحركة إلى مكان والتغيّر مع zijn: Ik <b>ben</b> naar huis gegaan.'],
+  tb:[['werken → ik heb gewerkt','عملتُ'],['wonen → ik heb gewoond','سكنتُ'],['eten → ik heb gegeten','أكلتُ'],['zien → ik heb gezien','رأيتُ'],['gaan → ik ben gegaan','ذهبتُ'],['komen → ik ben gekomen','أتيتُ']],
+  ex:[['Ik heb in Syrië gewoond.','سكنتُ في سوريا.'],['Wij zijn in 2022 naar Nederland gekomen.','أتينا إلى هولندا سنة 2022.']],
+  x:[['Ik heb gewerkt gisteren.','Ik heb gisteren gewerkt.']],
+  tip:'أفعال كثيرة شاذة (gegeten، gezien، gedronken). احفظها مع الفعل.',
+  q:[['Ik heb gisteren ___. (werken)','عملتُ أمس.',['gewerkt','gewerkd','gewerken'],'werk ينتهي بـ k ← t.'],
+     ['Wij hebben in Aleppo ___. (wonen)','سكنّا في حلب.',['gewoond','gewoont','gewonen'],'woon لا ينتهي بحروف kofschip ← d.'],
+     ['Hij ___ naar huis gegaan.','ذهب إلى البيت.',['is','heeft','hebben'],'الحركة إلى مكان ← zijn.'],
+     ['Ik heb brood ___. (eten)','أكلتُ خبزاً.',['gegeten','geëet','geeten'],'eten شاذ: gegeten.'],
+     ['Ik heb hem gisteren ___. (zien)','رأيته أمس.',['gezien','gezient','gezied'],'zien شاذ: gezien.']]},
+ {id:'g15',lvl:'A1',ic:'🎨',t:'الصفة: groot أو grote?',nl:'Het bijvoeglijk naamwoord',
+  p:['الصفة <b>قبل</b> الاسم تأخذ ‑e عادةً: de grot<b>e</b> auto، een grot<b>e</b> auto.','الاستثناء: كلمة het مفردة بعد een أو geen أو بلا أداة: <b>een groot huis</b>.','الصفة <b>بعد</b> الفعل بلا ‑e: Het huis is groot.'],
+  tb:[['de grote auto','السيارة الكبيرة'],['een grote auto','سيارة كبيرة'],['het grote huis','البيت الكبير'],['een groot huis','بيت كبير (الاستثناء)'],['Het huis is groot.','البيت كبير.']],
+  ex:[['Ik zoek een groot huis.','أبحث عن بيت كبير.'],['De nieuwe buren zijn aardig.','الجيران الجدد لطفاء.']],
+  x:[['een grote huis','een groot huis']],
+  tip:'تذكّر الاستثناء بجملة واحدة: een groot huis.',
+  q:[['een ___ huis (groot)','بيت كبير',['groot','grote','groten'],'het + een ← بلا ‑e.'],
+     ['het ___ huis (groot)','البيت الكبير',['grote','groot','groten'],'مع het المعرّفة ← ‑e.'],
+     ['de ___ fiets (nieuw)','الدرّاجة الجديدة',['nieuwe','nieuw','nieuwen'],'مع de ← ‑e.'],
+     ['De auto is ___. (duur)','السيارة غالية.',['duur','dure','duren'],'بعد الفعل ← بلا ‑e.'],
+     ['een ___ vrouw (aardig)','امرأة لطيفة',['aardige','aardig','aardigen'],'vrouw كلمة de ← ‑e.']]},
+ {id:'g16',lvl:'A1',ic:'🔜',t:'المستقبل القريب: ik ga…',nl:'De toekomst met gaan',
+  p:['للكلام عن خطة قريبة: <b>gaan</b> + المصدر في آخر الجملة: Ik ga morgen boodschappen <b>doen</b>.','وكثيراً ما يكفي الحاضر مع كلمة زمن: Morgen werk ik.'],
+  tb:[['Ik ga koken.','سأطبخ.'],['We gaan verhuizen.','سننتقل إلى بيت آخر.'],['Morgen werk ik.','غداً أعمل.']],
+  ex:[['Ik ga vanavond Nederlands leren.','سأتعلّم الهولندية هذا المساء.'],['Wat ga je doen in het weekend?','ماذا ستفعل في عطلة نهاية الأسبوع؟']],
+  x:[['Ik ga leren vanavond.','Ik ga vanavond leren.']],
+  tip:'gaan هنا مثل «سـ» في العربية.',
+  q:[['Ik ga vanavond ___. (koken)','سأطبخ هذا المساء.',['koken','kook','gekookt'],'بعد gaan ← المصدر.'],
+     ['','اختر الجملة الصحيحة: سننتقل السنة القادمة.',['We gaan volgend jaar verhuizen.','We verhuizen gaan volgend jaar.','We gaan verhuizen jaar volgend.'],'المصدر في آخر الجملة.'],
+     ['Wat ___ je zaterdag doen?','ماذا ستفعل يوم السبت؟',['ga','gaat','gaan'],'في السؤال مع je: ga je.'],
+     ['Hij ___ een nieuwe baan zoeken.','سيبحث عن عمل جديد.',['gaat','ga','gaan'],'hij ← gaat.']]},
+ {id:'g17',lvl:'A1',ic:'📍',t:'يوجد: er is / er zijn',nl:'Er is / er zijn',
+  p:['لنقول «يوجد» أو «هناك»: <b>Er is</b> مع المفرد، و<b>Er zijn</b> مع الجمع.','وفي السؤال: <b>Is er</b> een supermarkt in de buurt?'],
+  tb:[['Er is een supermarkt.','يوجد سوبرماركت.'],['Er zijn veel fietsen.','توجد درّاجات كثيرة.'],['Is er hier een apotheek?','هل توجد صيدلية هنا؟']],
+  ex:[['Er is een probleem met mijn huur.','توجد مشكلة في إيجاري.'],['Er zijn twee scholen in onze wijk.','توجد مدرستان في حيّنا.']],
+  x:[['Er is veel mensen.','Er zijn veel mensen.']],
+  tip:'انظر إلى الاسم بعدها: مفرد ← is، جمع ← zijn.',
+  q:[['Er ___ hier een bushalte.','توجد محطة حافلات هنا.',['is','zijn','heeft'],'مفرد ← is.'],
+     ['Er ___ veel mensen in de winkel.','يوجد ناس كثيرون في المتجر.',['zijn','is','hebben'],'جمع ← zijn.'],
+     ['___ er een huisarts in de buurt?','هل يوجد طبيب عائلة قريب؟',['Is','Zijn','Heeft'],'مفرد في السؤال ← Is er.'],
+     ['Er ___ drie kamers in het huis.','توجد ثلاث غرف في البيت.',['zijn','is','heeft'],'drie kamers جمع ← zijn.']]},
+ {id:'g18',lvl:'A1',ic:'🎯',t:'ساعِدني، أراه، معنا',nl:'Persoonlijke voornaamwoorden als object',
+  p:['بعد الفعل وبعد حرف الجر لا نقول ik أو hij، بل شكلاً آخر: Kun je <b>mij</b> helpen? Ik zie <b>hem</b>.','في العربية نضيف حرفاً في آخر الفعل (ساعِدني)، وفي الهولندية كلمة مستقلة بعد الفعل.'],
+  tb:[['me / mij','ـني، لي'],['je / jou','ـك'],['u','ـك (باحترام)'],['hem','ـه'],['haar','ـها'],['ons','ـنا'],['jullie','ـكم'],['ze / hen','ـهم']],
+  ex:[['Kun je mij helpen?','هل يمكنك أن تساعدني؟'],['Ik bel je morgen.','سأتصل بك غداً.'],['Kom je met ons mee?','هل تأتي معنا؟']],
+  x:[['Kun je ik helpen?','Kun je mij helpen?'],['met ik','met mij']],
+  tip:'mij أقوى من me، ونستعملها بعد حرف الجر: voor mij، met mij.',
+  q:[['Kun je ___ helpen?','هل يمكنك أن تساعدني؟',['mij','ik','mijn'],'بعد الفعل ← mij.'],
+     ['Ik zie ___ morgen.','سأراه غداً.',['hem','hij','zijn'],'«ـه» بعد الفعل ← hem.'],
+     ['Ik bel ___ vanavond.','سأتصل بها هذا المساء.',['haar','zij','hij'],'«ـها» ← haar.'],
+     ['Kom je met ___ mee?','هل تأتي معنا؟',['ons','wij','onze'],'بعد met ← ons.'],
+     ['Dit is voor ___.','هذا لك (باحترام).',['u','uw','jij'],'بعد voor مع الاحترام ← u.']]},
+ {id:'g19',lvl:'A1',ic:'👇',t:'هذا وذلك: deze، die، dit، dat',nl:'Aanwijzende voornaamwoorden',
+  p:['مع كلمات <b>de</b> والجمع: <b>deze</b> (القريب) و<b>die</b> (البعيد).','مع كلمات <b>het</b> المفردة: <b>dit</b> (القريب) و<b>dat</b> (البعيد).','للتعريف بشخص نقول دائماً dit أو dat: Dit is mijn vrouw.'],
+  tb:[['deze fiets','هذه الدرّاجة'],['die fiets','تلك الدرّاجة'],['dit huis','هذا البيت'],['dat huis','ذلك البيت'],['deze / die boeken','هذه / تلك الكتب']],
+  ex:[['Deze trein gaat naar Utrecht.','هذا القطار ذاهب إلى أوترخت.'],['Dit is mijn zoon.','هذا ابني.']],
+  x:[['dit fiets','deze fiets'],['Deze is mijn broer.','Dit is mijn broer.']],
+  tip:'اعرف أداة الكلمة أولاً (de أو het)، ثم اختر.',
+  q:[['___ fiets is nieuw.','هذه الدرّاجة جديدة (قريبة).',['Deze','Dit','Dat'],'fiets كلمة de ← deze.'],
+     ['___ huis is groot.','هذا البيت كبير.',['Dit','Deze','Die'],'huis كلمة het ← dit.'],
+     ['___ boeken zijn duur.','تلك الكتب غالية.',['Die','Dat','Dit'],'الجمع البعيد ← die.'],
+     ['___ is mijn broer.','هذا أخي.',['Dit','Deze','Die'],'للتعريف بشخص ← dit.'],
+     ['___ appel is lekker.','تلك التفاحة لذيذة.',['Die','Dat','Dit'],'appel كلمة de، والبعيد ← die.']]},
+ {id:'g20',lvl:'A1',ic:'⚖️',t:'المقارنة: أكبر من، مثل',nl:'Vergelijken: groter dan, net zo … als',
+  p:['للمقارنة نضيف <b>‑er</b> ثم <b>dan</b>: groot ← groter dan.','إذا انتهت الصفة بـ r نضيف <b>‑der</b>: duur ← duurder.','للتساوي: <b>net zo</b> … <b>als</b>: net zo groot als.','وبعض الصفات شاذة: goed ← beter، veel ← meer.'],
+  tb:[['groot → groter','كبير ← أكبر'],['mooi → mooier','جميل ← أجمل'],['duur → duurder','غالٍ ← أغلى'],['goed → beter','جيد ← أفضل'],['net zo … als','مثل، بالقدر نفسه']],
+  ex:[['Utrecht is kleiner dan Amsterdam.','أوترخت أصغر من أمستردام.'],['Mijn zoon is net zo lang als ik.','ابني طويل مثلي.']],
+  x:[['meer groot','groter'],['groter als','groter dan']],
+  tip:'dan للفرق (أكبر من)، وals للتساوي (مثل).',
+  q:[['Amsterdam is ___ dan Utrecht. (groot)','أمستردام أكبر من أوترخت.',['groter','grootter','meer groot'],'groot + er = groter.'],
+     ['Mijn huis is net zo groot ___ jouw huis.','بيتي كبير مثل بيتك.',['als','dan','van'],'للتساوي ← als.'],
+     ['Deze fiets is ___ dan die. (duur)','هذه الدرّاجة أغلى من تلك.',['duurder','duurer','meer duur'],'ينتهي بـ r ← ‑der.'],
+     ['Thee is ___ dan koffie. (goed)','الشاي أفضل من القهوة.',['beter','goeder','meer goed'],'goed شاذة ← beter.'],
+     ['Hij is ouder ___ ik.','هو أكبر سناً مني.',['dan','als','van'],'للفرق ← dan.']]}
+];
+/* Keeps Dutch runs inside Arabic text in left-to-right order (<bdi>), also across <b>…</b>. Input is our own trusted markup. */
+function bidi(s){
+  const out=[];let grp=null;
+  const flush=()=>{if(!grp)return;let g=grp;grp=null;const pre=[],post=[];
+    while(g.length&&g[0].t==='tag'){pre.push(g.shift().v)}
+    let open=0;const need=[];g.forEach(x=>{if(x.t==='tag'){if(/^<\//.test(x.v)){if(open)open--;else need.push(x)}else open++}});
+    while(g.length&&g[g.length-1].t==='tag'){const x=g[g.length-1];if(/^<\//.test(x.v)&&need.includes(x)){post.unshift(g.pop().v)}else if(!/^<\//.test(x.v)){post.unshift(g.pop().v)}else break}
+    let txt=g.map(x=>x.v).join('');const tr=txt.match(/[\s,.]*$/)[0];txt=txt.slice(0,txt.length-tr.length);
+    out.push(pre.join('')+'<bdi lang="nl" dir="ltr">'+txt+'</bdi>'+tr+post.join(''))};
+  String(s).split(/(<[^>]+>)/).forEach(seg=>{if(!seg)return;
+    if(seg[0]==='<'){if(grp)grp.push({t:'tag',v:seg});else out.push(seg);return}
+    seg.split(/([A-Za-zÀ-ÿ‘’'][A-Za-zÀ-ÿ‘’'0-9 .,!?…\/→\-]*)/).forEach((p,k)=>{if(!p)return;
+      if(k%2){if(!grp)grp=[];grp.push({t:'L',v:p})}else if(grp&&/^\s+$/.test(p))grp.push({t:'L',v:p});else{flush();out.push(p)}})});
+  flush();return out.join('');
+}
+const gramState=id=>((gs.gram||{})[id])||null;
+const gStars=r=>r>=1?3:r>=.8?2:r>=.6?1:0;
+const gramDone=l=>GRAM.filter(g=>g.lvl===l).every(g=>{const s=gramState(g.id);return s&&s.b>=.8});
+const gramNext=()=>GRAM.find(g=>{const s=gramState(g.id);return !s||s.b<.8});
+const gramSection=()=>{const nx=gramNext(),passed=GRAM.filter(g=>{const s=gramState(g.id);return s&&s.b>=.8}).length;
+  return `<section>
+    <h2>القواعد خطوة خطوة</h2>
+    <p class="lead">درس قصير لكل قاعدة: شرح بالعربية، وجدول، وأمثلة بالصوت، والأخطاء التي يقع فيها العرب عادةً، ثم تمرين. أتقنت ${passed} من ${GRAM.length}.</p>
+    ${LV.map(l=>`<h3 class="gl">المستوى ${l}${gramDone(l)?' ✓':''}</h3><div class="themes">${GRAM.filter(g=>g.lvl===l).map(g=>{const s=gramState(g.id),stars=s?gStars(s.b):0;
+      return `<button class="theme${nx&&nx.id===g.id?' hot':''}" data-g="${g.id}"><span class="ic" aria-hidden="true">${g.ic}</span><span><span class="nm">${bidi(esc(g.t))}</span><span class="meta">${s?`<span aria-label="${stars} من 3 نجوم">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</span> · أفضل نتيجة ${Math.round(s.b*100)}%`:nx&&nx.id===g.id?'الدرس التالي المقترح':'لم تبدأه بعد'}</span></span></button>`}).join('')}</div>`).join('')}
+    <details class="why"><summary>ما الذي سيأتي بعد A1؟</summary>${ROADHTML()}</details>
+  </section>`};
+function gramLesson(g){
+  const L=()=>{rerender=L;
+    app.innerHTML=`<div class="card">
+      <div class="head"><span class="chip">${g.ic} قواعد ${g.lvl}</span><span lang="nl" dir="ltr">${esc(g.nl)}</span></div>
+      <h1 style="margin-top:10px">${bidi(esc(g.t))}</h1>
+      ${g.p.map(t=>`<p>${bidi(t)}</p>`).join('')}
+      <div class="gtw"><table class="gt">${g.tb.map(r=>`<tr><td lang="nl" dir="ltr">${esc(r[0])}</td><td>${bidi(esc(r[1]))}</td></tr>`).join('')}</table></div>
+      <h2 class="gl">أمثلة</h2>
+      ${g.ex.map((e,k)=>`<div class="ex"><div class="nl" lang="nl" dir="ltr">${esc(e[0])}</div><div class="ar">${esc(e[1])}</div><div class="tools" style="justify-content:flex-start"><button class="tbtn" data-e="${k}">${SPK} اسمع</button></div></div>`).join('')}
+      <div class="gwarn"><b>انتبه: خطأ شائع عند العرب</b>${g.x.map(x=>`<div class="gx"><span class="bad" lang="nl" dir="ltr"><span aria-hidden="true">✗</span> ${esc(x[0])}</span><span class="good" lang="nl" dir="ltr"><span aria-hidden="true">✓</span> ${esc(x[1])}</span></div>`).join('')}</div>
+      <p class="note">💡 ${bidi(g.tip)}</p>
+      <div class="row" style="justify-content:center"><button class="btn" id="go">تدرّب الآن (${g.q.length} أسئلة)</button></div></div>
+      <div class="row"><button class="btn ghost" id="q">الخروج إلى الرئيسية</button></div>`;
+    app.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>say(g.ex[+b.dataset.e][0]));
+    document.getElementById('go').onclick=()=>gramQuiz(g);document.getElementById('q').onclick=()=>go(home);
+  };
+  go(L);
+}
+function gramQuiz(g){
+  const items=shuffle(g.q);let i=0,ok=0;const miss=[];
+  const q=()=>{rerender=q;if(i>=items.length)return end();
+    const it=items[i],opts=shuffle(it[2].map((o,k)=>({o,k})));
+    const sent=it[0]?`<div class="ex cz" lang="nl" dir="ltr">${esc(it[0]).replace('___','<span class="gap" id="gap">____</span>')}</div>`:'';
+    app.innerHTML=`<div class="card">
+      <div class="head"><span class="chip">${g.ic} ${bidi(esc(g.t))}</span><span>${i+1} من ${items.length}</span></div>
+      <div class="prog" role="progressbar" aria-label="التقدّم في التمرين" aria-valuemin="0" aria-valuemax="${items.length}" aria-valuenow="${i}"><i style="width:${Math.round(i/items.length*100)}%"></i></div>
+      ${sent}<p class="q">${bidi(esc(it[1]))}</p>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt nl" lang="nl" dir="ltr" data-k="${x.k}"><span class="kn" aria-hidden="true">${k+1}</span><span class="lbl">${esc(x.o)}</span></button>`).join('')}</div>
+      <div id="fb"></div></div>
+      <div class="row"><button class="btn ghost" id="q">رجوع إلى الدرس</button></div>`;
+    document.getElementById('q').onclick=()=>gramLesson(g);
+    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const right=b.dataset.k==='0';if(right)ok++;else miss.push(it);
+      app.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.k==='0')x.classList.add('ok');else if(x===b)x.classList.add('bad')});
+      const gp=document.getElementById('gap');if(gp){gp.textContent=it[2][0];gp.classList.add(right?'ok':'bad')}
+      document.getElementById('fb').innerHTML=`<div class="fb ${right?'is-ok':'is-bad'}" role="status"><b>${right?PRAISE[Math.floor(Math.random()*PRAISE.length)]+' ✓':'الصحيح: '}</b>${right?'':nlS(it[2][0],'nlw')}<p style="margin:6px 0 0">${bidi(esc(it[3]))}</p></div>
+        <div class="row"><button class="btn" id="nx">${i+1<items.length?'السؤال التالي':'اعرض النتيجة'}</button><button class="tbtn" id="sx" aria-label="اسمع الجواب">${SPK} اسمع</button></div>`;
+      const said=it[0]?it[0].replace(/\s*\(.*\)\s*$/,'').replace('___',it[2][0]):it[2][0];
+      document.getElementById('sx').onclick=()=>say(said);
+      document.getElementById('nx').onclick=()=>{i++;q();window.scrollTo(0,0)};document.getElementById('nx').focus({preventScroll:true});
+    });
+  };
+  const end=()=>{rerender=end;const r=ok/items.length,old=gramState(g.id);
+    gs.gram=gs.gram||{};gs.gram[g.id]={b:Math.max(r,old?old.b:0),n:(old?old.n:0)+1,d:today()};gSave();const nb=checkBadges();
+    const stars=gStars(r),nx=gramNext();
+    app.innerHTML=`<div class="card result">${badgeHtml(nb)}<p class="lead" style="margin:0">${bidi(esc(g.t))}</p><div class="big">${ok}/${items.length}</div>
+      <p style="font-size:1.6em;margin:4px 0" aria-label="${stars} من 3 نجوم">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</p>
+      <p>${r>=1?'ممتاز! أتقنت هذه القاعدة.':r>=.8?'أحسنت! نجحت في هذه القاعدة.':'جيد كبداية. اقرأ الشرح مرة أخرى ثم أعد التمرين؛ النجاح من 80%.'}</p>
+      ${miss.length?`<div class="mile"><p class="cel">راجع هذه:</p>${miss.map(m=>`<p>${nlS(m[0]?m[0].replace('___',m[2][0]).replace(/\s*\(.*\)\s*$/,''):m[2][0],'nlw')}<br><small>${bidi(esc(m[3]))}</small></p>`).join('')}</div>`:''}
+      <div class="row" style="justify-content:center">${r<.8?'<button class="btn" id="les">اقرأ الشرح مرة أخرى</button>':nx?`<button class="btn" id="nxt">الدرس التالي</button>`:''}<button class="btn ghost" id="again">أعد التمرين</button><button class="btn ghost" id="h">الرئيسية</button></div></div>`;
+    const $=id=>document.getElementById(id);
+    if($('les'))$('les').onclick=()=>gramLesson(g);if($('nxt'))$('nxt').onclick=()=>gramLesson(nx);
+    $('again').onclick=()=>gramQuiz(g);$('h').onclick=()=>go(home);
+    ($('les')||$('nxt')||$('again')).focus({preventScroll:true});
+  };
+  go(q);
+}
+/* Road map after A1 (filled from the NT2 syllabus study in خطة/منهج_القواعد_والكتب.md) */
+const ROAD=[
+ ['A2 (امتحان الاندماج)','الماضي البسيط (werkte، ging)، والجملة التابعة والفعل في آخرها (omdat، dat، als، toen)، والفرق بين want وomdat، والجملة الموصولة (die، dat)، والتفضيل (best، meest)، وzullen وzou للأدب، وte مع المصدر.'],
+ ['B1 (Staatsexamen I)','المبني للمجهول (worden)، والشرط (als، zou)، وكل أدوات الربط (hoewel، zodat، nadat)، والأفعال مع حروف جر ثابتة (wachten op، denken aan)، وer مع حرف الجر (erop، eraan)، وom … te، والرسالة الرسمية.'],
+ ['B2 (Staatsexamen II)','المجهول مع الأفعال المساعدة، وكل وظائف er، وتحويل الفعل إلى اسم، والشرط في الماضي، والتعبيرات الثابتة، والفرق بين الأسلوب الرسمي والعادي، وإملاء d وt وdt.'],
+ ['C1 (CNaVT)','الأسلوب الأكاديمي والإداري، وسلاسل الأفعال الطويلة، وأدوات الربط المتقدمة (desalniettemin، daarentegen)، والأمثال والتعبيرات، والعرض والنقاش وكتابة الملخّص.']];
+const ROADHTML=()=>ROAD.length?'<p>نتبع ترتيب كتب تعليم الهولندية المعتمدة حتى المستوى C1، ونضيف دروساً جديدة كل شهر:</p>'+ROAD.map(r=>`<p><b>${bidi(r[0])}:</b> ${bidi(esc(r[1]))}</p>`).join(''):'<p>نضيف القواعد التالية شهراً بعد شهر حتى المستوى C1.</p>';
 
 /* ---------- Word list ---------- */
 function words(th){
