@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-M5e92VqC6V2fWK0Tj1LYa13l7HqNAb1LHgbW7bn4yW8=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-3q1wujkMjehbOu9paTi1X2OaiYirXjjnV7xU9c8+kWU=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location.href}catch(e){document.documentElement.style.display='none'}}</script>
 <meta charset="utf-8">
@@ -1060,7 +1060,8 @@ const BADGES=[
  {id:'gramA0',ic:'🧱',n:'أساس متين',d:'نجحت في كل دروس قواعد المستوى A0.',t:()=>gramDone('A0')},
  {id:'gramA1',ic:'🏛️',n:'قواعد A1',d:'نجحت في كل دروس قواعد المستوى A1.',t:()=>gramDone('A1')},
  {id:'gramA2',ic:'🗝️',n:'قواعد A2',d:'نجحت في كل دروس قواعد المستوى A2، مستوى امتحان الاندماج.',t:()=>gramDone('A2')},
- {id:'gramB1',ic:'🦁',n:'قواعد B1',d:'نجحت في كل دروس قواعد المستوى B1، مستوى Staatsexamen I.',t:()=>gramDone('B1')}
+ {id:'gramB1',ic:'🦁',n:'قواعد B1',d:'نجحت في كل دروس قواعد المستوى B1، مستوى Staatsexamen I.',t:()=>gramDone('B1')},
+ {id:'gramB2',ic:'🦅',n:'قواعد B2',d:'نجحت في كل دروس قواعد المستوى B2، مستوى Staatsexamen II.',t:()=>gramDone('B2')}
 ];
 /* returns the badges earned just now (and remembers them) */
 function checkBadges(){
@@ -1946,24 +1947,162 @@ const GRAM=[
   q:[['','كيف تبدأ رسالة رسمية إلى البلدية؟',['Geachte heer/mevrouw,','Hoi allemaal,','Hallo gemeente,'],'الرسالة الرسمية ← Geachte heer/mevrouw.'],
      ['','كيف تختم رسالة رسمية؟',['Met vriendelijke groet,','Doei!','Groetjes,'],'الختام الرسمي ← Met vriendelijke groet.'],
      ['Ik schrijf ___ omdat mijn huur te hoog is.','أكتب إليكم لأن إيجاري مرتفع جداً.',['u','jij','jullie'],'في الرسالة الرسمية ← u.'],
-     ['','اختر الطلب الأكثر أدباً: هل يمكنكم أن ترسلوا لي الاستمارة؟',['Kunt u mij het formulier sturen?','Stuur mij het formulier!','Ik wil het formulier nu.'],'طلب مؤدّب ← Kunt u…?']]}
+     ['','اختر الطلب الأكثر أدباً: هل يمكنكم أن ترسلوا لي الاستمارة؟',['Kunt u mij het formulier sturen?','Stuur mij het formulier!','Ik wil het formulier nu.'],'طلب مؤدّب ← Kunt u…?']]},
+ {id:'g46',lvl:'B2',ic:'⚙️',t:'المجهول مع moet و kan: moet worden ingevuld',nl:'Passief met een modaal werkwoord',
+  p:['مع فعل ناقص (moeten، kunnen، mogen) يبقى المجهول بـ <b>worden</b> في الآخر: Het formulier <b>moet worden ingevuld</b>.','الترتيبان صحيحان: moet worden ingevuld، أو moet ingevuld worden.','لما كان يجب أن يحدث ولم يحدث: <b>had moeten worden</b> + اسم المفعول.'],
+  tb:[['Het formulier moet worden ingevuld.','يجب أن تُملأ الاستمارة.'],['De rekening kan online worden betaald.','يمكن دفع الفاتورة عبر الإنترنت.'],['Hier mag niet worden gerookt.','لا يُسمح بالتدخين هنا.'],['Dit had eerder moeten worden opgelost.','كان يجب أن يُحَلّ هذا قبل ذلك.']],
+  ex:[['Uw paspoort moet binnen twee weken worden verlengd.','يجب أن يُجدَّد جوازك خلال أسبوعين.']],
+  x:[['Het formulier moet zijn ingevuld worden.','Het formulier moet worden ingevuld.']],
+  tip:'هذه الجمل كثيرة في رسائل المؤسسات: …moet worden betaald، …kan worden aangevraagd.',
+  q:[['Het formulier moet vóór 1 mei ___ ingevuld.','يجب أن تُملأ الاستمارة قبل 1 أيار.',['worden','zijn','hebben'],'فعل ناقص + مجهول ← worden.'],
+     ['De rekening kan online ___ betaald.','يمكن دفع الفاتورة عبر الإنترنت.',['worden','zijn','word'],'بعد kan ← المصدر worden.'],
+     ['Dit ___ eerder moeten worden opgelost.','كان يجب أن يُحَلّ هذا قبل ذلك.',['had','was','is'],'كان يجب ولم يحدث ← had moeten worden.'],
+     ['Mag hier gerookt ___?','هل يُسمح بالتدخين هنا؟',['worden','zijn','hebben'],'mag + مجهول ← worden.']]},
+ {id:'g47',lvl:'B2',ic:'📣',t:'المجهول بلا فاعل: er wordt gezegd',nl:'Onpersoonlijk passief met er',
+  p:['عندما لا يهمّ من يفعل، ولا يوجد شيء مفعول به، نقول: <b>Er wordt</b> + اسم المفعول: Er wordt hier veel gefietst.','الفعل wordt يبقى مفرداً دائماً في هذه الجملة.','عبارة مهمّة: <b>Er wordt gezegd dat…</b> = يُقال إنّ…'],
+  tb:[['Er wordt hier veel gefietst.','يُكثَر من ركوب الدرّاجة هنا.'],['Er wordt gezegd dat de huren stijgen.','يُقال إن الإيجارات سترتفع.'],['Er werd lang vergaderd.','استمرّ الاجتماع طويلاً.']],
+  ex:[['In de bibliotheek wordt er niet hard gepraat.','لا يُتكلَّم بصوت عالٍ في المكتبة.']],
+  x:[['Het wordt hier hard gewerkt.','Er wordt hier hard gewerkt.']],
+  tip:'إذا بدأت الجملة بالمكان أو الزمن، يمكن أن يأتي er بعد الفعل: Hier wordt er veel gefietst.',
+  q:[['___ wordt gezegd dat de huren stijgen.','يُقال إن الإيجارات سترتفع.',['Er','Het','Hij'],'المجهول بلا فاعل ← Er wordt.'],
+     ['Er ___ in Nederland veel gefietst.','يُكثَر من ركوب الدرّاجة في هولندا.',['wordt','worden','is'],'بلا فاعل ← wordt مفرد دائماً.'],
+     ['','اختر الجملة الصحيحة: يُعمل هنا بجدّ.',['Er wordt hier hard gewerkt.','Het wordt hier hard gewerkt.','Er is hier hard werken.'],'Er wordt + اسم المفعول.'],
+     ['Tijdens de les ___ er niet gepraat.','لا يُتكلَّم أثناء الدرس.',['wordt','worden','heeft'],'بلا فاعل ← wordt.']]},
+ {id:'g48',lvl:'B2',ic:'🎭',t:'كل استعمالات er',nl:'De functies van er',
+  p:['لكلمة <b>er</b> خمسة استعمالات مهمّة:','1. فاعل مؤخّر مع النكرة: <b>Er</b> is een probleem.','2. المكان (هناك): Ik woon <b>er</b> al jaren.','3. مع العدد: Ik heb <b>er</b> drie.','4. مع حرف الجر: Ik denk <b>eraan</b>.','5. مع المجهول: <b>Er</b> wordt gebeld.'],
+  tb:[['Er staat een man voor de deur.','يقف رجل أمام الباب.'],['Ken je Utrecht? Ik woon er.','هل تعرف أوترخت؟ أسكن فيها.'],['Hoeveel kinderen heb je? Ik heb er twee.','كم ولداً عندك؟ عندي اثنان.'],['Ik ben er blij mee.','أنا سعيد به.'],['Er wordt gebeld.','أحدٌ يرنّ الجرس.']],
+  ex:[['Er zijn in onze straat drie winkels, maar ik ga er zelden heen.','في شارعنا ثلاثة متاجر، لكني نادراً ما أذهب إليها.']],
+  x:[['Ik heb drie.','Ik heb er drie.'],['Is een probleem.','Er is een probleem.']],
+  tip:'مع العدد لا تنسَ er أبداً: Ik heb er twee.',
+  q:[['Hoeveel broers heb je? Ik heb ___ twee.','كم أخاً عندك؟ عندي اثنان.',['er','het','ze'],'مع العدد ← er.'],
+     ['Ken je Rotterdam? Ja, ik woon ___ al jaren.','هل تعرف روتردام؟ نعم، أسكن فيها منذ سنوات.',['er','het','hem'],'المكان ← er.'],
+     ['___ staat een man voor de deur.','يقف رجل أمام الباب.',['Er','Het','Hij'],'فاعل نكرة مؤخّر ← er.'],
+     ['Heb je nog appels? Ja, ik heb ___ nog vijf.','هل عندك تفاح بعد؟ نعم، عندي خمس.',['er','ze','het'],'مع العدد ← er.'],
+     ['','اختر الجملة الصحيحة: يوجد كثير من الناس هنا.',['Er zijn hier veel mensen.','Zijn hier veel mensen.','Het zijn hier veel mensen.'],'فاعل نكرة ← Er zijn.']]},
+ {id:'g49',lvl:'B2',ic:'🔤',t:'تحويل الفعل والصفة إلى اسم',nl:'Nominalisatie',
+  p:['المصدر يصير اسماً مع <b>het</b>: het lezen (القراءة)، het betalen (الدفع).','لواحق شائعة: <b>‑ing</b> (de betaling، de verhuizing)، <b>‑heid</b> (de vrijheid، de gezondheid)، <b>‑te</b> (de lengte، de breedte). وكلها كلمات de.','هذا الأسلوب كثير في الرسائل الرسمية: Na ontvangst van uw betaling…'],
+  tb:[['betalen → de betaling','يدفع ← الدفع'],['verhuizen → de verhuizing','ينتقل ← الانتقال'],['vrij → de vrijheid','حرّ ← الحرية'],['gezond → de gezondheid','صحّي ← الصحة'],['lang → de lengte','طويل ← الطول'],['lezen → het lezen','يقرأ ← القراءة']],
+  ex:[['Het leren van een taal kost tijd.','تعلّم لغةٍ يستغرق وقتاً.']],
+  x:[['De leren van een taal…','Het leren van een taal…']],
+  tip:'المصدر كاسم يأخذ het دائماً، والكلمات بـ ‑ing و‑heid تأخذ de دائماً.',
+  q:[['De ___ moet vóór 1 juni binnen zijn. (betalen)','يجب أن يصل الدفع قبل 1 حزيران.',['betaling','betalen','betaal'],'‑ing ← de betaling.'],
+     ['___ van Nederlands kost tijd. (leren)','تعلّم الهولندية يستغرق وقتاً.',['Het leren','De leren','De leer'],'المصدر كاسم ← het.'],
+     ['De ___ van de kamer is vier meter. (lang)','طول الغرفة أربعة أمتار.',['lengte','langheid','langte'],'lang ← de lengte.'],
+     ['Je ___ is het belangrijkst. (gezond)','صحتك هي الأهم.',['gezondheid','gezondte','gezonding'],'gezond ← de gezondheid.']]},
+ {id:'g50',lvl:'B2',ic:'🏷️',t:'الدرّاجة المسروقة: اسم المفعول صفةً',nl:'Deelwoorden als bijvoeglijk naamwoord',
+  p:['اسم المفعول يصير صفة قبل الاسم، ويأخذ ‑e مثل كل صفة: het ingevuld<b>e</b> formulier.','اسم المفعول الذي ينتهي بـ ‑en لا يتغيّر: de <b>gestolen</b> fiets.','اسم الفاعل = المصدر + d: lachend (ضاحكاً)، de huilend<b>e</b> baby (الطفل الباكي).'],
+  tb:[['de gestolen fiets','الدرّاجة المسروقة'],['het ingevulde formulier','الاستمارة المملوءة'],['een ingevuld formulier','استمارة مملوءة'],['de huilende baby','الطفل الباكي'],['Hij kwam lachend binnen.','دخل ضاحكاً.']],
+  ex:[['Stuur het ondertekende contract vóór vrijdag terug.','أعِد العقد الموقَّع قبل يوم الجمعة.']],
+  x:[['de gestolene fiets','de gestolen fiets']],
+  tip:'قاعدة الصفة نفسها: een ingevuld formulier (كلمة het مع een) بلا ‑e.',
+  q:[['Stuur het ___ formulier terug. (invullen)','أعِد الاستمارة المملوءة.',['ingevulde','ingevuld','invullende'],'قبل اسم معرّف ← ‑e.'],
+     ['Ik heb de ___ fiets teruggevonden. (stelen)','وجدت الدرّاجة المسروقة.',['gestolen','gestolene','stelende'],'‑en لا يتغيّر.'],
+     ['De ___ baby wil eten. (huilen)','الطفل الباكي يريد أن يأكل.',['huilende','gehuilde','huilend'],'اسم الفاعل قبل الاسم ← huilende.'],
+     ['Hij kwam ___ binnen. (lachen)','دخل ضاحكاً.',['lachend','gelachen','lachende'],'بعد الفعل ← lachend، بلا ‑e.']]},
+ {id:'g51',lvl:'B2',ic:'😔',t:'لو كنت عرفت…: had geweten',nl:'Irreële voorwaarde in het verleden',
+  p:['لشيء لم يحدث في الماضي: <b>als</b> + had أو was + اسم المفعول.','والجملة الثانية: had أو was + اسم المفعول، أو zou + hebben أو zijn + اسم المفعول.','وللندم: <b>Had ik maar…</b> = ليتني…'],
+  tb:[['Als ik het had geweten, was ik gekomen.','لو كنت أعرف لأتيت.'],['Als ik het had geweten, zou ik gekomen zijn.','لو كنت أعرف لأتيت (المعنى نفسه).'],['Als je had gebeld, had ik je geholpen.','لو اتصلت لساعدتك.'],['Had ik maar harder gestudeerd!','ليتني درست أكثر!']],
+  ex:[['Als ik eerder Nederlands had geleerd, had ik sneller werk gevonden.','لو تعلّمت الهولندية أبكر، لوجدت عملاً أسرع.']],
+  x:[['Als ik het wist, was ik gekomen.','Als ik het had geweten, was ik gekomen.']],
+  tip:'had مع أفعال hebben، و was مع أفعال zijn، كما في perfectum.',
+  q:[['Als ik het ___ geweten, was ik eerder gekomen.','لو كنت أعرف لأتيت أبكر.',['had','was','zou'],'weten مع hebben ← had geweten.'],
+     ['Als je had gebeld, ___ ik je geholpen.','لو اتصلت لساعدتك.',['had','was','heb'],'helpen مع hebben ← had geholpen.'],
+     ['Als de bus op tijd was gekomen, ___ ik niet te laat geweest.','لو أتت الحافلة في وقتها لما تأخّرت.',['was','had','ben'],'zijn مع zijn ← was geweest.'],
+     ['___ ik maar eerder Nederlands geleerd!','ليتني تعلّمت الهولندية أبكر!',['Had','Was','Zou'],'leren مع hebben ← Had ik maar.']]},
+ {id:'g52',lvl:'B2',ic:'⚖️',t:'إلا إذا، بشرط، لا… ولا…',nl:'Tenzij, mits, zowel … als, noch … noch',
+  p:['<b>tenzij</b> = إلا إذا، و<b>mits</b> = بشرط أن. كلتاهما تبدأ جملة تابعة، فالفعل في آخرها.','<b>zowel … als</b> = كلٌّ من … و…، <b>noch … noch</b> = لا … ولا…، <b>niet alleen … maar ook</b> = ليس فقط … بل أيضاً.'],
+  tb:[['Ik kom, tenzij ik ziek ben.','سآتي إلا إذا كنت مريضاً.'],['Je mag mee, mits je op tijd bent.','يمكنك أن تأتي بشرط أن تكون في الوقت.'],['Hij spreekt zowel Arabisch als Nederlands.','يتكلّم العربية والهولندية كلتيهما.'],['Ik heb noch tijd noch geld.','ليس عندي لا وقت ولا مال.'],['Zij is niet alleen slim, maar ook aardig.','ليست ذكية فقط، بل لطيفة أيضاً.']],
+  ex:[['De cursus is gratis, mits u zich vóór 1 maart aanmeldt.','الدورة مجانية بشرط أن تسجّل قبل 1 آذار.']],
+  x:[['tenzij ik ben ziek','tenzij ik ziek ben']],
+  tip:'noch … noch لا تحتاج إلى niet أو geen معها.',
+  q:[['Ik kom morgen, ___ ik ziek ben.','سآتي غداً إلا إذا كنت مريضاً.',['tenzij','mits','zowel'],'إلا إذا ← tenzij.'],
+     ['Je mag mee, ___ je op tijd bent.','يمكنك أن تأتي بشرط أن تكون في الوقت.',['mits','tenzij','noch'],'بشرط أن ← mits.'],
+     ['Hij spreekt ___ Arabisch als Nederlands.','يتكلّم العربية والهولندية كلتيهما.',['zowel','noch','niet'],'كلٌّ من … و… ← zowel … als.'],
+     ['Ik heb ___ tijd noch geld.','ليس عندي لا وقت ولا مال.',['noch','zowel','geen'],'لا … ولا… ← noch … noch.'],
+     ['Zij is niet alleen slim, ___ ook aardig.','ليست ذكية فقط، بل لطيفة أيضاً.',['maar','want','dus'],'niet alleen … maar ook.']]},
+ {id:'g53',lvl:'B2',ic:'🛤️',t:'دون أن، بدلاً من أن، بأن…',nl:'Zonder te, in plaats van te, door te',
+  p:['<b>zonder te</b> + المصدر = دون أن: Hij ging weg zonder iets te zeggen.','<b>in plaats van te</b> + المصدر = بدلاً من أن.','<b>door te</b> + المصدر = عن طريق، بأن: Door elke dag te oefenen, leer je snel.'],
+  tb:[['zonder iets te zeggen','دون أن يقول شيئاً'],['in plaats van te bellen','بدلاً من أن يتصل'],['door elke dag te oefenen','بالتمرّن كل يوم']],
+  ex:[['Hij kwam binnen zonder te kloppen.','دخل دون أن يطرق الباب.']],
+  x:[['zonder zeggen iets','zonder iets te zeggen']],
+  tip:'المصدر و te في آخر الجملة الصغيرة، مثل om … te.',
+  q:[['Hij ging weg zonder iets ___ zeggen.','ذهب دون أن يقول شيئاً.',['te','om','door'],'zonder … te + المصدر.'],
+     ['___ elke dag te oefenen, leer je snel.','بالتمرّن كل يوم تتعلّم بسرعة.',['Door','Zonder','In plaats van'],'عن طريق ← door … te.'],
+     ['In plaats van ___ bellen, stuurde hij een mail.','بدلاً من أن يتصل أرسل إيميلاً.',['te','om','door'],'in plaats van te + المصدر.'],
+     ['','اختر الجملة الصحيحة: دخل دون أن يطرق الباب.',['Hij kwam binnen zonder te kloppen.','Hij kwam binnen zonder kloppen te.','Hij kwam binnen zonder om te kloppen.'],'zonder te + المصدر.']]},
+ {id:'g54',lvl:'B2',ic:'📌',t:'صفات مع حرف جر ثابت',nl:'Bijvoeglijke naamwoorden met een vast voorzetsel',
+  p:['مثل الأفعال، صفات كثيرة يأتي معها حرف جر ثابت.','احفظ الصفة مع حرف الجر معاً، ولا تترجم من العربية.'],
+  tb:[['trots op','فخور بـ'],['verantwoordelijk voor','مسؤول عن'],['gewend aan','معتاد على'],['afhankelijk van','معتمد على'],['geïnteresseerd in','مهتمّ بـ'],['boos op (iemand)','غاضب من (شخص)']],
+  ex:[['Ik ben inmiddels gewend aan het Nederlandse weer.','اعتدت الآن على الطقس الهولندي.']],
+  x:[['Ik ben trots met mijn zoon.','Ik ben trots op mijn zoon.']],
+  tip:'«مسؤول عن» بالعربية = verantwoordelijk voor، وليس over.',
+  q:[['Ik ben trots ___ mijn kinderen.','أنا فخور بأولادي.',['op','aan','met'],'trots op.'],
+     ['Wie is verantwoordelijk ___ de planning?','من المسؤول عن التخطيط؟',['voor','over','van'],'verantwoordelijk voor.'],
+     ['Ik ben nog niet gewend ___ de kou.','لم أعتد البرد بعد.',['aan','op','met'],'gewend aan.'],
+     ['Hij is afhankelijk ___ zijn ouders.','هو معتمد على والديه.',['van','op','aan'],'afhankelijk van.'],
+     ['Ben je geïnteresseerd ___ deze baan?','هل أنت مهتمّ بهذه الوظيفة؟',['in','voor','aan'],'geïnteresseerd in.']]},
+ {id:'g55',lvl:'B2',ic:'🤜',t:'كلمات تأتي معاً: een besluit nemen',nl:'Vaste combinaties',
+  p:['في كل لغة كلمات تأتي معاً دائماً. بالعربية «نتّخذ قراراً»، وبالهولندية «نأخذ» قراراً: een besluit <b>nemen</b>.','الترجمة الحرفية من العربية أو الإنجليزية تعطي غالباً خطأً، فاحفظ العبارة كاملة.'],
+  tb:[['een besluit nemen','يتّخذ قراراً'],['een vraag stellen','يطرح سؤالاً'],['een afspraak maken','يحدّد موعداً'],['rekening houden met','يأخذ بالحسبان'],['aandacht besteden aan','يهتمّ بـ'],['een rol spelen','يلعب دوراً'],['een fout maken','يرتكب خطأً']],
+  ex:[['We moeten rekening houden met de kosten.','يجب أن نأخذ التكاليف بالحسبان.']],
+  x:[['een besluit maken','een besluit nemen'],['een vraag vragen','een vraag stellen']],
+  tip:'اكتب في دفترك العبارة كاملة، لا الكلمة وحدها.',
+  q:[['Ik moet vandaag een besluit ___.','يجب أن أتّخذ قراراً اليوم.',['nemen','maken','doen'],'een besluit nemen.'],
+     ['Mag ik u een vraag ___?','هل يمكنني أن أطرح عليك سؤالاً؟',['stellen','vragen','maken'],'een vraag stellen.'],
+     ['Je moet ___ houden met het weer.','يجب أن تأخذ الطقس بالحسبان.',['rekening','aandacht','zorg'],'rekening houden met.'],
+     ['Taal ___ een grote rol bij integratie.','تلعب اللغة دوراً كبيراً في الاندماج.',['speelt','doet','maakt'],'een rol spelen.'],
+     ['Ik heb een fout ___.','ارتكبت خطأً.',['gemaakt','gedaan','genomen'],'een fout maken.']]},
+ {id:'g56',lvl:'B2',ic:'🎩',t:'اللغة الرسمية',nl:'Formeel en informeel taalgebruik',
+  p:['في الرسائل الرسمية والتقارير نختار كلمات أكثر رسمية من كلام كل يوم.','echter (لكنّ) تأتي غالباً بعد الفعل: Dit is <b>echter</b> niet mogelijk.','لا تبالغ: الجملة القصيرة الواضحة أفضل من الجملة الطويلة الصعبة.'],
+  tb:[['krijgen → ontvangen','يحصل على ← يتلقّى'],['omdat → aangezien','لأنّ ← بما أنّ'],['maar → echter','لكنْ ← غير أنّ'],['vragen → verzoeken','يطلب ← يرجو'],['ook → eveneens','أيضاً'],['over → betreffende','عن ← بخصوص']],
+  ex:[['Aangezien de verwarming nog steeds kapot is, verzoek ik u een monteur te sturen.','بما أن التدفئة ما زالت معطّلة، أرجو منكم أن ترسلوا فنّياً.']],
+  x:[['Hoi, ik heb jullie brief gekregen.','Geachte heer/mevrouw, ik heb uw brief ontvangen.']],
+  tip:'مع verzoeken نستعمل te + المصدر: Ik verzoek u mij te bellen.',
+  q:[['Ik heb uw brief in goede orde ___.','اختر الكلمة الرسمية: تلقّيت رسالتكم.',['ontvangen','gekregen','gehad'],'الصيغة الرسمية ← ontvangen.'],
+     ['Ik ___ u vriendelijk mij te bellen.','أرجو منكم أن تتصلوا بي.',['verzoek','wil','zeg'],'الطلب الرسمي ← Ik verzoek u … te.'],
+     ['___ de huur te hoog is, wil ik graag een gesprek.','بما أن الإيجار مرتفع جداً، أودّ لقاءً.',['Aangezien','Echter','Eveneens'],'بما أنّ ← aangezien.'],
+     ['Dit is ___ niet mogelijk.','غير أنّ هذا غير ممكن.',['echter','maar','eveneens'],'echter بعد الفعل.']]},
+ {id:'g57',lvl:'B2',ic:'✍️',t:'الإملاء: d أو t أو dt',nl:'Spelling: d, t of dt',
+  p:['القاعدة: ابدأ بالجذر (المصدر بلا en)، ثم أضف t حيث تلزم. إذا انتهى الجذر بـ d صارت الكتابة <b>dt</b>: hij wor<b>dt</b>، hij vin<b>dt</b>.','في السؤال مع jij لا نضيف t: Word jij…?','واسم المفعول من \'t kofschip: gebeurd (حدث)، أما الحاضر: het gebeurt (يحدث).'],
+  tb:[['ik word','أصير'],['jij wordt / word jij?','تصير / هل تصير؟'],['hij wordt','يصير'],['ik vind / hij vindt','أجد / يجد'],['Het is gebeurd.','حدث (اسم مفعول)'],['Het gebeurt vaak.','يحدث كثيراً (حاضر)']],
+  ex:[['Wat is er gebeurd? Het gebeurt niet vaak.','ماذا حدث؟ هذا لا يحدث كثيراً.']],
+  x:[['Hij word boos.','Hij wordt boos.'],['Wordt je moe?','Word je moe?']],
+  tip:'حيلة: ضع الفعل lopen مكانه. hij loopt ← hij wordt؛ loop jij? ← word jij?',
+  q:[['Hij ___ morgen dertig. (worden)','يصير عمره ثلاثين سنة غداً.',['wordt','word','wort'],'hij + الجذر word + t ← wordt.'],
+     ['___ jij ook moe? (worden)','هل تتعب أنت أيضاً؟',['Word','Wordt','Wort'],'jij بعد الفعل ← بلا t.'],
+     ['Wat is er ___? (gebeuren)','ماذا حدث؟',['gebeurd','gebeurt','gebeurdt'],'اسم مفعول ← gebeurd.'],
+     ['Dat ___ elke dag. (gebeuren)','هذا يحدث كل يوم.',['gebeurt','gebeurd','gebeurdt'],'حاضر مع dat ← gebeurt.'],
+     ['Zij ___ het een goed idee. (vinden)','هي تجده فكرة جيدة.',['vindt','vind','vint'],'vind + t ← vindt.']]},
+ {id:'g58',lvl:'B2',ic:'🗣️',t:'كتابة الرأي: أولاً، إضافةً إلى ذلك…',nl:'Een betoog schrijven',
+  p:['في B2 تكتب نصاً تعطي فيه رأيك مع أسباب: مقدمة، ثم الأسباب، ثم الخلاصة.','بعد Ten eerste و Daarnaast و Ten slotte و Volgens mij يأتي الفعل مباشرة (المكان الثاني): Ten eerste <b>is</b> het goedkoop.'],
+  tb:[['Ten eerste…','أولاً…'],['Daarnaast…','إضافةً إلى ذلك…'],['Ten slotte…','أخيراً…'],['Volgens mij…','برأيي…'],['Aan de ene kant… aan de andere kant…','من جهة… ومن جهة أخرى…'],['Kortom…','باختصار…']],
+  ex:[['Volgens mij is de trein beter dan de auto. Ten eerste is hij goedkoper. Daarnaast is hij beter voor het milieu.','برأيي القطار أفضل من السيارة. أولاً هو أرخص. وإضافةً إلى ذلك هو أفضل للبيئة.']],
+  x:[['Ten eerste het is goedkoop.','Ten eerste is het goedkoop.']],
+  tip:'كل فقرة = فكرة واحدة مع مثال.',
+  q:[['','اختر الجملة الصحيحة: أولاً، هو رخيص.',['Ten eerste is het goedkoop.','Ten eerste het is goedkoop.','Ten eerste goedkoop het is.'],'بعد Ten eerste ← الفعل مباشرة.'],
+     ['___ is thuiswerken een goed idee.','برأيي العمل من البيت فكرة جيدة.',['Volgens mij','Ik denk','Kortom ik'],'Volgens mij ثم الفعل is.'],
+     ['Ten eerste is het duur. ___ is het slecht voor het milieu.','أولاً هو غالٍ. وإضافةً إلى ذلك هو سيّئ للبيئة.',['Daarnaast','Kortom','Ten eerste'],'إضافة سبب ← Daarnaast.'],
+     ['','اختر الجملة الصحيحة: أخيراً، هو أسرع.',['Ten slotte is het sneller.','Ten slotte het is sneller.','Ten slotte sneller is het.'],'بعد Ten slotte ← الفعل مباشرة.']]}
 ];
 /* Keeps Dutch runs inside Arabic text in left-to-right order (<bdi>), also across <b>…</b>. Input is our own trusted markup. */
 function bidi(s){
-  const out=[];let grp=null;
-  const flush=()=>{if(!grp)return;let g=grp;grp=null;const pre=[],post=[];
-    while(g.length&&g[0].t==='tag'){pre.push(g.shift().v)}
-    let open=0;const need=[];g.forEach(x=>{if(x.t==='tag'){if(/^<\//.test(x.v)){if(open)open--;else need.push(x)}else open++}});
-    while(g.length&&g[g.length-1].t==='tag'){const x=g[g.length-1];if(/^<\//.test(x.v)&&need.includes(x)){post.unshift(g.pop().v)}else if(!/^<\//.test(x.v)){post.unshift(g.pop().v)}else break}
-    let txt=g.map(x=>x.v).join('');const tr=txt.match(/[\s,.]*$/)[0];txt=txt.slice(0,txt.length-tr.length);
+  const out=[];let grp=null;const LAT=/^[A-Za-zÀ-ÿ‘’']/;
+  const flush=()=>{if(!grp)return;const g=grp;grp=null;
+    /* pair <b>…</b> inside the run; only unpaired tags at the edges go outside the <bdi> */
+    const st=[];g.forEach((x,i)=>{if(x.t!=='tag')return;if(/^<\//.test(x.v)){if(st.length){g[st.pop()].m=1;x.m=1}}else st.push(i)});
+    let i0=0,i1=g.length;const pre=[],post=[];
+    while(i0<i1&&g[i0].t==='tag'&&!g[i0].m)pre.push(g[i0++].v);
+    while(i1>i0&&g[i1-1].t==='tag'&&!g[i1-1].m)post.unshift(g[--i1].v);
+    let txt=g.slice(i0,i1).map(x=>x.v).join('');const tr=txt.match(/[\s,.]*$/)[0];txt=txt.slice(0,txt.length-tr.length);
     out.push(pre.join('')+'<bdi lang="nl" dir="ltr">'+txt+'</bdi>'+tr+post.join(''))};
-  String(s).split(/(<[^>]+>)/).forEach(seg=>{if(!seg)return;
-    if(seg[0]==='<'){if(grp)grp.push({t:'tag',v:seg});else out.push(seg);return}
+  const segs=String(s).split(/(<[^>]+>)/).filter(Boolean);
+  segs.forEach((seg,i)=>{
+    if(seg[0]==='<'){if(grp)grp.push({t:'tag',v:seg});else if(!/^<\//.test(seg)&&segs[i+1]&&LAT.test(segs[i+1]))grp=[{t:'tag',v:seg}];else out.push(seg);return}
     seg.split(/([A-Za-zÀ-ÿ‘’'][A-Za-zÀ-ÿ‘’'0-9 .,!?…\/→\-]*)/).forEach((p,k)=>{if(!p)return;
       if(k%2){if(!grp)grp=[];grp.push({t:'L',v:p})}else if(grp&&/^\s+$/.test(p))grp.push({t:'L',v:p});else{flush();out.push(p)}})});
   flush();return out.join('');
 }
-const GL=['A0','A1','A2','B1'];
+const GL=['A0','A1','A2','B1','B2'];
 const gramState=id=>((gs.gram||{})[id])||null;
 const gStars=r=>r>=1?3:r>=.8?2:r>=.6?1:0;
 const gramDone=l=>GRAM.filter(g=>g.lvl===l).every(g=>{const s=gramState(g.id);return s&&s.b>=.8});
@@ -1974,7 +2113,7 @@ const gramSection=()=>{const nx=gramNext(),passed=GRAM.filter(g=>{const s=gramSt
     <p class="lead">درس قصير لكل قاعدة: شرح بالعربية، وجدول، وأمثلة بالصوت، والأخطاء التي يقع فيها العرب عادةً، ثم تمرين. أتقنت ${passed} من ${GRAM.length}.</p>
     ${GL.map(l=>`<h3 class="gl">المستوى ${l}${gramDone(l)?' ✓':''}</h3><div class="themes">${GRAM.filter(g=>g.lvl===l).map(g=>{const s=gramState(g.id),stars=s?gStars(s.b):0;
       return `<button class="theme${nx&&nx.id===g.id?' hot':''}" data-g="${g.id}"><span class="ic" aria-hidden="true">${g.ic}</span><span><span class="nm">${bidi(esc(g.t))}</span><span class="meta">${s?`<span aria-label="${stars} من 3 نجوم">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</span> · أفضل نتيجة ${Math.round(s.b*100)}%`:nx&&nx.id===g.id?'الدرس التالي المقترح':'لم تبدأه بعد'}</span></span></button>`}).join('')}</div>`).join('')}
-    <details class="why"><summary>ما الذي سيأتي بعد B1؟</summary>${ROADHTML()}</details>
+    <details class="why"><summary>ما الذي سيأتي بعد B2؟</summary>${ROADHTML()}</details>
   </section>`};
 function gramLesson(g){
   const L=()=>{rerender=L;
@@ -2034,7 +2173,6 @@ function gramQuiz(g){
 }
 /* Road map after A1 (filled from the NT2 syllabus study in خطة/منهج_القواعد_والكتب.md) */
 const ROAD=[
- ['B2 (Staatsexamen II)','المجهول مع الأفعال المساعدة، وكل وظائف er، وتحويل الفعل إلى اسم، والشرط في الماضي، والتعبيرات الثابتة، والفرق بين الأسلوب الرسمي والعادي، وإملاء d و t و dt.'],
  ['C1 (CNaVT)','الأسلوب الأكاديمي والإداري، وسلاسل الأفعال الطويلة، وأدوات الربط المتقدمة (desalniettemin، daarentegen)، والأمثال والتعبيرات، والعرض والنقاش وكتابة الملخّص.']];
 const ROADHTML=()=>ROAD.length?'<p>نتبع ترتيب كتب تعليم الهولندية المعتمدة حتى المستوى C1، ونضيف دروساً جديدة كل شهر:</p>'+ROAD.map(r=>`<p><b>${bidi(r[0])}:</b> ${bidi(esc(r[1]))}</p>`).join(''):'<p>نضيف القواعد التالية شهراً بعد شهر حتى المستوى C1.</p>';
 
