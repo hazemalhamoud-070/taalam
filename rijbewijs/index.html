@@ -1,5 +1,5 @@
 <!doctype html><html lang="ar" dir="rtl"><head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-0hPWx9iiEuOGkTJUwM8MiWT8MxE/NXEf+0xBoMo1PVc=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-+N6FTCC9g/dHsV9LF5Td3LAHitoyCvq+T54lqo3ba94=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location.href}catch(e){document.documentElement.style.display='none'}}</script><meta charset=utf8><title>امتحان القيادة النظري بالعربية | مدرسة الطريق</title>
 <meta name="description" content="تحضير امتحان CBR النظري لرخصة القيادة B بالعربية والتركية والهولندية: أسئلة مع صور، شرح لكل جواب، وامتحان تجريبي من 50 سؤالاً في 30 دقيقة.">
@@ -1826,9 +1826,22 @@ function quiz(list0,label){
 }
 
 /* ---------- Mock exam ---------- */
+/* Like CBR theory exam B (since 7-4-2025): 50 questions, one part, 30 min, pass 44.
+   Fixed share per topic (voorrang, borden, snelweg heavier), 3-5 new-kind questions, no duplicates. */
+const EXAM_QUOTA={prio:8,signs:6,highway:5,speed:4,light:4,overtake:4,park:4,safe:4,car:3,police:3,law:3,exam:2};
+function examPick(N){
+  const used=new Set(),out=[],need=Object.assign({},EXAM_QUOTA);
+  const take=q=>{used.add(q);out.push(q);if(need[q.t]>0)need[q.t]--};
+  const special=shuffle(Q.filter(q=>kind(q)!=='one')),K=3+Math.floor(Math.random()*3);
+  for(const k of shuffle(['num','multi','order','spot'])){if(out.length>=K)break;const q=special.find(x=>kind(x)===k&&!used.has(x)&&need[x.t]>0);if(q)take(q)}
+  for(const q of special){if(out.length>=K)break;if(!used.has(q)&&need[q.t]>0)take(q)}
+  for(const t in need){const pool=shuffle(Q.filter(q=>q.t===t&&kind(q)==='one'&&!used.has(q)));while(need[t]>0&&pool.length)take(pool.pop())}
+  [...shuffle(Q.filter(q=>kind(q)==='one')),...shuffle(Q)].forEach(q=>{if(out.length<N&&!used.has(q))take(q)});
+  return shuffle(out).slice(0,N);
+}
 function exam(){
   clearTimer();
-  const N=Math.min(50,Q.length),PASS=44,list=shuffle(Q).slice(0,N),ans=new Array(N).fill(null);
+  const N=Math.min(50,Q.length),PASS=44,list=examPick(N),ans=new Array(N).fill(null);
   const orders=list.map(q=>q.L.ar[1]===YN.ar?[...q.L.ar[1].keys()]:shuffle([...q.L.ar[1].keys()]));inExam=true;
   let i=0,left=30*60;const calm=!!st.set.calm;
   const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
