@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' 'sha256-t4TVV2aZrwhtBfBOZRScTmYcdXIos070qLfl1O7oFP0=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-M5e92VqC6V2fWK0Tj1LYa13l7HqNAb1LHgbW7bn4yW8=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location.href}catch(e){document.documentElement.style.display='none'}}</script>
 <meta charset="utf-8">
@@ -1059,7 +1059,8 @@ const BADGES=[
  {id:'gram1',ic:'📐',n:'أول قاعدة',d:'نجحت في أول درس قواعد.',t:()=>GRAM.some(g=>{const s=gramState(g.id);return s&&s.b>=.8})},
  {id:'gramA0',ic:'🧱',n:'أساس متين',d:'نجحت في كل دروس قواعد المستوى A0.',t:()=>gramDone('A0')},
  {id:'gramA1',ic:'🏛️',n:'قواعد A1',d:'نجحت في كل دروس قواعد المستوى A1.',t:()=>gramDone('A1')},
- {id:'gramA2',ic:'🗝️',n:'قواعد A2',d:'نجحت في كل دروس قواعد المستوى A2، مستوى امتحان الاندماج.',t:()=>gramDone('A2')}
+ {id:'gramA2',ic:'🗝️',n:'قواعد A2',d:'نجحت في كل دروس قواعد المستوى A2، مستوى امتحان الاندماج.',t:()=>gramDone('A2')},
+ {id:'gramB1',ic:'🦁',n:'قواعد B1',d:'نجحت في كل دروس قواعد المستوى B1، مستوى Staatsexamen I.',t:()=>gramDone('B1')}
 ];
 /* returns the badges earned just now (and remembers them) */
 function checkBadges(){
@@ -1812,7 +1813,140 @@ const GRAM=[
      ['Ik heb ___ gegeten.','لم آكل شيئاً.',['niets','niemand','geen'],'لا شيء ← niets.'],
      ['Iedereen ___ blij.','الجميع سعداء.',['is','zijn','ben'],'iedereen مفرد ← is.'],
      ['Wil je ___ drinken?','هل تريد أن تشرب شيئاً؟',['iets','iemand','alles'],'شيء ← iets.'],
-     ['Ik heb iets ___ gekocht. (lekker)','اشتريت شيئاً لذيذاً.',['lekkers','lekker','lekkere'],'بعد iets ← الصفة + s.']]}
+     ['Ik heb iets ___ gekocht. (lekker)','اشتريت شيئاً لذيذاً.',['lekkers','lekker','lekkere'],'بعد iets ← الصفة + s.']]},
+ {id:'g33',lvl:'B1',ic:'🏗️',t:'المبني للمجهول: wordt gemaakt',nl:'De passieve vorm',
+  p:['في المبني للمجهول لا يهمّنا من فعل الشيء، بل ما حدث: Het formulier <b>wordt</b> morgen <b>gecontroleerd</b>.','الحاضر: <b>worden</b> + اسم المفعول في الآخر. الماضي البسيط: <b>werd</b> أو <b>werden</b>.','الماضي التام: <b>zijn</b> + اسم المفعول، بلا geworden: Het huis <b>is</b> verkocht.','ومن فعل الشيء نذكره بعد <b>door</b>: door de gemeente.'],
+  tb:[['De brief wordt verstuurd.','تُرسَل الرسالة.'],['De brief werd gisteren verstuurd.','أُرسلت الرسالة أمس.'],['De brief is verstuurd.','أُرسلت الرسالة (انتهى الأمر).'],['Het huis wordt door de woningcorporatie gerenoveerd.','تجدّد مؤسسة السكن البيت.']],
+  ex:[['Uw aanvraag wordt binnen acht weken behandeld.','يُنظر في طلبك خلال ثمانية أسابيع.'],['De afspraak is verzet.','نُقل الموعد إلى وقت آخر.']],
+  x:[['Het huis is verkocht geworden.','Het huis is verkocht.'],['Het formulier wordt gecontroleerd morgen.','Het formulier wordt morgen gecontroleerd.']],
+  tip:'هذه الصيغة كثيرة في رسائل البلدية و DUO والبنك، فتعلّمها جيداً.',
+  q:[['Het pakket ___ morgen bezorgd.','سيُوصَل الطرد غداً.',['wordt','is','heeft'],'حاضر مجهول ← wordt + اسم المفعول.'],
+     ['De pakketten ___ morgen bezorgd.','ستُوصَل الطرود غداً.',['worden','wordt','hebben'],'الجمع ← worden.'],
+     ['Het huis is vorig jaar ___.','بيع البيت السنة الماضية.',['verkocht','verkocht geworden','verkopen'],'perfectum مجهول ← is + اسم المفعول، بلا geworden.'],
+     ['De brief ___ gisteren door de gemeente verstuurd.','أرسلت البلدية الرسالة أمس.',['werd','wordt','worden'],'ماضٍ بسيط مجهول مفرد ← werd.'],
+     ['De nieuwe school wordt ___ de gemeente gebouwd.','تبني البلدية المدرسة الجديدة.',['door','van','met'],'الفاعل في المجهول ← door.']]},
+ {id:'g34',lvl:'B1',ic:'⏮️',t:'كان قد…: had gegeten',nl:'Het plusquamperfectum',
+  p:['لحدث وقع <b>قبل</b> حدث آخر في الماضي: <b>had</b> أو <b>was</b> + اسم المفعول.','نختار had أو was كما في perfectum: Ik <b>had</b> al gegeten. Hij <b>was</b> al vertrokken.'],
+  tb:[['Ik had al gegeten.','كنت قد أكلت.'],['Zij was al vertrokken.','كانت قد غادرت.'],['Toen ik aankwam, was de bus al weg.','عندما وصلتُ كانت الحافلة قد ذهبت.']],
+  ex:[['Ik had nog nooit sneeuw gezien, voordat ik naar Nederland kwam.','لم أكن قد رأيت الثلج قبل أن آتي إلى هولندا.']],
+  x:[['Ik was al gegeten.','Ik had al gegeten.']],
+  tip:'had مع الأفعال التي تأخذ hebben، و was مع الأفعال التي تأخذ zijn.',
+  q:[['Toen ik belde, ___ hij al vertrokken.','عندما اتصلت كان قد غادر.',['was','had','is'],'vertrekken مع zijn ← was.'],
+     ['Ik ___ het formulier al ingevuld.','كنت قد ملأت الاستمارة.',['had','was','ben'],'invullen مع hebben ← had.'],
+     ['Wij hadden de film al ___. (zien)','كنّا قد رأينا الفيلم.',['gezien','zagen','gezient'],'اسم المفعول ← gezien.'],
+     ['Toen we op het station kwamen, ___ de trein al weg.','عندما وصلنا إلى المحطة كان القطار قد ذهب.',['was','had','werd'],'weg zijn ← was.']]},
+ {id:'g35',lvl:'B1',ic:'💭',t:'لو كنت…: als و zou',nl:'Voorwaardelijke zinnen',
+  p:['شرط ممكن: <b>als</b> + الحاضر: Als ik tijd heb, kom ik.','شرط غير واقعي (لو): <b>als</b> + الماضي البسيط، ثم <b>zou</b> + المصدر: Als ik meer geld <b>had</b>, <b>zou</b> ik een auto <b>kopen</b>.','للنصيحة: <b>Als ik jou was</b>, zou ik…'],
+  tb:[['Als het regent, blijf ik thuis.','إذا أمطرت، أبقى في البيت.'],['Als ik rijk was, zou ik een huis kopen.','لو كنت غنياً لاشتريت بيتاً.'],['Als ik jou was, zou ik de huisarts bellen.','لو كنت مكانك لاتصلت بطبيب العائلة.']],
+  ex:[['Als ik beter Nederlands sprak, zou ik makkelijker werk vinden.','لو كنت أتكلّم الهولندية أفضل لوجدت عملاً بسهولة أكبر.']],
+  x:[['Als ik rijk ben, zou ik een huis kopen.','Als ik rijk was, zou ik een huis kopen.']],
+  tip:'لو (غير واقعي) ← الماضي بعد als، و zou في الجملة الثانية.',
+  q:[['Als ik meer tijd ___, zou ik een cursus volgen.','لو كان عندي وقت أكثر لتابعت دورة.',['had','heb','hebben'],'غير واقعي ← الماضي: had.'],
+     ['Als ik jou ___, zou ik het vragen.','لو كنت مكانك لسألت.',['was','ben','zou'],'عبارة ثابتة: Als ik jou was.'],
+     ['Als het morgen mooi weer is, ___ we naar het strand.','إذا كان الطقس جميلاً غداً، نذهب إلى الشاطئ.',['gaan','zouden','gingen'],'شرط ممكن ← الحاضر.'],
+     ['Als ik een auto had, ___ ik je ophalen.','لو كانت عندي سيارة لجئت لآخذك.',['zou','zal','wil'],'غير واقعي ← zou.']]},
+ {id:'g36',lvl:'B1',ic:'🪢',t:'أدوات الربط: hoewel، zodat، zodra…',nl:'Onderschikkende voegwoorden',
+  p:['كل هذه الأدوات تبدأ جملة تابعة، فالفعل في آخرها:','<b>hoewel</b> مع أنّ، <b>zodat</b> لكي، <b>voordat</b> قبل أن، <b>nadat</b> بعد أن، <b>sinds</b> منذ، <b>totdat</b> إلى أن، <b>zodra</b> حالما، <b>doordat</b> بسبب.'],
+  tb:[['hoewel','مع أنّ'],['zodat','لكي، بحيث'],['voordat','قبل أن'],['nadat','بعد أن'],['sinds','منذ'],['totdat','إلى أن'],['zodra','حالما'],['doordat','بسبب (سبب لم يقصده أحد)']],
+  ex:[['Ik bel je zodra ik thuis ben.','سأتصل بك حالما أصل إلى البيت.'],['Hoewel het regende, gingen we wandelen.','مع أنها كانت تمطر، ذهبنا نتمشّى.']],
+  x:[['hoewel ik ben moe','hoewel ik moe ben']],
+  tip:'doordat لسبب لم يقصده أحد: Doordat de trein vertraging had, kwam ik te laat.',
+  q:[['Ik bel je ___ ik thuis ben.','سأتصل بك حالما أصل إلى البيت.',['zodra','hoewel','doordat'],'حالما ← zodra.'],
+     ['___ het regende, gingen we toch wandelen.','مع أنها كانت تمطر، ذهبنا نتمشّى.',['Hoewel','Zodat','Nadat'],'مع أنّ ← hoewel.'],
+     ['Ik spreek langzaam, ___ iedereen het begrijpt.','أتكلّم ببطء لكي يفهم الجميع.',['zodat','sinds','totdat'],'لكي ← zodat.'],
+     ['___ ik in Nederland woon, fiets ik veel.','منذ أن سكنت في هولندا وأنا أركب الدرّاجة كثيراً.',['Sinds','Totdat','Voordat'],'منذ ← sinds.'],
+     ['Ik kwam te laat, ___ de trein vertraging had.','وصلت متأخراً بسبب تأخّر القطار.',['doordat','hoewel','zodat'],'سبب لم يقصده أحد ← doordat.']]},
+ {id:'g37',lvl:'B1',ic:'🔄',t:'الجملة التابعة في أول الكلام',nl:'Bijzin vooraan: inversie',
+  p:['إذا بدأ الكلام بجملة تابعة، فهي كلها تأخذ المكان الأول. بعد الفاصلة يأتي <b>فعل الجملة الرئيسية</b> مباشرة، ثم الفاعل.','الشكل: [الجملة التابعة]، الفعل + الفاعل + الباقي.'],
+  tb:[['Omdat ik ziek ben, blijf ik thuis.','لأنني مريض أبقى في البيت.'],['Als je hulp nodig hebt, kun je bellen.','إذا احتجت إلى مساعدة يمكنك أن تتصل.'],['Nadat ik had gegeten, ging ik slapen.','بعد أن أكلت ذهبت لأنام.']],
+  ex:[['Zodra de brief binnen is, stuur ik hem naar je door.','حالما تصل الرسالة سأرسلها إليك.']],
+  x:[['Omdat ik ziek ben, ik blijf thuis.','Omdat ik ziek ben, blijf ik thuis.']],
+  tip:'بعد الفاصلة: الفعل ثم الفاعل (blijf ik، kun je).',
+  q:[['','اختر الجملة الصحيحة: لأنني مريض أبقى في البيت.',['Omdat ik ziek ben, blijf ik thuis.','Omdat ik ziek ben, ik blijf thuis.','Omdat ik ben ziek, blijf ik thuis.'],'التابعة أولاً، ثم الفعل blijf، ثم ik.'],
+     ['','اختر الجملة الصحيحة: إذا كان عندك وقت، يمكنك أن تأتي.',['Als je tijd hebt, kun je komen.','Als je tijd hebt, je kunt komen.','Als je hebt tijd, kun je komen.'],'بعد الفاصلة ← kun je.'],
+     ['','اختر الجملة الصحيحة: بعد أن عملت ذهبت إلى البيت.',['Nadat ik had gewerkt, ging ik naar huis.','Nadat ik had gewerkt, ik ging naar huis.','Nadat had ik gewerkt, ging ik naar huis.'],'بعد الفاصلة ← ging ik.'],
+     ['','اختر الجملة الصحيحة: مع أنه متعب، فهو يعمل.',['Hoewel hij moe is, werkt hij.','Hoewel hij moe is, hij werkt.','Hoewel hij is moe, werkt hij.'],'الفعل is في آخر التابعة، ثم werkt hij.']]},
+ {id:'g38',lvl:'B1',ic:'🧩',t:'الذي … معه: met wie، waarin',nl:'Betrekkelijke voornaamwoorden met voorzetsel',
+  p:['إذا جاء حرف جر مع «الذي»: للأشخاص نقول <b>حرف الجر + wie</b>: de man <b>met wie</b> ik praat.','وللأشياء نقول <b>waar + حرف الجر</b> في كلمة واحدة: het huis <b>waarin</b> ik woon.'],
+  tb:[['de collega met wie ik werk','الزميل الذي أعمل معه'],['de vriend aan wie ik denk','الصديق الذي أفكّر فيه'],['het huis waarin ik woon','البيت الذي أسكن فيه'],['het onderwerp waarover we praten','الموضوع الذي نتحدّث عنه']],
+  ex:[['Dit is de cursus waarvoor ik me heb aangemeld.','هذه الدورة التي سجّلت فيها.']],
+  x:[['de man die ik mee praat','de man met wie ik praat']],
+  tip:'في الكلام تسمع أحياناً waar … in مفصولتين، لكن في الكتابة اكتبها كلمة واحدة: waarin.',
+  q:[['De vrouw ___ ik gisteren sprak, is mijn docent.','المرأة التي تكلّمت معها أمس أستاذتي.',['met wie','met die','die met'],'شخص مع حرف جر ← met wie.'],
+     ['Het huis ___ wij wonen, is oud.','البيت الذي نسكن فيه قديم.',['waarin','in wie','in dat'],'شيء مع حرف جر ← waarin.'],
+     ['Het probleem ___ we praten, is groot.','المشكلة التي نتحدّث عنها كبيرة.',['waarover','over wie','over die'],'شيء + over ← waarover.'],
+     ['De man op ___ ik wacht, is te laat.','الرجل الذي أنتظره تأخّر.',['wie','die','wat'],'شخص بعد حرف الجر ← wie.']]},
+ {id:'g39',lvl:'B1',ic:'📎',t:'أفعال مع حرف جر ثابت',nl:'Werkwoorden met een vast voorzetsel',
+  p:['أفعال كثيرة يأتي معها حرف جر ثابت، وغالباً لا يشبه حرف الجر في العربية.','احفظ الفعل مع حرف الجر معاً، مثل كلمة واحدة.'],
+  tb:[['wachten op','ينتظر'],['denken aan','يفكّر في'],['zorgen voor','يعتني بـ'],['houden van','يحبّ'],['luisteren naar','يستمع إلى'],['praten over','يتحدّث عن'],['vragen om','يطلب'],['solliciteren naar','يتقدّم لوظيفة'],['zich ergeren aan','ينزعج من']],
+  ex:[['Ik wacht op de bus.','أنتظر الحافلة.'],['Ik solliciteer naar een baan als kok.','أتقدّم لوظيفة طبّاخ.']],
+  x:[['Ik wacht voor de bus.','Ik wacht op de bus.'],['Ik luister de radio.','Ik luister naar de radio.']],
+  tip:'في العربية «ينتظر» بلا حرف جر، وفي الهولندية wachten op. لا تترجم حرفياً.',
+  q:[['Ik wacht ___ mijn vriend.','أنتظر صديقي.',['op','voor','aan'],'wachten op.'],
+     ['Zij zorgt ___ haar moeder.','تعتني بأمها.',['voor','aan','op'],'zorgen voor.'],
+     ['Ik denk vaak ___ mijn familie in Syrië.','أفكّر كثيراً في عائلتي في سوريا.',['aan','op','van'],'denken aan.'],
+     ['Hij luistert ___ de radio.','يستمع إلى الراديو.',['naar','aan','op'],'luisteren naar.'],
+     ['Ik heb ___ een nieuwe baan gesolliciteerd.','تقدّمت لوظيفة جديدة.',['naar','voor','op'],'solliciteren naar.']]},
+ {id:'g40',lvl:'B1',ic:'🔁',t:'كلمة er مع حرف الجر: erop، eraan',nl:'Er + voorzetsel',
+  p:['للأشياء لا نقول «حرف الجر + het»، بل <b>er + حرف الجر</b>: Ik wacht <b>erop</b> (أنتظره)، Ik denk <b>eraan</b> (أفكّر فيه).','للأشخاص نستعمل الضمير: Ik wacht op <b>hem</b>.','في الجملة الطويلة ينفصلان: Ik heb <b>er</b> lang <b>over</b> nagedacht.','وفي السؤال: <b>waar</b> + حرف الجر: Waar wacht je op?'],
+  tb:[['op de bus → erop','على الحافلة ← عليها'],['aan het examen → eraan','في الامتحان ← فيه'],['met de computer → ermee','بالكمبيوتر ← به'],['over het probleem → erover','عن المشكلة ← عنها']],
+  ex:[['Denk je aan de afspraak? Ja, ik denk eraan.','هل تتذكّر الموعد؟ نعم، أتذكّره.'],['Ik ben er blij mee.','أنا سعيد به.']],
+  x:[['Ik denk aan het.','Ik denk eraan.'],['Ik wacht op het.','Ik wacht erop.']],
+  tip:'بدل aan het أو op het بمعنى «فيه» أو «عليه» قل eraan أو erop.',
+  q:[['Heb je de brief gelezen? Ja, ik heb al ___ gereageerd.','هل قرأت الرسالة؟ نعم، رددت عليها.',['erop','op het','op hij'],'شيء + op ← erop.'],
+     ['Wacht je op Ahmed? Ja, ik wacht ___.','هل تنتظر أحمد؟ نعم، أنتظره.',['op hem','erop','op het'],'شخص ← op hem.'],
+     ['___ wacht je op?','ماذا تنتظر؟',['Waar','Wat','Wie'],'سؤال عن شيء مع حرف جر ← Waar … op.'],
+     ['Ik heb er lang ___ nagedacht.','فكّرت في ذلك طويلاً.',['over','aan','op'],'nadenken over ← er … over.']]},
+ {id:'g41',lvl:'B1',ic:'🚃',t:'عدة أفعال في آخر الجملة',nl:'Werkwoordclusters',
+  p:['عندما يجتمع أكثر من فعل: الفعل المساعد في المكان الثاني، والأفعال الأخرى في الآخر: <b>الفعل الناقص ثم الفعل الأساسي</b>، وكلاهما بالمصدر.','في perfectum مع فعل ناقص نستعمل <b>المصدر</b> لا اسم المفعول: Ik heb niet <b>kunnen</b> komen، لا gekund.'],
+  tb:[['Ik heb niet kunnen komen.','لم أستطع أن آتي.'],['Hij heeft moeten werken.','اضطرّ أن يعمل.'],['Ik zal je morgen kunnen helpen.','سأستطيع أن أساعدك غداً.']],
+  ex:[['Ik had eerder willen bellen, maar ik was ziek.','كنت أريد أن أتصل قبل ذلك، لكني كنت مريضاً.']],
+  x:[['Ik heb niet gekund komen.','Ik heb niet kunnen komen.']],
+  tip:'heb أو heeft + kunnen أو moeten أو willen + المصدر. لا تقل gekund أو gemoeten هنا.',
+  q:[['Ik heb gisteren niet ___ komen.','لم أستطع أن آتي أمس.',['kunnen','gekund','kan'],'perfectum مع فعل ناقص ← المصدر kunnen.'],
+     ['Hij heeft lang moeten ___. (wachten)','اضطرّ أن ينتظر طويلاً.',['wachten','gewacht','wacht'],'آخر فعل ← المصدر.'],
+     ['','اختر الجملة الصحيحة: اضطررت أن أعمل.',['Ik heb moeten werken.','Ik heb gemoeten werken.','Ik heb werken gemoeten.'],'heb + moeten + werken.'],
+     ['','اختر الجملة الصحيحة: سأستطيع أن أساعدك غداً.',['Ik zal je morgen kunnen helpen.','Ik zal je kunnen morgen helpen.','Ik kan je morgen zal helpen.'],'zal في المكان الثاني، و kunnen helpen في الآخر.']]},
+ {id:'g42',lvl:'B1',ic:'🪞',t:'الأفعال مع zich: ik voel me',nl:'Wederkerende werkwoorden',
+  p:['بعض الأفعال تأتي مع <b>zich</b> (نفسه): zich voelen (يشعر)، zich herinneren (يتذكّر)، zich vergissen (يخطئ)، zich aanmelden (يسجّل نفسه)، zich haasten (يستعجل).','ضمير zich يتغيّر مع الفاعل: ik <b>me</b>، jij <b>je</b>، hij و zij <b>zich</b>، wij <b>ons</b>، jullie <b>je</b>، zij (هم) <b>zich</b>.'],
+  tb:[['ik voel me','أشعر'],['jij voelt je','تشعر'],['hij voelt zich','يشعر'],['wij voelen ons','نشعر'],['jullie voelen je','تشعرون'],['zij voelen zich','يشعرون']],
+  ex:[['Ik heb me aangemeld voor de cursus.','سجّلت نفسي في الدورة.'],['Ik herinner me zijn naam niet.','لا أتذكّر اسمه.']],
+  x:[['Ik voel goed.','Ik voel me goed.'],['Wij voelen zich goed.','Wij voelen ons goed.']],
+  tip:'في العربية نقول «أشعر» بلا ضمير، وفي الهولندية لا بدّ منه: Ik voel me.',
+  q:[['Ik voel ___ niet lekker.','لا أشعر أنني بخير.',['me','zich','mijn'],'مع ik ← me.'],
+     ['Wij hebben ___ aangemeld voor de cursus.','سجّلنا أنفسنا في الدورة.',['ons','zich','onze'],'مع wij ← ons.'],
+     ['Hij vergist ___.','هو مخطئ.',['zich','hem','me'],'مع hij ← zich.'],
+     ['Herinner jij ___ haar naam?','هل تتذكّر اسمها؟',['je','zich','jouw'],'مع jij ← je.']]},
+ {id:'g43',lvl:'B1',ic:'🎯',t:'لكي: om … te',nl:'Om … te + infinitief',
+  p:['للغاية (لكي): <b>om</b> … <b>te</b> + المصدر في الآخر: Ik leer Nederlands <b>om</b> werk <b>te</b> vinden.','لا تقل voor te.'],
+  tb:[['Ik spaar om een auto te kopen.','أدّخر لكي أشتري سيارة.'],['Ik ga naar de bibliotheek om te studeren.','أذهب إلى المكتبة لكي أدرس.'],['Hij belt om een afspraak te maken.','يتصل لكي يأخذ موعداً.']],
+  ex:[['Je hebt DigiD nodig om in te loggen.','تحتاج إلى DigiD لكي تسجّل الدخول.']],
+  x:[['Ik leer voor te werken.','Ik leer om te werken.']],
+  tip:'مع الفعل المنفصل تأتي te في الوسط: om in te loggen، om op te bellen.',
+  q:[['Ik ga naar de winkel ___ brood te kopen.','أذهب إلى المتجر لكي أشتري خبزاً.',['om','voor','te'],'لكي ← om … te.'],
+     ['Ik spaar geld om een fiets ___ kopen.','أدّخر المال لكي أشتري درّاجة.',['te','om','voor'],'om … te + المصدر.'],
+     ['','اختر الجملة الصحيحة: أتعلّم الهولندية لكي أجد عملاً.',['Ik leer Nederlands om werk te vinden.','Ik leer Nederlands voor werk te vinden.','Ik leer Nederlands om te werk vinden.'],'om + الكلمات + te + المصدر.'],
+     ['','اختر الجملة الصحيحة: تحتاج إلى DigiD لكي تسجّل الدخول.',['Je hebt DigiD nodig om in te loggen.','Je hebt DigiD nodig om te inloggen.','Je hebt DigiD nodig voor in te loggen.'],'فعل منفصل ← om in te loggen.']]},
+ {id:'g44',lvl:'B1',ic:'🌉',t:'لذلك، ومع ذلك: daarom، toch',nl:'Verbindingswoorden: daarom, toch, bovendien',
+  p:['هذه الكلمات تربط بين جملتين، لكنها <b>ليست</b> أدوات جملة تابعة: إذا جاءت أولاً، يأتي الفعل بعدها مباشرة.','<b>daarom</b> لذلك، <b>toch</b> ومع ذلك، <b>bovendien</b> وفوق ذلك، <b>daarna</b> بعد ذلك، <b>eerst</b> أولاً، <b>tenslotte</b> أخيراً.'],
+  tb:[['Ik was ziek. Daarom ben ik thuisgebleven.','كنت مريضاً، لذلك بقيت في البيت.'],['Het regende. Toch gingen we wandelen.','كانت تمطر، ومع ذلك ذهبنا نتمشّى.'],['De woning is groot. Bovendien is de huur laag.','البيت كبير، وفوق ذلك الإيجار منخفض.']],
+  ex:[['Eerst doe ik boodschappen, daarna kook ik.','أولاً أتسوّق، ثم أطبخ.']],
+  x:[['Daarom ik ben thuisgebleven.','Daarom ben ik thuisgebleven.']],
+  tip:'daarom مثل كلمة الزمن في أول الجملة: الفعل بعدها مباشرة.',
+  q:[['','اختر الجملة الصحيحة: لذلك أتعلّم الهولندية.',['Daarom leer ik Nederlands.','Daarom ik leer Nederlands.','Daarom Nederlands ik leer.'],'بعد daarom ← الفعل مباشرة.'],
+     ['Het was koud. ___ gingen we naar buiten.','كان الجو بارداً، ومع ذلك خرجنا.',['Toch','Daarom','Omdat'],'ومع ذلك ← toch.'],
+     ['Ik was ziek. ___ kon ik niet komen.','كنت مريضاً، لذلك لم أستطع أن آتي.',['Daarom','Toch','Hoewel'],'لذلك ← daarom.'],
+     ['De baan is leuk. ___ verdien ik goed.','العمل ممتع، وفوق ذلك أكسب جيداً.',['Bovendien','Toch','Eerst'],'وفوق ذلك ← bovendien.']]},
+ {id:'g45',lvl:'B1',ic:'✉️',t:'الرسالة الرسمية',nl:'De formele brief en e-mail',
+  p:['في امتحان B1 تكتب رسالة رسمية: إيميلاً إلى البلدية، أو شكوى، أو طلباً. لها شكل ثابت من أربعة أجزاء:','<b>1. التحية:</b> Geachte heer/mevrouw، أو Geachte mevrouw De Vries.','<b>2. السبب في الجملة الأولى:</b> Ik schrijf u omdat mijn verwarming kapot is.','<b>3. الطلب بأدب:</b> Kunt u een monteur sturen?','<b>4. الختام:</b> Met vriendelijke groet، ثم اسمك.','استعمل u دائماً، واكتب جملاً قصيرة.'],
+  tb:[['Geachte heer/mevrouw,','حضرة السيد أو السيدة،'],['Ik schrijf u omdat…','أكتب إليكم لأنّ…'],['Ik wil graag een klacht indienen over…','أودّ أن أقدّم شكوى بخصوص…'],['Kunt u mij laten weten…?','هل يمكنكم أن تخبروني…؟'],['Met vriendelijke groet,','مع التحية،']],
+  ex:[['Geachte heer/mevrouw, Ik schrijf u omdat de verwarming in mijn woning al een week kapot is. Kunt u zo snel mogelijk een monteur sturen? Met vriendelijke groet, Ahmed Ali','حضرة السيد أو السيدة، أكتب إليكم لأنّ التدفئة في بيتي معطّلة منذ أسبوع. هل يمكنكم أن ترسلوا فنّياً في أقرب وقت؟ مع التحية، أحمد علي']],
+  x:[['Hoi gemeente,','Geachte heer/mevrouw,'],['Groetjes,','Met vriendelijke groet,']],
+  tip:'جملة أولى تقول لماذا تكتب، وجملة أخيرة تقول ماذا تريد.',
+  q:[['','كيف تبدأ رسالة رسمية إلى البلدية؟',['Geachte heer/mevrouw,','Hoi allemaal,','Hallo gemeente,'],'الرسالة الرسمية ← Geachte heer/mevrouw.'],
+     ['','كيف تختم رسالة رسمية؟',['Met vriendelijke groet,','Doei!','Groetjes,'],'الختام الرسمي ← Met vriendelijke groet.'],
+     ['Ik schrijf ___ omdat mijn huur te hoog is.','أكتب إليكم لأن إيجاري مرتفع جداً.',['u','jij','jullie'],'في الرسالة الرسمية ← u.'],
+     ['','اختر الطلب الأكثر أدباً: هل يمكنكم أن ترسلوا لي الاستمارة؟',['Kunt u mij het formulier sturen?','Stuur mij het formulier!','Ik wil het formulier nu.'],'طلب مؤدّب ← Kunt u…?']]}
 ];
 /* Keeps Dutch runs inside Arabic text in left-to-right order (<bdi>), also across <b>…</b>. Input is our own trusted markup. */
 function bidi(s){
@@ -1829,7 +1963,7 @@ function bidi(s){
       if(k%2){if(!grp)grp=[];grp.push({t:'L',v:p})}else if(grp&&/^\s+$/.test(p))grp.push({t:'L',v:p});else{flush();out.push(p)}})});
   flush();return out.join('');
 }
-const GL=['A0','A1','A2'];
+const GL=['A0','A1','A2','B1'];
 const gramState=id=>((gs.gram||{})[id])||null;
 const gStars=r=>r>=1?3:r>=.8?2:r>=.6?1:0;
 const gramDone=l=>GRAM.filter(g=>g.lvl===l).every(g=>{const s=gramState(g.id);return s&&s.b>=.8});
@@ -1840,7 +1974,7 @@ const gramSection=()=>{const nx=gramNext(),passed=GRAM.filter(g=>{const s=gramSt
     <p class="lead">درس قصير لكل قاعدة: شرح بالعربية، وجدول، وأمثلة بالصوت، والأخطاء التي يقع فيها العرب عادةً، ثم تمرين. أتقنت ${passed} من ${GRAM.length}.</p>
     ${GL.map(l=>`<h3 class="gl">المستوى ${l}${gramDone(l)?' ✓':''}</h3><div class="themes">${GRAM.filter(g=>g.lvl===l).map(g=>{const s=gramState(g.id),stars=s?gStars(s.b):0;
       return `<button class="theme${nx&&nx.id===g.id?' hot':''}" data-g="${g.id}"><span class="ic" aria-hidden="true">${g.ic}</span><span><span class="nm">${bidi(esc(g.t))}</span><span class="meta">${s?`<span aria-label="${stars} من 3 نجوم">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</span> · أفضل نتيجة ${Math.round(s.b*100)}%`:nx&&nx.id===g.id?'الدرس التالي المقترح':'لم تبدأه بعد'}</span></span></button>`}).join('')}</div>`).join('')}
-    <details class="why"><summary>ما الذي سيأتي بعد A2؟</summary>${ROADHTML()}</details>
+    <details class="why"><summary>ما الذي سيأتي بعد B1؟</summary>${ROADHTML()}</details>
   </section>`};
 function gramLesson(g){
   const L=()=>{rerender=L;
@@ -1900,7 +2034,6 @@ function gramQuiz(g){
 }
 /* Road map after A1 (filled from the NT2 syllabus study in خطة/منهج_القواعد_والكتب.md) */
 const ROAD=[
- ['B1 (Staatsexamen I)','المبني للمجهول (worden)، والشرط (als، zou)، وكل أدوات الربط (hoewel، zodat، nadat)، والأفعال مع حروف جر ثابتة (wachten op، denken aan)، و er مع حرف الجر (erop، eraan)، و om … te، والرسالة الرسمية.'],
  ['B2 (Staatsexamen II)','المجهول مع الأفعال المساعدة، وكل وظائف er، وتحويل الفعل إلى اسم، والشرط في الماضي، والتعبيرات الثابتة، والفرق بين الأسلوب الرسمي والعادي، وإملاء d و t و dt.'],
  ['C1 (CNaVT)','الأسلوب الأكاديمي والإداري، وسلاسل الأفعال الطويلة، وأدوات الربط المتقدمة (desalniettemin، daarentegen)، والأمثال والتعبيرات، والعرض والنقاش وكتابة الملخّص.']];
 const ROADHTML=()=>ROAD.length?'<p>نتبع ترتيب كتب تعليم الهولندية المعتمدة حتى المستوى C1، ونضيف دروساً جديدة كل شهر:</p>'+ROAD.map(r=>`<p><b>${bidi(r[0])}:</b> ${bidi(esc(r[1]))}</p>`).join(''):'<p>نضيف القواعد التالية شهراً بعد شهر حتى المستوى C1.</p>';
