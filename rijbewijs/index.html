@@ -1,5 +1,5 @@
 <!doctype html><html lang="ar" dir="rtl"><head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-7Htvop7urgFE6Z6VYMHa+V+M5jwIKHdUZ3/YHmBRuWg=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-CzVD1PKai+rM6oNox8p7RVZaFdFxwgrRDdcZ4O5cnQI=' 'sha256-SiVa8EWPNWLi+AF7O3WtsR0x0dBnLUfu2Thv67cEu+M=' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location.href}catch(e){document.documentElement.style.display='none'}}</script><meta charset=utf8><title>امتحان القيادة النظري بالعربية | مدرسة الطريق</title>
 <meta name="description" content="تحضير امتحان CBR النظري لرخصة القيادة B بالعربية والتركية والهولندية: أسئلة مع صور، شرح لكل جواب، وامتحان تجريبي من 50 سؤالاً في 30 دقيقة.">
@@ -107,6 +107,20 @@ section{margin-top:22px}
 .opt.bad{border-color:var(--bad);background:var(--bad-soft)}
 .opt.pick{border-color:var(--blue);background:var(--blue-soft)}
 .opt.gone{opacity:.35;text-decoration:line-through}
+.khint{color:var(--muted);font-size:.92em;margin:12px 0 8px}
+.numrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.numin{flex:1;min-width:0;max-width:200px;font:inherit;font-size:1.3em;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:inherit;text-align:center}
+.numin.ok{border-color:var(--ok);background:var(--ok-soft)} .numin.bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{font-weight:600}
+.opt .ltr.box{border-radius:6px;border:1.5px solid var(--line);background:var(--card)}
+.spot{max-width:360px;margin:8px auto 0}
+.spot svg{width:100%;height:auto;display:block;border-radius:10px;touch-action:manipulation;cursor:crosshair}
+.hs{fill:transparent;stroke:transparent;cursor:pointer}
+.hs:focus{outline:none}.hs:focus-visible{stroke:#fff;stroke-width:2;stroke-dasharray:4 3}
+.hs.pick{stroke:#3b7bd0;stroke-width:3;fill:rgba(59,123,208,.2)}
+.hs.ok{stroke:#2fa34a;stroke-width:4;fill:rgba(47,163,74,.28)}
+.hs.bad{stroke:#d33;stroke-width:3;fill:rgba(221,51,51,.22)}
+.tapdot{fill:#fff;stroke:#111;stroke-width:1.5}
 .opt[disabled]{cursor:default}
 .why{margin-top:14px;border-inline-start:4px solid var(--yellow);background:var(--bg);border-radius:8px;padding:10px 14px}
 .why b{font-family:var(--f-display)}
@@ -1083,6 +1097,57 @@ RAW.push(
  ['Toprak (asfaltsız) yoldan gelen bir araç asfalt yola çıkıyor. Öncelik kimin?',['Asfalt yoldaki trafiğin','Sağdan geliyorsa onun'],'Asfaltsız yoldan gelen, asfalt yoldaki trafiğe yol verir.'],
  ['Een auto komt van een onverharde weg een verharde weg op. Wie heeft voorrang?',['Het verkeer op de verharde weg','Hij, als hij van rechts komt'],'Wie van een onverharde weg komt, verleent voorrang aan het verkeer op de verharde weg.']]
 );
+/* ---------- CBR question types 2026-11-18: 3 × number, 3 × more answers, 3 × order, 3 × tap on the picture ---------- */
+RAW.push(
+['light','FOGR',50,
+ ['الضباب كثيف. يُسمح بضوء الضباب الخلفي إذا كانت الرؤية أقل من كم متراً؟',['متر'],'ضوء الضباب الخلفي مسموح فقط إذا كانت الرؤية أقل من 50 متراً.'],
+ ['Yoğun sis var. Görüş kaç metrenin altındaysa arka sis lambası serbesttir?',['metre'],'Arka sis lambası sadece görüş 50 metreden azsa serbesttir.'],
+ ['Het is mistig. Onder hoeveel meter zicht mag het mistachterlicht aan?',['meter'],'Het mistachterlicht mag alleen aan bij zicht onder 50 meter.'],{k:'num'}],
+['law','PLATE',17,
+ ['من أيّ عمر يمكنك أن تقدّم امتحان القيادة العملي (مع 2toDrive)؟',['سنة'],'من عمر 17 سنة تقدّم الامتحان، وحتى 18 سنة تقود مع مرافق مسجّل.'],
+ ['2toDrive ile pratik sürüş sınavına en erken kaç yaşında girebilirsin?',['yaş'],'17 yaşında sınava girebilirsin; 18 yaşına kadar kayıtlı bir refakatçiyle sürersin.'],
+ ['Vanaf welke leeftijd mag je praktijkexamen doen (met 2toDrive)?',['jaar'],'Vanaf 17 jaar mag je examen doen. Tot je 18e rijd je met een geregistreerde coach.'],{k:'num'}],
+['car','TYRE',1.6,
+ ['ما أقل عمق قانوني لنقش إطار السيارة؟',['ملم'],'القانون يطلب 1.6 ملم على الأقل، والأفضل للأمان 3 ملم.'],
+ ['Bir araç lastiğinin yasal en az diş derinliği nedir?',['mm'],'Kanun en az 1,6 mm ister; güvenlik için 3 mm daha iyidir.'],
+ ['Wat is de wettelijke minimale profieldiepte van een autoband?',['mm'],'Wettelijk minimaal 1,6 mm. Voor de veiligheid is 3 mm beter.'],{k:'num'}],
+['park','E1',[0,1,2],
+ ['أين ممنوع أن تركن سيارتك؟',['على ممر المشاة','على بُعد أقل من 5 أمتار من التقاطع','أمام مدخل سيارات','في مكان ركن مخطّط بلا لافتة منع'],'الركن ممنوع على ممر المشاة، وعلى بُعد أقل من 5 أمتار من التقاطع، وأمام المداخل. المكان المخطّط للركن مسموح.'],
+ ['Nereye park etmek yasaktır?',['Yaya geçidine','Kavşağa 5 metreden yakın','Bir araç girişinin önüne','Yasak levhası olmayan çizgili park yerine'],'Yaya geçidine, kavşağa 5 metreden yakın ve girişlerin önüne park etmek yasaktır. Çizgili park yeri serbesttir.'],
+ ['Waar mag je niet parkeren?',['Op een zebrapad','Binnen 5 meter van een kruispunt','Voor een uitrit','In een parkeervak zonder verbodsbord'],'Parkeren is verboden op een zebrapad, binnen 5 meter van een kruispunt en voor een uitrit. In een parkeervak mag het wel.'],{k:'multi'}],
+['light','FOGF',[0,1,2],
+ ['الضباب كثيف والرؤية 40 متراً. أيّ أضواء يجوز أن تشغّلها؟',['الضوء المنخفض','أضواء الضباب الأمامية','ضوء الضباب الخلفي','الضوء العالي'],'في الضباب الكثيف: الضوء المنخفض وأضواء الضباب الأمامية، والخلفي لأن الرؤية أقل من 50 متراً. الضوء العالي يرتدّ عن الضباب فيبهرك.'],
+ ['Yoğun sis var ve görüş 40 metre. Hangi ışıkları yakabilirsin?',['Kısa far','Ön sis farları','Arka sis lambası','Uzun far'],'Yoğun siste: kısa far, ön sis farları ve görüş 50 metreden az olduğu için arka sis lambası. Uzun far sisten yansır ve senin gözünü alır.'],
+ ['Het is mistig en je zicht is 40 meter. Welke verlichting mag je aanzetten?',['Dimlicht','Mistlampen voor','Mistachterlicht','Grootlicht'],'Bij dichte mist: dimlicht, mistlampen voor en, omdat het zicht onder 50 meter is, het mistachterlicht. Grootlicht weerkaatst op de mist en verblindt jezelf.'],{k:'multi'}],
+['safe','SLEEP',[0,1,2],
+ ['أيّ هذه الأمور يزيد خطر الحوادث؟',['التعب','الكحول','إمساك الهاتف أثناء القيادة','مسافة ثانيتين من السيارة التي أمامك'],'التعب والكحول وإمساك الهاتف تزيد الخطر. أما مسافة الثانيتين فتحميك.'],
+ ['Bunlardan hangileri kaza riskini artırır?',['Yorgunluk','Alkol','Sürerken telefonu elde tutmak','Öndeki araçla iki saniye mesafe'],'Yorgunluk, alkol ve telefonu elde tutmak riski artırır. İki saniye mesafe ise seni korur.'],
+ ['Wat vergroot de kans op een ongeluk?',['Vermoeidheid','Alcohol','Je telefoon vasthouden tijdens het rijden','Twee seconden afstand tot je voorganger'],'Vermoeidheid, alcohol en je telefoon vasthouden vergroten het risico. Twee seconden afstand beschermt je juist.'],{k:'multi'}],
+['prio','TRAM',[0,1,2],
+ ['تقاطع متساوٍ بلا لافتات: ترام قادم من اليسار، وسيارة من اليمين، وأنت تسير مستقيماً. رتّب من يمرّ أولاً.',['الترام','السيارة القادمة من اليمين','أنت'],'في التقاطع المتساوي يمرّ الترام أولاً، ثم القادم من اليمين، ثم أنت.'],
+ ['Levhasız eşdeğer kavşak: soldan bir tramvay, sağdan bir araç geliyor, sen düz gidiyorsun. Kimin önce geçeceğini sırala.',['Tramvay','Sağdan gelen araç','Sen'],'Eşdeğer kavşakta önce tramvay, sonra sağdan gelen, sonra sen geçersin.'],
+ ['Gelijkwaardige kruising: een tram komt van links, een auto van rechts en jij rijdt rechtdoor. Zet in de volgorde wie eerst mag.',['De tram','De auto van rechts','Jij'],'Op een gelijkwaardige kruising gaat de tram eerst, dan het verkeer van rechts, en dan jij.'],{k:'order'}],
+['safe','FIRSTAID',[0,1,2,3],
+ ['تعطّلت سيارتك على الأوتوستراد. رتّب الخطوات.',['أقود إلى شريط الطوارئ','أنزل من الجهة اليمنى','أقف خلف الحاجز الحديدي','أتصل بخدمة الأعطال'],'أولاً تبتعد عن الطريق، ثم تنزل من اليمين، ثم تقف خلف الحاجز الحديدي، وبعد ذلك تتصل.'],
+ ['Araban otoyolda arızalandı. Adımları sırala.',['Emniyet şeridine giderim','Sağ taraftan inerim','Bariyerin arkasına geçerim','Yol yardımını ararım'],'Önce yoldan çıkarsın, sonra sağdan inersin, sonra bariyerin arkasına geçersin ve ancak o zaman ararsın.'],
+ ['Je hebt pech op de snelweg. Zet de stappen in de goede volgorde.',['Naar de vluchtstrook rijden','Rechts uitstappen','Achter de vangrail gaan staan','De pechhulp bellen'],'Eerst van de rijbaan af, dan rechts uitstappen, dan achter de vangrail, en pas dan bellen.'],{k:'order'}],
+['light','BLINK',[0,1,2,3],
+ ['تريد أن تنعطف يميناً. رتّب الخطوات.',['أنظر في المرآة','أشغّل إشارة الاتجاه','أخفّف السرعة','أنعطف'],'أولاً تنظر، ثم تشغّل الإشارة، ثم تخفّف السرعة، ثم تنعطف. وقبل الانعطاف مباشرة انظر فوق كتفك لترى راكبي الدرّاجات.'],
+ ['Sağa dönmek istiyorsun. Adımları sırala.',['Aynaya bakarım','Sinyal veririm','Yavaşlarım','Dönerim'],'Önce bakarsın, sonra sinyal verirsin, sonra yavaşlarsın, sonra dönersin. Dönmeden hemen önce bisikletliler için omzunun üstünden de bak.'],
+ ['Je wilt rechtsaf slaan. Zet de stappen in de goede volgorde.',['In de spiegel kijken','Richting aangeven','Snelheid minderen','Afslaan'],'Eerst kijken, dan richting aangeven, dan vaart minderen en dan afslaan. Kijk vlak voor het afslaan ook over je schouder naar fietsers.'],{k:'order'}],
+['prio','',0,
+ ['تقاطع متساوٍ بلا لافتات، والجميع يسيرون مستقيماً. أنت في السيارة الزرقاء. اضغط على السيارة التي تمرّ أولاً.',['السيارة الحمراء (من يمينك)','السيارة الصفراء (من يسارك)','سيارتك الزرقاء'],'السيارة الحمراء قادمة من يمينك، ولا أحد على يمينها، فهي تمرّ أولاً.'],
+ ['Levhasız eşdeğer kavşak; herkes düz gidiyor. Sen mavi araçtasın. İlk geçecek araca dokun.',['Kırmızı araç (sağından)','Sarı araç (solundan)','Senin mavi aracın'],'Kırmızı araç sağından geliyor ve onun sağında kimse yok; ilk o geçer.'],
+ ['Gelijkwaardige kruising, iedereen rijdt rechtdoor. Jij zit in de blauwe auto. Tik op de auto die als eerste mag.',['De rode auto (van rechts)','De gele auto (van links)','Jouw blauwe auto'],'De rode auto komt van rechts en heeft zelf niemand rechts van zich. Hij mag als eerste.'],{k:'spot',sc:'cross'}],
+['car','',0,
+ ['أنت في السيارة الزرقاء. اضغط على المكان على اليمين الذي لا تراه في مراياك (الزاوية الميتة).',['يمين السيارة وخلفها قليلاً','أمام السيارة مباشرة','خلف السيارة بعيداً'],'الزاوية الميتة بجانب السيارة وخلفها قليلاً. انظر فوق كتفك قبل أن تغيّر المسار أو تنعطف.'],
+ ['Mavi araçtasın. Sağda aynalarında göremediğin yere (kör nokta) dokun.',['Aracın sağı, biraz arkası','Aracın hemen önü','Aracın çok gerisi'],'Kör nokta aracın yanında ve biraz arkasındadır. Şerit değiştirmeden veya dönmeden önce omzunun üstünden bak.'],
+ ['Jij zit in de blauwe auto. Tik op de plek rechts die je niet in je spiegels ziet (de dode hoek).',['Rechts naast en iets achter je auto','Recht voor je auto','Ver achter je auto'],'De dode hoek zit naast en iets achter je auto. Kijk over je schouder voordat je van rijstrook wisselt of afslaat.'],{k:'spot',sc:'blind'}],
+['park','',0,
+ ['اضغط على المكان الذي يجوز أن تركن فيه.',['هنا، بعيداً عن التقاطع وممر المشاة','قرب التقاطع مباشرة','على ممر المشاة'],'ممنوع الركن على ممر المشاة وعلى بُعد أقل من 5 أمتار من التقاطع.'],
+ ['Park edebileceğin yere dokun.',['Burası, kavşaktan ve yaya geçidinden uzak','Kavşağın hemen yanı','Yaya geçidinin üstü'],'Yaya geçidine ve kavşağa 5 metreden yakın park etmek yasaktır.'],
+ ['Tik op de plek waar je mag parkeren.',['Hier, ver van het kruispunt en het zebrapad','Vlak bij het kruispunt','Op het zebrapad'],'Parkeren mag niet op een zebrapad en niet binnen 5 meter van een kruispunt.'],{k:'spot',sc:'park'}]
+);
 /* ---------- Situations from his real exams (20-22), rewritten in our own words. Only confirmed answers. ---------- */
 const EXR=[
 ['20·1',{k:'x',v:[['car','S','me','l',{o:10}]]},1,
@@ -1316,7 +1381,7 @@ const EXR=[
 ];
 /* ---------- Build question objects ---------- */
 const Q=[];
-RAW.forEach(([t,img,a,ar,tr,nl])=>Q.push({t,img,a,L:{ar,tr,nl}}));
+RAW.forEach(([t,img,a,ar,tr,nl,m])=>Q.push(Object.assign({t,img,a,L:{ar,tr,nl}},m||{})));
 EXR.forEach(([src,img,a,ar,tr,nl])=>Q.push({t:'exam',src,img,a,L:{ar,tr,nl}}));
 /* Stable id from the question itself, so adding/reordering questions never mixes up progress */
 const hid=s=>{let h=5381;for(const c of s)h=Math.imul(h,33)^c.codePointAt(0);return (h>>>0).toString(36)};
@@ -1387,7 +1452,7 @@ const IC={
  spk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>',
  bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>'
 };
-function qSpeech(q,l){const r=tx(q,l);return r.q+'. '+r.o.map((o,i)=>LET[i]+': '+o).join('. ')}
+function qSpeech(q,l){const r=tx(q,l),K=kind(q);return r.q+(K==='num'||K==='spot'?'':'. '+r.o.map((o,i)=>LET[i]+': '+o).join('. '))}
 
 /* ---------- Shell ---------- */
 /* In-page yes/no (the viewer blocks window.confirm) */
@@ -1491,12 +1556,87 @@ function topic(tid){
   document.getElementById('back').onclick=()=>go(home);
 }
 
+/* ---------- CBR question types (since 2025): k='num' type a number · 'multi' more answers right · 'order' put in order · 'spot' tap on the picture.
+   Data: RAW row gets a 7th element {k:'…'}; num → a = the number, options = [unit]; multi → a = [indices]; order → options listed in the right order, a = [0,1,2…];
+   spot → sc = scene key in SPOT, options = labels of the zones, a = index of the right zone. ---------- */
+const KT={
+ ar:{num:'اكتب الجواب رقماً.',multi:'قد تكون أكثر من إجابة صحيحة. اختر كل الإجابات الصحيحة.',order:'اضغط على العناصر بالترتيب الصحيح، من الأول إلى الأخير.',spot:'اضغط على المكان الصحيح في الصورة.',check:'تحقّق',reset:'ابدأ الترتيب من جديد',your:'جوابك:',none:'لم تُجب',missed:'مكان آخر في الصورة'},
+ tr:{num:'Cevabı sayı olarak yaz.',multi:'Birden fazla doğru cevap olabilir. Tüm doğru cevapları seç.',order:'Öğelere doğru sırayla, ilkinden sonuncusuna dokun.',spot:'Resimde doğru yere dokun.',check:'Kontrol et',reset:'Sıralamayı baştan yap',your:'Cevabın:',none:'Cevap yok',missed:'Resimde başka bir yer'},
+ nl:{num:'Typ het antwoord als getal.',multi:'Er kunnen meer antwoorden goed zijn. Kies alle goede antwoorden.',order:'Tik de onderdelen aan in de goede volgorde, van eerste tot laatste.',spot:'Tik op de goede plek in de afbeelding.',check:'Controleren',reset:'Opnieuw ordenen',your:'Jouw antwoord:',none:'Geen antwoord',missed:'Een andere plek in de afbeelding'}};
+const kt=k=>KT[L][k];
+const kind=q=>q.k||'one';
+const numOf=s=>{s=String(s==null?'':s).trim().replace(',','.');return s===''||isNaN(+s)?null:+s};
+function isRight(q,v){switch(kind(q)){
+  case 'num':return numOf(v)===q.a;
+  case 'multi':return Array.isArray(v)&&v.length===q.a.length&&q.a.every(x=>v.includes(x));
+  case 'order':return Array.isArray(v)&&v.length===q.a.length&&v.every((x,i)=>x===q.a[i]);
+  default:return v===q.a}}
+const numTxt=n=>L==='ar'?String(n):String(n).replace('.',',');
+function ansText(q,l){const r=tx(q,l);switch(kind(q)){
+  case 'num':return numTxt(q.a)+' '+r.o[0];
+  case 'multi':return q.a.map(k=>r.o[k]).join(' · ');
+  case 'order':return q.a.map((k,i)=>(i+1)+'. '+r.o[k]).join('   ');
+  default:return r.o[q.a]}}
+function givenText(q,v){const r=tx(q),K=kind(q);
+  if(v==null||v===''||(Array.isArray(v)&&!v.length))return kt('none');
+  if(K==='num')return v+' '+r.o[0];
+  if(K==='multi')return v.map(k=>r.o[k]).join(' · ');
+  if(K==='order')return v.map((k,i)=>(i+1)+'. '+r.o[k]).join('   ');
+  if(K==='spot')return v>=0?r.o[v]:kt('missed');
+  return r.o[v]}
+/* Scenes for «tap on the picture» (viewBox 0 0 200 200); z = [cx, cy, r] per zone, same order as the options */
+const SPOT={
+ cross:{svg:'<rect width="200" height="200" fill="#7cb36b"/><rect x="70" y="0" width="60" height="200" fill="#5d6570"/><rect x="0" y="70" width="200" height="60" fill="#5d6570"/><path d="M100 0 V66 M100 134 V200 M0 100 H66 M134 100 H200" stroke="#fff" stroke-width="2" stroke-dasharray="8 7"/><rect x="106" y="150" width="18" height="30" rx="4" fill="#3b7bd0"/><path d="M115 141 l-6 8 h12 z" fill="#fff"/><rect x="150" y="76" width="30" height="18" rx="4" fill="#c8202f"/><path d="M141 85 l8 -6 v12 z" fill="#fff"/><rect x="20" y="106" width="30" height="18" rx="4" fill="#f5c400"/><path d="M59 115 l-8 -6 v12 z" fill="#fff"/>',
+  z:[[165,85,26],[35,115,26],[115,165,26]]},
+ blind:{svg:'<rect width="200" height="200" fill="#5d6570"/><path d="M66 0 V200 M134 0 V200" stroke="#fff" stroke-width="2" stroke-dasharray="10 9"/><rect x="88" y="80" width="24" height="44" rx="6" fill="#3b7bd0"/><rect x="92" y="88" width="16" height="10" rx="2" fill="#cfe0ff"/><path d="M86 94 h-6 M114 94 h6" stroke="#ddd" stroke-width="3"/><path d="M100 70 l-6 8 h12 z" fill="#fff"/>',
+  z:[[156,140,26],[100,40,26],[100,182,18]]},
+ park:{svg:'<rect width="200" height="200" fill="#b9bec6"/><rect x="0" y="60" width="200" height="80" fill="#5d6570"/><rect x="20" y="138" width="40" height="62" fill="#5d6570"/><path d="M0 100 H200" stroke="#fff" stroke-width="2" stroke-dasharray="10 9"/><g fill="#fff"><rect x="115" y="64" width="25" height="7"/><rect x="115" y="77" width="25" height="7"/><rect x="115" y="90" width="25" height="7"/><rect x="115" y="103" width="25" height="7"/><rect x="115" y="116" width="25" height="7"/><rect x="115" y="129" width="25" height="7"/></g>',
+  z:[[176,121,18],[76,121,16],[127,121,16]]}
+};
+function spotView(q,v,hide){const S=SPOT[q.sc];
+  return `<div class="spot"><svg viewBox="0 0 200 200" aria-hidden="true">${S.svg}${S.z.map((z,k)=>`<circle class="hs${hide?'':(k===q.a?' ok':(k===v?' bad':''))}" cx="${z[0]}" cy="${z[1]}" r="${z[2]}"></circle>`).join('')}</svg></div>`}
+/* answer area for the new kinds; v = current answer (exam) */
+function kindHTML(q,ord,v,inExam){
+  const r=tx(q),hl=helpL(),h=hl?tx(q,hl).o:null,K=kind(q);
+  if(K==='num')return `<p class="khint">${kt('num')}</p><div class="numrow"><input class="numin" id="numin" type="text" inputmode="decimal" autocomplete="off" dir="ltr" value="${v!=null?esc(v):''}" aria-label="${kt('num')}"><span class="unit">${esc(r.o[0])}</span>${inExam?'':`<button class="btn" id="kchk">${kt('check')}</button>`}</div>`;
+  if(K==='multi'){const sel=v||[];return `<p class="khint">${kt('multi')}</p><div class="opts">${ord.map(k=>`<button class="opt mopt${sel.includes(k)?' pick':''}" data-k="${k}" aria-pressed="${sel.includes(k)}"><span class="ltr box">${sel.includes(k)?'✓':''}</span><span>${esc(r.o[k])}${h?hspan(h[k],hl):''}</span></button>`).join('')}</div>${inExam?'':`<div class="row"><button class="btn" id="kchk">${kt('check')}</button></div>`}`}
+  if(K==='order'){const seq=v||[];return `<p class="khint">${kt('order')}</p><div class="opts">${ord.map(k=>{const n=seq.indexOf(k);return `<button class="opt oopt${n>=0?' pick':''}" data-k="${k}"><span class="ltr">${n>=0?n+1:''}</span><span>${esc(r.o[k])}${h?hspan(h[k],hl):''}</span></button>`}).join('')}</div><div class="row"><button class="btn ghost sm" id="kreset">${kt('reset')}</button></div>`}
+  if(K==='spot'){const S=SPOT[q.sc];return `<p class="khint">${kt('spot')}</p><div class="spot"><svg viewBox="0 0 200 200" role="group" aria-label="${kt('spot')}">${S.svg}${S.z.map((z,k)=>`<circle class="hs${v===k?' pick':''}" data-k="${k}" cx="${z[0]}" cy="${z[1]}" r="${z[2]}" tabindex="0" role="button" aria-label="${esc(r.o[k])}"></circle>`).join('')}<g class="tapmark"></g></svg></div>`}
+  return '';
+}
+/* events; done(v) = commit in practice; state = {v} live answer in the exam (no commit) */
+function kindWire(q,done,state){
+  const K=kind(q);
+  if(K==='num'){const inp=app.querySelector('#numin');const commit=()=>{if(numOf(inp.value)===null){inp.focus();inp.classList.add('bad');setTimeout(()=>inp.classList.remove('bad'),400);return}done(inp.value.trim())};
+    const b=app.querySelector('#kchk');if(b)b.onclick=commit;
+    inp.onkeydown=e=>{if(e.key==='Enter'&&!state)commit()};
+    inp.oninput=()=>{if(state)state.v=inp.value.trim()===''?null:inp.value.trim()}}
+  if(K==='multi'){const sel=new Set(state&&state.v||[]);
+    app.querySelectorAll('.mopt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;sel.has(k)?sel.delete(k):sel.add(k);b.classList.toggle('pick',sel.has(k));b.setAttribute('aria-pressed',sel.has(k));b.querySelector('.box').textContent=sel.has(k)?'✓':'';if(state)state.v=sel.size?[...sel].sort((x,y)=>x-y):null});
+    const c=app.querySelector('#kchk');if(c)c.onclick=()=>{if(sel.size)done([...sel].sort((x,y)=>x-y))}}
+  if(K==='order'){let seq=(state&&state.v||[]).slice();const btns=[...app.querySelectorAll('.oopt')];
+    const paint=()=>btns.forEach(b=>{const n=seq.indexOf(+b.dataset.k);b.classList.toggle('pick',n>=0);b.querySelector('.ltr').textContent=n>=0?n+1:''});
+    btns.forEach(b=>b.onclick=()=>{const k=+b.dataset.k;if(seq.includes(k))return;seq.push(k);paint();if(state)state.v=seq.slice();else if(seq.length===btns.length)done(seq.slice())});
+    app.querySelector('#kreset').onclick=()=>{seq=[];paint();if(state)state.v=null}}
+  if(K==='spot'){const svg=app.querySelector('.spot svg'),S=SPOT[q.sc];
+    const pickAt=(k,p)=>{app.querySelectorAll('.hs').forEach(c=>c.classList.toggle('pick',+c.dataset.k===k));app.querySelector('.tapmark').innerHTML=p?`<circle cx="${p.x}" cy="${p.y}" r="4" class="tapdot"></circle>`:'';if(state)state.v=k;else done(k)};
+    svg.addEventListener('click',e=>{const m=svg.getScreenCTM();if(!m)return;const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const p=pt.matrixTransform(m.inverse());pickAt(S.z.findIndex(z=>Math.hypot(z[0]-p.x,z[1]-p.y)<=z[2]),p)});
+    app.querySelectorAll('.hs').forEach(c=>c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pickAt(+c.dataset.k,null)}})}
+}
+/* show right / wrong after answering (practice) */
+function kindReveal(q,v){const K=kind(q);
+  if(K==='num'){const i=app.querySelector('#numin');if(i){i.value=v==null?'':v;i.disabled=true;i.classList.add(isRight(q,v)?'ok':'bad')}const b=app.querySelector('#kchk');if(b)b.remove()}
+  if(K==='multi'){app.querySelectorAll('.mopt').forEach(b=>{const k=+b.dataset.k,c=q.a.includes(k),p=(v||[]).includes(k);b.disabled=true;b.classList.remove('pick');if(c)b.classList.add('ok');else if(p)b.classList.add('bad');b.querySelector('.box').textContent=p?'✓':''});const b=app.querySelector('#kchk');if(b)b.parentElement.remove()}
+  if(K==='order'){app.querySelectorAll('.oopt').forEach(b=>{const k=+b.dataset.k,n=(v||[]).indexOf(k);b.disabled=true;b.classList.remove('pick');b.classList.add(n===q.a.indexOf(k)?'ok':'bad');b.querySelector('.ltr').textContent=n>=0?n+1:''});const r=app.querySelector('#kreset');if(r)r.parentElement.remove()}
+  if(K==='spot'){app.querySelectorAll('.hs').forEach(c=>{const k=+c.dataset.k;c.classList.remove('pick');c.removeAttribute('tabindex');if(k===q.a)c.classList.add('ok');else if(k===v)c.classList.add('bad')});const s=app.querySelector('.spot svg');if(s)s.style.pointerEvents='none'}
+}
+
 /* ---------- Question header ---------- */
 function qBlock(q,idx,n,label,ex){
   const r=tx(q),hl=helpL();
   return `<div class="qhead"><span class="chip">${esc(ex?T('examChip'):srcLabel(q))}</span><span>${esc(label)} · ${T('ofN',{i:idx+1,n})}</span></div>
   <div class="prog"><i style="width:${Math.round(idx/n*100)}%"></i></div>
-  ${pic(q.img,q.t)}
+  ${kind(q)==='spot'?'':pic(q.img,q.t)}
   <div class="qtext">${esc(r.q)}</div>${hl?hspan(tx(q,hl).q,hl):''}`;
 }
 function optBtns(q,order,cls){
@@ -1517,17 +1657,17 @@ function quiz(list0,label){
     if(st.set.learn&&!st.seen[q.id]&&!st0['L'+i])return learnCard(q);
     app.innerHTML=`<div class="qcard">${qBlock(q,i,list.length,lab())}
       <div class="tools"><button class="tbtn" id="say">${IC.spk} ${T('listen')}</button><button class="tbtn" id="hint">${IC.bulb} ${T('hint')}</button></div>
-      <div class="opts">${optBtns(q,order)}</div><div id="fb"></div></div>
+      ${kind(q)==='one'?`<div class="opts">${optBtns(q,order)}</div>`:kindHTML(q,order,null,false)}<div id="fb"></div></div>
       <div class="row"><button class="btn ghost" id="quit">${T('quit')}</button></div>`;
     document.getElementById('say').onclick=()=>speak(qSpeech(q));
     document.getElementById('hint').onclick=e=>{
       const wrong=order.filter(k=>k!==q.a);const btn=[...app.querySelectorAll('.opt')].find(b=>+b.dataset.k===wrong[Math.floor(Math.random()*wrong.length)]);
-      if(q.L.ar[1].length>2&&btn){btn.disabled=true;btn.classList.add('gone')}
+      if(kind(q)==='one'&&q.L.ar[1].length>2&&btn){btn.disabled=true;btn.classList.add('gone')}
       e.currentTarget.disabled=true;
       document.getElementById('fb').innerHTML=`<div class="tipbox"><span style="width:22px;flex:none;color:var(--blue)">${IC.bulb}</span><div><b>${T('tip')}</b>${esc(topicOf(q.t==='exam'?'prio':q.t).tip[L])}</div></div>`;
     };
     const pick=(k,replay)=>{
-      const ok=k===q.a;let prev,extra='';
+      const ok=isRight(q,k);let prev,extra='';
       if(replay){prev=got[i].prev;extra=got[i].extra}
       else{if(ok)score++; answered++;
         prev=mark(q,ok);
@@ -1535,9 +1675,9 @@ function quiz(list0,label){
         if(!ok&&st.set.retry&&(retried[q.id]||0)<2){retried[q.id]=(retried[q.id]||0)+1;list.splice(Math.min(i+4,list.length),0,q);extra=1}
         got[i]={k,prev,extra};}
       if(extra)extra=`<p class="note" style="margin:6px 0 0">${T('retryNote')}</p>`;
-      app.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const kk=+x.dataset.k;if(kk===q.a)x.classList.add('ok');else if(kk===k)x.classList.add('bad')});
+      if(kind(q)==='one')app.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const kk=+x.dataset.k;if(kk===q.a)x.classList.add('ok');else if(kk===k)x.classList.add('bad')});else kindReveal(q,k);
       const r=tx(q),hl=helpL();
-      document.getElementById('fb').innerHTML=`<div class="why"><b>${ok?T('correct')+' ✓':T('wrongA')+' ✗'}</b> ${esc(r.e)}${hl?hspan(tx(q,hl).e,hl):''}${extra}</div>
+      document.getElementById('fb').innerHTML=`<div class="why"><b>${ok?T('correct')+' ✓':T('wrongA')+' ✗'}</b> ${!ok&&kind(q)!=='one'?`<span class="ans" style="display:block">${T('answer')}: ${esc(ansText(q))}</span>`:''}${esc(r.e)}${hl?hspan(tx(q,hl).e,hl):''}${extra}</div>
         ${ok?`<div class="seg" id="conf"><button class="on" data-c="1">${T('sure')}</button><button data-c="0">${T('guess')}</button></div>`:''}
         <div class="row"><button class="btn" id="nx">${i+1<list.length?T('nextQ'):T('result')}</button><button class="tbtn" id="saye">${IC.spk}</button></div>`;
       if(ok)document.querySelectorAll('#conf button').forEach(c=>c.onclick=()=>{
@@ -1545,12 +1685,12 @@ function quiz(list0,label){
         if(c.dataset.c==='0'){st.box[q.id]=Math.max(0,prev-1);st.due[q.id]=Date.now();save();if(!retried[q.id]){retried[q.id]=1;list.splice(Math.min(i+5,list.length),0,q)}
           if(!document.getElementById('gn'))document.getElementById('conf').insertAdjacentHTML('afterend',`<p class="note" id="gn" style="margin:6px 0 0">${T('guessNote')}</p>`)}
       });
-      document.getElementById('saye').onclick=()=>speak((ok?T('correct'):T('wrongA'))+'. '+r.o[q.a]+'. '+r.e);
+      document.getElementById('saye').onclick=()=>speak((ok?T('correct'):T('wrongA'))+'. '+ansText(q)+'. '+r.e);
       document.getElementById('nx').onclick=()=>{i++;render();window.scrollTo(0,0)};
       document.getElementById('nx').focus({preventScroll:true});
       if(st.set.tts&&!replay)speak((ok?T('correct'):T('wrongA'))+'. '+r.e);
     };
-    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+    if(kind(q)==='one')app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.k));else kindWire(q,v=>pick(v),null);
     document.getElementById('quit').onclick=()=>go(home);
     if(got[i])return pick(got[i].k,true);
     if(st.set.tts)setTimeout(()=>speak(qSpeech(q)),150);
@@ -1559,11 +1699,11 @@ function quiz(list0,label){
     const r=tx(q),hl=helpL();
     app.innerHTML=`<div class="qcard learncard">${qBlock(q,i,list.length,lab())}
       <div class="why" style="border-color:var(--ok)"><b>${T('learnFirst')}</b> <span class="lead">${T('learnD')}</span>
-      <div class="ans">${T('answer')}: ${esc(r.o[q.a])}</div>${hl?hspan(tx(q,hl).o[q.a],hl):''}
+      ${kind(q)==='spot'?spotView(q,null):''}<div class="ans">${T('answer')}: ${esc(ansText(q))}</div>${hl&&kind(q)==='one'?hspan(tx(q,hl).o[q.a],hl):''}
       <p style="margin:6px 0 0">${esc(r.e)}</p>${hl?hspan(tx(q,hl).e,hl):''}</div>
       <div class="row"><button class="btn" id="got">${T('gotIt')}</button><button class="tbtn" id="say">${IC.spk} ${T('listen')}</button></div></div>
       <div class="row"><button class="btn ghost" id="quit">${T('quit')}</button></div>`;
-    const sayIt=()=>speak(r.q+'. '+T('answer')+': '+r.o[q.a]+'. '+r.e);
+    const sayIt=()=>speak(r.q+'. '+T('answer')+': '+ansText(q)+'. '+r.e);
     document.getElementById('say').onclick=sayIt;
     document.getElementById('got').onclick=()=>{st0['L'+i]=1;render();window.scrollTo(0,0)};
     document.getElementById('quit').onclick=()=>go(home);
@@ -1593,11 +1733,11 @@ function exam(){
     rerender=render;const q=list[i],order=orders[i];
     app.innerHTML=`<div class="qcard"><div class="qhead"><span class="chip">${T('examChip')}</span>${calm?'':`<span class="timer" id="tm">${fmt(left)}</span>`}</div>${qBlock(q,i,N,T('q'),1)}
     <div class="tools"><button class="tbtn" id="say">${IC.spk} ${T('listen')}</button></div>
-    <div class="opts">${optBtns(q,order,k=>ans[i]===k?'pick':'')}</div>
+    ${kind(q)==='one'?`<div class="opts">${optBtns(q,order,k=>ans[i]===k?'pick':'')}</div>`:kindHTML(q,order,ans[i],true)}
     <div class="row"><button class="btn ghost" id="pv" ${i?'':'disabled'}>${T('prev')}</button>${i<N-1?`<button class="btn" id="nx">${T('nextB')}</button>`:`<button class="btn" id="fin">${T('submit')}</button>`}</div></div>
     <div class="row"><button class="btn ghost" id="quit">${T('quit')}</button></div>`;
     document.getElementById('say').onclick=()=>speak(qSpeech(q));
-    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans[i]=+b.dataset.k;render()});
+    if(kind(q)==='one')app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans[i]=+b.dataset.k;render()});else kindWire(q,null,{get v(){return ans[i]},set v(x){ans[i]=x}});
     document.getElementById('pv').onclick=()=>{i--;render()};
     const nx=document.getElementById('nx');if(nx)nx.onclick=()=>{i++;render();window.scrollTo(0,0)};
     const fin=document.getElementById('fin');if(fin)fin.onclick=()=>{const open=ans.filter(a=>a===null).length;ask(T('cfSubmit')+(open?' '+T('cfOpen',{n:open}):''),finish)};
@@ -1606,14 +1746,14 @@ function exam(){
   let res=null;
   const finish=()=>{
     clearTimer();inExam=false;
-    if(!res){let s=0;list.forEach((q,k)=>{const ok=ans[k]===q.a;if(ok)s++;mark(q,ok)});st.exams.push({s,n:N,d:Date.now()});save();res=s}
+    if(!res){let s=0;list.forEach((q,k)=>{const ok=isRight(q,ans[k]);if(ok)s++;mark(q,ok)});st.exams.push({s,n:N,d:Date.now()});save();res=s}
     showRes();
   };
   const showRes=()=>{
     rerender=showRes;const s=res;
-    const wrong=list.map((q,k)=>({q,k})).filter(x=>ans[x.k]!==x.q.a);
+    const wrong=list.map((q,k)=>({q,k})).filter(x=>!isRight(x.q,ans[x.k]));
     app.innerHTML=`<div class="qcard result"><div class="big ${s>=PASS?'pass':'fail'}">${s}/${N}</div><p>${s>=PASS?T('pass'):T('fail',{p:PASS})}</p></div>
-    <section><h2>${T('reviewWrong',{n:wrong.length})}</h2>${wrong.map(({q,k})=>{const r=tx(q);return `<div class="qcard"><div class="qhead"><span class="chip">${esc(srcLabel(q))}</span></div>${pic(q.img,q.t)}<div class="qtext">${esc(r.q)}</div><div class="opts">${r.o.map((o,j)=>`<div class="opt ${j===q.a?'ok':(j===ans[k]?'bad':'')}"><span class="ltr">${LET[j]}</span><span>${esc(o)}</span></div>`).join('')}</div><div class="why">${esc(r.e)}</div></div>`}).join('')}
+    <section><h2>${T('reviewWrong',{n:wrong.length})}</h2>${wrong.map(({q,k})=>{const r=tx(q);return `<div class="qcard"><div class="qhead"><span class="chip">${esc(srcLabel(q))}</span></div>${kind(q)==='spot'?spotView(q,ans[k]):pic(q.img,q.t)}<div class="qtext">${esc(r.q)}</div>${kind(q)==='one'?`<div class="opts">${r.o.map((o,j)=>`<div class="opt ${j===q.a?'ok':(j===ans[k]?'bad':'')}"><span class="ltr">${LET[j]}</span><span>${esc(o)}</span></div>`).join('')}</div><div class="why">${esc(r.e)}</div>`:`<div class="why"><span class="ans" style="display:block">${T('answer')}: ${esc(ansText(q))}</span><span style="display:block">${kt('your')} ${esc(givenText(q,ans[k]))}</span>${esc(r.e)}</div>`}</div>`}).join('')}
     <div class="row"><button class="btn" id="h">${T('home')}</button></div></section>`;
     document.getElementById('h').onclick=()=>go(home);
   };
@@ -1628,12 +1768,12 @@ function flash(list){
   const render=()=>{
     rerender=render;const q=list[i%list.length],r=tx(q),hl=helpL();
     app.innerHTML=`<div class="qcard"><div class="qhead"><span class="chip">${esc(srcLabel(q))}</span><span>${T('card',{i:i+1})}</span></div>
-    ${pic(q.img,q.t)}
-    <div class="flash" id="card" role="button" tabindex="0"><div><div class="qtext">${esc(r.q)}</div>${hl?hspan(tx(q,hl).q,hl):''}${shown?`<div class="ans">${esc(r.o[q.a])}</div><p class="lead">${esc(r.e)}</p>`:`<p class="lead">${T('think')}</p>`}</div></div>
+    ${kind(q)==='spot'?spotView(q,null,!shown):pic(q.img,q.t)}
+    <div class="flash" id="card" role="button" tabindex="0"><div><div class="qtext">${esc(r.q)}</div>${hl?hspan(tx(q,hl).q,hl):''}${shown?`<div class="ans">${esc(ansText(q))}</div><p class="lead">${esc(r.e)}</p>`:`<p class="lead">${T('think')}</p>`}</div></div>
     <div class="row">${shown?`<button class="btn" id="knew">${T('knew')}</button><button class="btn ghost" id="miss">${T('missed')}</button>`:`<button class="btn" id="show">${T('reveal')}</button>`}<button class="tbtn" id="say">${IC.spk}</button><button class="btn ghost" id="h">${T('home')}</button></div></div>`;
-    const reveal=()=>{shown=true;render();if(st.set.tts)speak(r.o[q.a]+'. '+r.e)};
+    const reveal=()=>{shown=true;render();if(st.set.tts)speak(ansText(q)+'. '+r.e)};
     document.getElementById('card').onclick=()=>{if(!shown)reveal()};
-    document.getElementById('say').onclick=()=>speak(shown?r.q+'. '+r.o[q.a]+'. '+r.e:r.q);
+    document.getElementById('say').onclick=()=>speak(shown?r.q+'. '+ansText(q)+'. '+r.e:r.q);
     const sh=document.getElementById('show');if(sh)sh.onclick=reveal;
     const k=document.getElementById('knew');if(k)k.onclick=()=>{mark(q,true);i++;shown=false;render()};
     const m=document.getElementById('miss');if(m)m.onclick=()=>{mark(q,false);i++;shown=false;render()};
